@@ -13,8 +13,8 @@
 #define POT 1
 
 #define ADC_MAX 1024
-#define PERIOD 10.0
-
+#define PERIOD_OFF 3.0
+#define PERIOD_ON 3.0
 typedef enum {true = 1, false = 0} bool;
 
 bool servo_enabled;

@@ -13,10 +13,9 @@ void Setup()
 void PWM()
 {
 	const uint16_t speed = ADC_read(POT);
-	const float duty_cycle = (float)speed / (ADC_MAX); // *5 kan behövas korrigeras, även vid test av servo
-	const uint8_t on_time = (uint8_t )(duty_cycle * PERIOD);
-	const uint8_t off_time = PERIOD - on_time;
-	
+	const float duty_cycle = (float)speed / (ADC_MAX);
+	const float on_time = (uint8_t )(duty_cycle * 3.000);
+	const uint8_t off_time = 5; 
 	SERVO_ON;
 	delay(on_time);
 	SERVO_OFF;
@@ -48,8 +47,21 @@ static void init_ADC()
 	ADCSRA = (1 << ADIF);
 	return;
 }
+
+ 
+/*
+const uint16_t speed = ADC_read(POT);
+const float duty_cycle = (float)speed / (ADC_MAX);
+const uint8_t on_time = (uint8_t )(duty_cycle * PERIOD);
+const uint8_t off_time = PERIOD - on_time; */
+
+
 /*
 const uint32_t ADC_result = ADC_read(POT);
 const float duty_cycle = (float)ADC_result / ADC_MAX;
-const float on_time = (roundf)((duty_cycle * PERIOD)* 100) / 100;
-const float off_time = PERIOD - on_time;  */
+const float on_time = (roundf)((duty_cycle * PERIOD_ON)* 10) / 10;
+const float off_time = PERIOD - on_time;
+
+0.02
+*/
+
