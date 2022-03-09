@@ -4,7 +4,7 @@ int main()
 {
     while (true) 
     {
-		float volts = ADC*0.0048828125;
+		float volts = ADC_read(sensor)*0.0048828125;
 		int distance = 13*pow(volts, -1);
 		serial_print_int(distance);
 	}
