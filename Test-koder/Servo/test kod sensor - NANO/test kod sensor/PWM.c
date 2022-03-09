@@ -1,7 +1,7 @@
 #include "header.h"
 
 static uint32_t ADC_read();
-static void delay(const uint32_t delay_time);
+static void delay( uint32_t delay_time);
 static void init_ADC();
 
 void Setup()
@@ -12,10 +12,11 @@ void Setup()
 
 void PWM()
 {
-	const uint16_t speed = ADC_read(POT);
-	const float duty_cycle = (float)speed / (ADC_MAX);
-	const float on_time = (uint8_t )(duty_cycle * 3.000);
-	const uint8_t off_time = 5; 
+	const uint16_t ADC_result = ADC_read(POT);    // 1024
+	const float duty_cycle = (float)ADC_result / (ADC_MAX); // 0-1024/1024 = värde mellan 0 och 1
+	const uint32_t on_time = (float)((duty_cycle * PERIOD)* 100) / 100; // 0-1* 3= värde mellan 0-3
+	const uint32_t off_time = PERIOD-on_time;
+	
 	SERVO_ON;
 	delay(on_time);
 	SERVO_OFF;
@@ -32,10 +33,18 @@ static uint32_t ADC_read()
 	return ADC;
 }
 
-static void delay(const uint32_t delay_time)
+static void delay( uint32_t delay_time)
 {
-	for (int i = 0; i < delay_time; i++)
-	_delay_ms(1);
+	if (delay_time < 70)
+	{
+		delay_time =  70;
+	}
+	else if (delay_time > 150)
+	{
+		delay_time=  150;
+	}
+	for (uint32_t i = 0; i < delay_time; i++)
+	_delay_us(10);
 	return;
 }
 
@@ -47,21 +56,8 @@ static void init_ADC()
 	ADCSRA = (1 << ADIF);
 	return;
 }
-
- 
-/*
-const uint16_t speed = ADC_read(POT);
-const float duty_cycle = (float)speed / (ADC_MAX);
-const uint8_t on_time = (uint8_t )(duty_cycle * PERIOD);
-const uint8_t off_time = PERIOD - on_time; */
-
-
 /*
 const uint32_t ADC_result = ADC_read(POT);
 const float duty_cycle = (float)ADC_result / ADC_MAX;
-const float on_time = (roundf)((duty_cycle * PERIOD_ON)* 10) / 10;
-const float off_time = PERIOD - on_time;
-
-0.02
-*/
-
+const float on_time = (roundf)((duty_cycle * PERIOD)* 100) / 100;
+const float off_time = PERIOD - on_time;  */
