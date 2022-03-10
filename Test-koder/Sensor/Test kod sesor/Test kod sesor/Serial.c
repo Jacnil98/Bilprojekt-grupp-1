@@ -1,7 +1,6 @@
 #include "header.h"
 
 static void serial_write_byte(const char data);
-void serial_print_int(const char* s, const int number);
 
 void serial_print(const char* s)
 {
@@ -19,11 +18,11 @@ static void serial_write_byte(const char data)
 	return;
 }
 
-void serial_print_int(const char* s, const int number)
+void serial_print_int(const int number)
 {
 	char text[50];
 	text[0] = '\0';
-	sprintf(text, s, number);
+	sprintf(text, "%d ", number);
 	serial_print(text);
 	return;
 }
