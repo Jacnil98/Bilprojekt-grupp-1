@@ -41,7 +41,7 @@
 					<Attribute>template</Attribute>
 					<Category>source</Category>
 					<Condition>C Exe</Condition>
-					<FileContentHash>8wv2h+soBCQ4X3oZXcELWQ==</FileContentHash>
+					<FileContentHash>KjvOcFWd++tbnsEMfVPd/w==</FileContentHash>
 					<FileVersion></FileVersion>
 					<Name>templates/main.c</Name>
 					<SelectString>Main file (.c)</SelectString>
@@ -52,7 +52,7 @@
 					<Attribute>template</Attribute>
 					<Category>source</Category>
 					<Condition>C Exe</Condition>
-					<FileContentHash>mkKaE95TOoATsuBGv6jmxg==</FileContentHash>
+					<FileContentHash>Krv5i7kFRP8mdqbeFp9Y3w==</FileContentHash>
 					<FileVersion></FileVersion>
 					<Name>templates/main.cpp</Name>
 					<SelectString>Main file (.cpp)</SelectString>
