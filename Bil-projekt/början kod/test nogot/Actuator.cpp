@@ -15,29 +15,51 @@ Motor::Motor(const uint8_t PIN)
 		SET (DDRB, this->PIN);
 	}
 }
+
 void Motor::on(void)
 {
 	if (this->io_port == IO_port::B)
 	SET(PORTB, this->PIN);
 	else if(this->io_port == IO_port::D)
 	SET(PORTD, this->PIN);
-	this->enabled = true;
+	this->motor_enabled = true;
 	return;
 }
+
 void Motor::off(void)
 {
 	if (this->io_port == IO_port::B)
 	CLEAR(PORTB, this->PIN);
 	else if(this->io_port == IO_port::D)
 	CLEAR(PORTD, this->PIN);
-	this->enabled = true;
+	this->motor_enabled = true;
 	return;
 }
-void Motor::toggle(void)
+
+void Motor::enable_interrupt()
 {
-	if (this->enabled)
-	this->off();
-	else
-	this->on();
-	return;
+	PCMSK1 |= (1 << this->sensor_PCINT);
+	this->interrupt_enabled = true;
+}
+
+void Motor::disable_interrupt()
+{
+	PCMSK1 &= ~(1 << this->sensor_PCINT);
+	this->interrupt_enabled = false;
+}
+
+void Motor::enabled()
+{
+	
+}
+
+void Motor::disabled()
+{
+	
+}
+
+
+void Motor::PWM()
+{
+	
 }

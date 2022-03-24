@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 enum class IO_port {NONE, B, C, D};
-enum class TimerSelection { TIMER0, TIMER1, TIMER2};
+enum class TimerSelection { TIMER0, TIMER1, TIMER2, NONE };
 
 #define ASSIGN(REGISTER, BIT) REGISTER = (1<<BIT)
 #define SET(REGISTER, BIT) REGISTER |= (1<< BIT)
