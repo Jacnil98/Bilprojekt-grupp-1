@@ -7,5 +7,5 @@
 #include "GPIO.h"
 
 extern Button button;
-extern Actuator actuator;
+extern Motor Motor;
 #endif /* HEADER_H_ */

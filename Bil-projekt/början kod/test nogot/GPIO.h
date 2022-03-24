@@ -10,13 +10,13 @@ class GPIO
 	IO_port io_port = IO_port::NONE;
 };
 
-class Actuator : public GPIO
+class Motor : public GPIO
 {
 private:
 	bool enabled = false;
 public:
-	Actuator(void) {}
-	Actuator(const uint8_t PIN);
+	Motor(void) {}
+	Motor(const uint8_t PIN);
 	void on(void);
 	void off(void);
 	void toggle(void);
