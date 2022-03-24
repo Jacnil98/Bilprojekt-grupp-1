@@ -38,5 +38,12 @@ public:
 	bool interrupt_is_enabled(void) {return this->interrupt_enabled; }
 };
 
+class Timer
+{
+	protected:
+	void init(void);
+	public:
+	Timer(void) {}
+};
 
 #endif /* BUTTON_H_ */
