@@ -1,6 +1,6 @@
 #include "GPIO.h"
 
-Actuator::Actuator(const uint8_t PIN)
+Motor::Motor(const uint8_t PIN)
 {
 	if(PIN >=0 && PIN <= 7)
 	{
@@ -15,7 +15,7 @@ Actuator::Actuator(const uint8_t PIN)
 		SET (DDRB, this->PIN);
 	}
 }
-void Actuator::on(void)
+void Motor::on(void)
 {
 	if (this->io_port == IO_port::B)
 	SET(PORTB, this->PIN);
@@ -24,7 +24,7 @@ void Actuator::on(void)
 	this->enabled = true;
 	return;
 }
-void Actuator::off(void)
+void Motor::off(void)
 {
 	if (this->io_port == IO_port::B)
 	CLEAR(PORTB, this->PIN);
@@ -33,7 +33,7 @@ void Actuator::off(void)
 	this->enabled = true;
 	return;
 }
-void Actuator::toggle(void)
+void Motor::toggle(void)
 {
 	if (this->enabled)
 	this->off();

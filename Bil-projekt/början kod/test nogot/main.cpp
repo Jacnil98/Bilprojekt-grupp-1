@@ -2,17 +2,17 @@
 #include "header.h"
 
 Button button;
-Actuator actuator;
+Motor Motor;
 int main(void)
 {
     button = Button(13);
-	actuator = Actuator(5);
+	Motor = Motor(5);
     while (1) 
     {
 		if (button.is_pressed())
-			actuator.on();
+			Motor.on();
 		else
-			actuator.off();
+			Motor.off();
     }
 }
 
