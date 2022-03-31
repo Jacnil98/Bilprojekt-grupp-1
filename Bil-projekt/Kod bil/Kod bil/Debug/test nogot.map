@@ -603,26 +603,26 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x121b
+.debug_info     0x00000000     0x121c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x300 Button.o
  .debug_info    0x000008f4      0x560 main.o
- .debug_info    0x00000e54      0x3c7 Motor.o
+ .debug_info    0x00000e54      0x3c8 Motor.o
 
-.debug_abbrev   0x00000000      0xb62
+.debug_abbrev   0x00000000      0xb4c
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2      0x1b9 Button.o
  .debug_abbrev  0x0000075b      0x22f main.o
- .debug_abbrev  0x0000098a      0x1d8 Motor.o
+ .debug_abbrev  0x0000098a      0x1c2 Motor.o
 
-.debug_line     0x00000000      0x56c
+.debug_line     0x00000000      0x56b
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134      0x18e Button.o
  .debug_line    0x000002c2      0x126 main.o
- .debug_line    0x000003e8      0x184 Motor.o
+ .debug_line    0x000003e8      0x183 Motor.o
 
 .debug_frame    0x00000000      0x11c
  *(.debug_frame)
@@ -630,15 +630,15 @@ END GROUP
  .debug_frame   0x00000054       0x54 main.o
  .debug_frame   0x000000a8       0x74 Motor.o
 
-.debug_str      0x00000000      0x6c6
+.debug_str      0x00000000      0x680
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x2df Button.o
                                 0x313 (size before relaxing)
  .debug_str     0x000004e7      0x17c main.o
                                 0x47f (size before relaxing)
- .debug_str     0x00000663       0x63 Motor.o
-                                0x330 (size before relaxing)
+ .debug_str     0x00000663       0x1d Motor.o
+                                0x333 (size before relaxing)
 
 .debug_loc      0x00000000      0x275
  *(.debug_loc)
@@ -672,5 +672,5 @@ END GROUP
 
 .debug_macro
  *(.debug_macro)
-OUTPUT(Kod bil.elf elf32-avr)
+OUTPUT(test nogot.elf elf32-avr)
 LOAD linker stubs

@@ -36,6 +36,7 @@ void Motor::off(void)
 	return;
 }
 
+/*
 void Motor::enable_interrupt()
 {
 	PCMSK1 |= (1 << this->sensor_PCINT);
@@ -47,6 +48,7 @@ void Motor::disable_interrupt()
 	PCMSK1 &= ~(1 << this->sensor_PCINT);
 	this->interrupt_enabled = false;
 }
+*/
 
 void Motor::enabled()
 {

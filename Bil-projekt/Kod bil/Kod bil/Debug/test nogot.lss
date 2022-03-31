@@ -1,5 +1,5 @@
 
-Kod bil.elf:     file format elf32-avr
+test nogot.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 000000b0  00000000  00000000  000003c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000121b  00000000  00000000  00000474  2**0
+  6 .debug_info   0000121c  00000000  00000000  00000474  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000b62  00000000  00000000  0000168f  2**0
+  7 .debug_abbrev 00000b4c  00000000  00000000  00001690  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000056c  00000000  00000000  000021f1  2**0
+  8 .debug_line   0000056b  00000000  00000000  000021dc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000011c  00000000  00000000  00002760  2**2
+  9 .debug_frame  0000011c  00000000  00000000  00002748  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006c6  00000000  00000000  0000287c  2**0
+ 10 .debug_str    00000680  00000000  00000000  00002864  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000275  00000000  00000000  00002f42  2**0
+ 11 .debug_loc    00000275  00000000  00000000  00002ee4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000080  00000000  00000000  000031b7  2**0
+ 12 .debug_ranges 00000080  00000000  00000000  00003159  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -103,18 +103,33 @@ Disassembly of section .text:
   a4:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a8 <_ZN6ButtonC1Eh>:
+#include "GPIO.h"
+
+Button::Button(const uint8_t PIN)
   a8:	fc 01       	movw	r30, r24
+#define DISABLE_TIMER1 TIMSK1 = 0x00
+#define DISABLE_TIMER2 TIMSK2 = 0x00
+
+enum class PWM_Period { ON, OFF };
+
+class GPIO
   aa:	10 82       	st	Z, r1
   ac:	12 82       	std	Z+2, r1	; 0x02
   ae:	11 82       	std	Z+1, r1	; 0x01
   b0:	13 82       	std	Z+3, r1	; 0x03
+{
+	if(PIN >= 0 && PIN <=7)
   b2:	68 30       	cpi	r22, 0x08	; 8
   b4:	80 f4       	brcc	.+32     	; 0xd6 <_ZN6ButtonC1Eh+0x2e>
+	{
+		this->io_port = IO_port::D;
   b6:	83 e0       	ldi	r24, 0x03	; 3
   b8:	90 e0       	ldi	r25, 0x00	; 0
   ba:	92 83       	std	Z+2, r25	; 0x02
   bc:	81 83       	std	Z+1, r24	; 0x01
+		this->PIN=PIN;
   be:	60 83       	st	Z, r22
+		SET(PORTD, this->PIN);
   c0:	2b b1       	in	r18, 0x0b	; 11
   c2:	81 e0       	ldi	r24, 0x01	; 1
   c4:	90 e0       	ldi	r25, 0x00	; 0
@@ -126,12 +141,18 @@ Disassembly of section .text:
   d0:	e2 f7       	brpl	.-8      	; 0xca <_ZN6ButtonC1Eh+0x22>
   d2:	82 2b       	or	r24, r18
   d4:	8b b9       	out	0x0b, r24	; 11
+	}
+	else if (PIN >= 8 && PIN <= 13);
+	{
+		this->io_port = IO_port::B;
   d6:	81 e0       	ldi	r24, 0x01	; 1
   d8:	90 e0       	ldi	r25, 0x00	; 0
   da:	92 83       	std	Z+2, r25	; 0x02
   dc:	81 83       	std	Z+1, r24	; 0x01
+		this->PIN = PIN - 8;
   de:	68 50       	subi	r22, 0x08	; 8
   e0:	60 83       	st	Z, r22
+		SET(PORTB, this->PIN);
   e2:	25 b1       	in	r18, 0x05	; 5
   e4:	02 c0       	rjmp	.+4      	; 0xea <_ZN6ButtonC1Eh+0x42>
   e6:	88 0f       	add	r24, r24
@@ -143,12 +164,19 @@ Disassembly of section .text:
   f2:	08 95       	ret
 
 000000f4 <_ZN6Button10is_pressedEv>:
+	return;
+}
+	
+bool Button::is_pressed(void)
+{
+	if (this->io_port ==IO_port::B)
   f4:	fc 01       	movw	r30, r24
   f6:	21 81       	ldd	r18, Z+1	; 0x01
   f8:	32 81       	ldd	r19, Z+2	; 0x02
   fa:	21 30       	cpi	r18, 0x01	; 1
   fc:	31 05       	cpc	r19, r1
   fe:	61 f4       	brne	.+24     	; 0x118 <_ZN6Button10is_pressedEv+0x24>
+	return READ(PINB, this->PIN);
  100:	23 b1       	in	r18, 0x03	; 3
  102:	30 e0       	ldi	r19, 0x00	; 0
  104:	a9 01       	movw	r20, r18
@@ -161,9 +189,11 @@ Disassembly of section .text:
  112:	ca 01       	movw	r24, r20
  114:	81 70       	andi	r24, 0x01	; 1
  116:	08 95       	ret
+	else if (this->io_port == IO_port::D)
  118:	23 30       	cpi	r18, 0x03	; 3
  11a:	31 05       	cpc	r19, r1
  11c:	69 f4       	brne	.+26     	; 0x138 <_ZN6Button10is_pressedEv+0x44>
+	return READ(PIND, this->PIN);
  11e:	29 b1       	in	r18, 0x09	; 9
  120:	30 e0       	ldi	r19, 0x00	; 0
  122:	a9 01       	movw	r20, r18
@@ -177,10 +207,18 @@ Disassembly of section .text:
  132:	ca 01       	movw	r24, r20
  134:	81 70       	andi	r24, 0x01	; 1
  136:	08 95       	ret
+	return false;
  138:	80 e0       	ldi	r24, 0x00	; 0
+}
  13a:	08 95       	ret
 
 0000013c <_Z41__static_initialization_and_destruction_0ii>:
+		if (button.is_pressed())
+			motor.on();
+		else
+			motor.off();
+    }
+}
  13c:	01 97       	sbiw	r24, 0x01	; 1
  13e:	89 f4       	brne	.+34     	; 0x162 <_Z41__static_initialization_and_destruction_0ii+0x26>
  140:	6f 3f       	cpi	r22, 0xFF	; 255
@@ -191,18 +229,42 @@ Disassembly of section .text:
  14a:	10 82       	st	Z, r1
  14c:	12 82       	std	Z+2, r1	; 0x02
  14e:	11 82       	std	Z+1, r1	; 0x01
+{
+private:
+	bool interrupt_enabled = false;
+public:
+	
+	Button(void) {}
  150:	13 82       	std	Z+3, r1	; 0x03
+#define DISABLE_TIMER1 TIMSK1 = 0x00
+#define DISABLE_TIMER2 TIMSK2 = 0x00
+
+enum class PWM_Period { ON, OFF };
+
+class GPIO
  152:	e0 e0       	ldi	r30, 0x00	; 0
  154:	f1 e0       	ldi	r31, 0x01	; 1
  156:	10 82       	st	Z, r1
  158:	12 82       	std	Z+2, r1	; 0x02
  15a:	11 82       	std	Z+1, r1	; 0x01
+private:
+	bool PWM_enabled = false;
+	bool motor_enabled = false;
+	bool interrupt_enabled = false;
+public:
+	Motor(void) {}
  15c:	13 82       	std	Z+3, r1	; 0x03
  15e:	14 82       	std	Z+4, r1	; 0x04
  160:	15 82       	std	Z+5, r1	; 0x05
  162:	08 95       	ret
 
 00000164 <main>:
+#include "header.h"
+
+Button button;
+Motor motor;
+int main(void)
+{
  164:	cf 93       	push	r28
  166:	df 93       	push	r29
  168:	cd b7       	in	r28, 0x3d	; 61
@@ -213,6 +275,7 @@ Disassembly of section .text:
  172:	de bf       	out	0x3e, r29	; 62
  174:	0f be       	out	0x3f, r0	; 63
  176:	cd bf       	out	0x3d, r28	; 61
+    button = Button(13);
  178:	6d e0       	ldi	r22, 0x0D	; 13
  17a:	ce 01       	movw	r24, r28
  17c:	07 96       	adiw	r24, 0x07	; 7
@@ -225,6 +288,7 @@ Disassembly of section .text:
  18e:	90 93 07 01 	sts	0x0107, r25	; 0x800107 <button+0x1>
  192:	a0 93 08 01 	sts	0x0108, r26	; 0x800108 <button+0x2>
  196:	b0 93 09 01 	sts	0x0109, r27	; 0x800109 <button+0x3>
+	motor = Motor(5);
  19a:	65 e0       	ldi	r22, 0x05	; 5
  19c:	ce 01       	movw	r24, r28
  19e:	01 96       	adiw	r24, 0x01	; 1
@@ -238,21 +302,29 @@ Disassembly of section .text:
  1b0:	0d 92       	st	X+, r0
  1b2:	8a 95       	dec	r24
  1b4:	e1 f7       	brne	.-8      	; 0x1ae <main+0x4a>
+    while (1) 
+    {
+		if (button.is_pressed())
  1b6:	86 e0       	ldi	r24, 0x06	; 6
  1b8:	91 e0       	ldi	r25, 0x01	; 1
  1ba:	0e 94 7a 00 	call	0xf4	; 0xf4 <_ZN6Button10is_pressedEv>
  1be:	88 23       	and	r24, r24
  1c0:	29 f0       	breq	.+10     	; 0x1cc <main+0x68>
+			motor.on();
  1c2:	80 e0       	ldi	r24, 0x00	; 0
  1c4:	91 e0       	ldi	r25, 0x01	; 1
  1c6:	0e 94 1c 01 	call	0x238	; 0x238 <_ZN5Motor2onEv>
  1ca:	f5 cf       	rjmp	.-22     	; 0x1b6 <main+0x52>
+		else
+			motor.off();
  1cc:	80 e0       	ldi	r24, 0x00	; 0
  1ce:	91 e0       	ldi	r25, 0x01	; 1
  1d0:	0e 94 3e 01 	call	0x27c	; 0x27c <_ZN5Motor3offEv>
  1d4:	f0 cf       	rjmp	.-32     	; 0x1b6 <main+0x52>
 
 000001d6 <_GLOBAL__sub_I_button>:
+    }
+}
  1d6:	6f ef       	ldi	r22, 0xFF	; 255
  1d8:	7f ef       	ldi	r23, 0xFF	; 255
  1da:	81 e0       	ldi	r24, 0x01	; 1
