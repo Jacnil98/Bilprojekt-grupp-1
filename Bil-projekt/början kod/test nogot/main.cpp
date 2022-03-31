@@ -2,11 +2,11 @@
 #include "header.h"
 
 Button button;
-Motor Motor;
+Motor motor;
 int main(void)
 {
     button = Button(13);
-	Motor = Motor(5);
+	motor = Motor(5);
     while (1) 
     {
 		if (button.is_pressed())
