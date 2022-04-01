@@ -169,10 +169,16 @@
     <Compile Include="header.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="interrupts.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Motor.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="USART_Timer.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Timer.cpp">

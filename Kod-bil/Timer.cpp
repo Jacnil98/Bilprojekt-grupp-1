@@ -5,7 +5,7 @@ static inline uint32_t get_interrupts(const double period);
 PWM_Timer::PWM_Timer(const TimerSelection timerSelection, const double period, const uint8_t PIN)
 {
 	this->timerSelection = timerSelection;
-	this->PIN = PIN;
+	this->PIN = FWD_SENSOR;
 	this->total_interrupts = get_interrupts(period);
 	this->init();
 	return;

@@ -7,6 +7,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 enum class IO_port {NONE, B, C, D};
 enum class TimerSelection { TIMER0, TIMER1, TIMER2, NONE };

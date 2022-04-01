@@ -8,7 +8,7 @@
 #include <util/delay.h>
 #include <stdio.h>
 
-#define SENSOR 0
+#define SENSOR 1
 
 typedef enum {true = 1, false = 0} bool;
 

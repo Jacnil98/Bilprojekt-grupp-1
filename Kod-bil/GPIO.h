@@ -5,10 +5,15 @@
 
 #define ADC_MAX 1023.0f
 #define PERIOD 10
-
+#define FWD_SENSOR 0
+#define IN1 7
+#define IN2 8
+#define _9600_KBPS 103
 #define INTERRUPT_TIME 0.016f // 0.016 ms mellan timeravbrott,
 #define SET_TIMER1_LIMIT OCR1A = 256
 #define INTERRUPTS_FOR_10MS 625 // Det krävs 625 timeravbrott för 10 ms.
+#define CLOCK_TIME 1023
+#define MAX_COUNT
 
 #define INIT_TIMER0 TCCR0B = (1 << CS00)
 #define INIT_TIMER1 TCCR1B = (1 << CS10) | (1 << WGM12)
@@ -50,6 +55,7 @@ private:
 	uint8_t sensor_PIN;
 	uint8_t sensor_PCINT;
 	IO_port sensor_io_port;
+	uint16_t ADC_read();
 public:
 	bool forward_enabled = true;
 	Motor(void) {}
@@ -57,13 +63,12 @@ public:
 	void on(void);
 	void off(void);
 	void read_direction(void);
-	void forward(void);
-	void reverse(void);
 	void enable_interrupt();
 	void disable_interrupt();
 	void enabled();
 	void disabled();
 	void PWM();
+
 };
 
 
@@ -99,9 +104,29 @@ public:
 	bool elapsed(void);
 };
 
+class USART_Timer
+{
+private:
+	bool enabled;
+	uint16_t delay;
+	uint16_t required_interrupts;
+	volatile uint16_t executed_interrupts;
+	void init_timer0();
+public:
+	USART_Timer() {}
+	USART_Timer(const uint16_t delay);
+	void count_interrupts(); 
+	bool elapsed(); 
+	void set_delay(const uint16_t delay); 
+	void on(); 
+	void off(); 
+	void toggle();
+	bool is_enabled();
+};
+
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);
-//Motor toggle_direction(void);
 Button start_Button(const uint8_t PIN);
+USART_Timer new_USART_Timer(const uint16_t delay);
 
 #endif /* BUTTON_H_ */

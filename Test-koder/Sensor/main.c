@@ -6,9 +6,9 @@ int main()
     while (true) 
     {
 		_delay_ms(200);
-		//float in_signal = ADC_read(SENSOR)*0.0048828125; // = 5/1023
-		float in_signal = ADC_read(SENSOR)*(5.0/1023); //viktigt med 5.0 annars så blir det int division.
-		int distance = 13/in_signal; //13*pow(in_signal, -1) läst från datablad
+		float in_signal = ADC_read(SENSOR)*0.0048828125; // = 5/1023
+		//float in_signal = ADC_read(SENSOR)*(5.0/1023); //viktigt med 5.0 annars så blir det int division.
+		int distance = 13*pow(in_signal, -1); //13*pow(in_signal, -1) läst från datablad 13/in_signal; 
 		serial_print_int(distance);
 		/*
 		if (distance >= 10 && <= 30)

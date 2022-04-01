@@ -10,8 +10,7 @@ int main(void)
 		if (button.is_pressed())
 			motor.off();
 		else
-			motor.on();
-			
+			motor.on();	
     }
 }
 

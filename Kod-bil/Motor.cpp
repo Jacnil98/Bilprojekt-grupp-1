@@ -25,8 +25,8 @@ void Motor::on(void)
 	SET(PORTB, this->PIN);
 	else if(this->io_port == IO_port::D)
 	SET(PORTD, this->PIN);
-	this->motor_enabled = true;
 	this->read_direction();
+	this->motor_enabled = true;
 	return;
 }
 
@@ -44,17 +44,17 @@ void Motor::read_direction(void)
 {
 	if (forward_enabled)
 	{
-		PORTD |= (1<<7);
-		PORTD &= ~(1<<8);
+		PORTD |= (1<<IN1);
+		PORTD &= ~(1<<IN2);
 	}
 	else if (!forward_enabled)
 	{
-		PORTD |= (1<<8);
-		PORTD &= ~(1<<7);
+		PORTD |= (1<<IN2);
+		PORTD &= ~(1<<IN1);
 	}
 }
 
-/*
+
 void Motor::enable_interrupt()
 {
 	PCMSK1 |= (1 << this->sensor_PCINT);
@@ -66,7 +66,7 @@ void Motor::disable_interrupt()
 	PCMSK1 &= ~(1 << this->sensor_PCINT);
 	this->interrupt_enabled = false;
 }
-*/
+
 
 void Motor::enabled()
 {
