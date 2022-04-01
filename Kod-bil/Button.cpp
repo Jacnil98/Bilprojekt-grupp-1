@@ -14,6 +14,7 @@ Button::Button(const uint8_t PIN)
 		this->PIN = PIN - 8;
 		SET(PORTB, this->PIN);
 	}
+	
 	return;
 }
 	

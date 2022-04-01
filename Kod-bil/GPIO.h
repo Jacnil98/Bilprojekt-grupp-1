@@ -47,11 +47,18 @@ private:
 	bool PWM_enabled = false;
 	bool motor_enabled = false;
 	bool interrupt_enabled = false;
+	uint8_t sensor_PIN;
+	uint8_t sensor_PCINT;
+	IO_port sensor_io_port;
 public:
+	bool forward_enabled = true;
 	Motor(void) {}
 	Motor(const uint8_t PIN);
 	void on(void);
 	void off(void);
+	void read_direction(void);
+	void forward(void);
+	void reverse(void);
 	void enable_interrupt();
 	void disable_interrupt();
 	void enabled();
@@ -94,6 +101,7 @@ public:
 
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);
+//Motor toggle_direction(void);
 Button start_Button(const uint8_t PIN);
 
 #endif /* BUTTON_H_ */

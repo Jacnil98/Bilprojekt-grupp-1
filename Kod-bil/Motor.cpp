@@ -14,6 +14,9 @@ Motor::Motor(const uint8_t PIN)
 		this->PIN = PIN - 8;
 		SET (DDRB, this->PIN);
 	}
+	this->sensor_PIN = 1;
+	this->sensor_PCINT = this->sensor_PIN + 8;
+	this->sensor_io_port = IO_port::C;
 }
 
 void Motor::on(void)
@@ -23,6 +26,7 @@ void Motor::on(void)
 	else if(this->io_port == IO_port::D)
 	SET(PORTD, this->PIN);
 	this->motor_enabled = true;
+	this->read_direction();
 	return;
 }
 
@@ -32,8 +36,22 @@ void Motor::off(void)
 	CLEAR(PORTB, this->PIN);
 	else if(this->io_port == IO_port::D)
 	CLEAR(PORTD, this->PIN);
-	this->motor_enabled = true;
+	this->motor_enabled = false;
 	return;
+}
+
+void Motor::read_direction(void)
+{
+	if (forward_enabled)
+	{
+		PORTD |= (1<<7);
+		PORTD &= ~(1<<8);
+	}
+	else if (!forward_enabled)
+	{
+		PORTD |= (1<<8);
+		PORTD &= ~(1<<7);
+	}
 }
 
 /*

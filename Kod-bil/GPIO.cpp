@@ -7,6 +7,7 @@ void init_GPIO()
 { 
 	 button = start_Button(13); 
 	 motor = pwm_motor(5);
+	 DDRD |= ((1<<7)|(1<<8));
 	 return;
 }
 

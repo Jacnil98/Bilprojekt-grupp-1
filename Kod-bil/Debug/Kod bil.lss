@@ -3,31 +3,31 @@ Kod bil.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  000002bc  2**0
+  0 .data         00000000  00800100  00800100  000003e6  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000248  00000000  00000000  00000074  2**1
+  1 .text         00000372  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000000a  00800100  00800100  000002bc  2**0
+  2 .bss          0000000f  00800100  00800100  000003e6  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000002bc  2**0
+  3 .comment      00000030  00000000  00000000  000003e6  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002ec  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000418  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000e0  00000000  00000000  0000032c  2**0
+  5 .debug_aranges 000000e8  00000000  00000000  00000458  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001314  00000000  00000000  0000040c  2**0
+  6 .debug_info   00001802  00000000  00000000  00000540  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000c02  00000000  00000000  00001720  2**0
+  7 .debug_abbrev 00000d6d  00000000  00000000  00001d42  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000005e7  00000000  00000000  00002322  2**0
+  8 .debug_line   000006cc  00000000  00000000  00002aaf  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000170  00000000  00000000  0000290c  2**2
+  9 .debug_frame  0000018c  00000000  00000000  0000317c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006bb  00000000  00000000  00002a7c  2**0
+ 10 .debug_str    0000074d  00000000  00000000  00003308  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000315  00000000  00000000  00003137  2**0
+ 11 .debug_loc    00000379  00000000  00000000  00003a55  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000a0  00000000  00000000  0000344c  2**0
+ 12 .debug_ranges 000000a8  00000000  00000000  00003dce  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -61,7 +61,7 @@ Disassembly of section .text:
   64:	0c 94 52 00 	jmp	0xa4	; 0xa4 <__bad_interrupt>
 
 00000068 <__ctors_start>:
-  68:	e8 00       	.word	0x00e8	; ????
+  68:	02 01       	movw	r0, r4
 
 0000006a <__ctors_end>:
   6a:	11 24       	eor	r1, r1
@@ -81,7 +81,7 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	aa 30       	cpi	r26, 0x0A	; 10
+  80:	af 30       	cpi	r26, 0x0F	; 15
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
 
@@ -92,12 +92,12 @@ Disassembly of section .text:
   8c:	04 c0       	rjmp	.+8      	; 0x96 <__do_global_ctors+0x10>
   8e:	21 97       	sbiw	r28, 0x01	; 1
   90:	fe 01       	movw	r30, r28
-  92:	0e 94 1c 01 	call	0x238	; 0x238 <__tablejump2__>
+  92:	0e 94 b1 01 	call	0x362	; 0x362 <__tablejump2__>
   96:	c4 33       	cpi	r28, 0x34	; 52
   98:	d1 07       	cpc	r29, r17
   9a:	c9 f7       	brne	.-14     	; 0x8e <__do_global_ctors+0x8>
-  9c:	0e 94 ef 00 	call	0x1de	; 0x1de <main>
-  a0:	0c 94 22 01 	jmp	0x244	; 0x244 <_exit>
+  9c:	0e 94 09 01 	call	0x212	; 0x212 <main>
+  a0:	0c 94 b7 01 	jmp	0x36e	; 0x36e <_exit>
 
 000000a4 <__bad_interrupt>:
   a4:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -163,252 +163,475 @@ class GPIO
   f0:	85 b9       	out	0x05, r24	; 5
   f2:	08 95       	ret
 
-000000f4 <_Z41__static_initialization_and_destruction_0ii>:
+000000f4 <_ZN6Button10is_pressedEv>:
+	return;
+}
+	
+bool Button::is_pressed(void)
+{
+	if (this->io_port ==IO_port::B)
+  f4:	fc 01       	movw	r30, r24
+  f6:	21 81       	ldd	r18, Z+1	; 0x01
+  f8:	32 81       	ldd	r19, Z+2	; 0x02
+  fa:	21 30       	cpi	r18, 0x01	; 1
+  fc:	31 05       	cpc	r19, r1
+  fe:	61 f4       	brne	.+24     	; 0x118 <_ZN6Button10is_pressedEv+0x24>
+	return READ(PINB, this->PIN);
+ 100:	23 b1       	in	r18, 0x03	; 3
+ 102:	30 e0       	ldi	r19, 0x00	; 0
+ 104:	a9 01       	movw	r20, r18
+ 106:	00 80       	ld	r0, Z
+ 108:	02 c0       	rjmp	.+4      	; 0x10e <_ZN6Button10is_pressedEv+0x1a>
+ 10a:	55 95       	asr	r21
+ 10c:	47 95       	ror	r20
+ 10e:	0a 94       	dec	r0
+ 110:	e2 f7       	brpl	.-8      	; 0x10a <_ZN6Button10is_pressedEv+0x16>
+ 112:	ca 01       	movw	r24, r20
+ 114:	81 70       	andi	r24, 0x01	; 1
+ 116:	08 95       	ret
+	else if (this->io_port == IO_port::D)
+ 118:	23 30       	cpi	r18, 0x03	; 3
+ 11a:	31 05       	cpc	r19, r1
+ 11c:	69 f4       	brne	.+26     	; 0x138 <_ZN6Button10is_pressedEv+0x44>
+	return READ(PIND, this->PIN);
+ 11e:	29 b1       	in	r18, 0x09	; 9
+ 120:	30 e0       	ldi	r19, 0x00	; 0
+ 122:	a9 01       	movw	r20, r18
+ 124:	fc 01       	movw	r30, r24
+ 126:	00 80       	ld	r0, Z
+ 128:	02 c0       	rjmp	.+4      	; 0x12e <_ZN6Button10is_pressedEv+0x3a>
+ 12a:	55 95       	asr	r21
+ 12c:	47 95       	ror	r20
+ 12e:	0a 94       	dec	r0
+ 130:	e2 f7       	brpl	.-8      	; 0x12a <_ZN6Button10is_pressedEv+0x36>
+ 132:	ca 01       	movw	r24, r20
+ 134:	81 70       	andi	r24, 0x01	; 1
+ 136:	08 95       	ret
+	return false;
+ 138:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 13a:	08 95       	ret
+
+0000013c <_Z41__static_initialization_and_destruction_0ii>:
 
 Motor pwm_motor(const uint8_t PIN)
 {
 	Motor self(PIN);
 	return self;
-  f4:	01 97       	sbiw	r24, 0x01	; 1
-  f6:	89 f4       	brne	.+34     	; 0x11a <_Z41__static_initialization_and_destruction_0ii+0x26>
-  f8:	6f 3f       	cpi	r22, 0xFF	; 255
-  fa:	7f 4f       	sbci	r23, 0xFF	; 255
-  fc:	71 f4       	brne	.+28     	; 0x11a <_Z41__static_initialization_and_destruction_0ii+0x26>
-  fe:	e6 e0       	ldi	r30, 0x06	; 6
- 100:	f1 e0       	ldi	r31, 0x01	; 1
- 102:	10 82       	st	Z, r1
- 104:	12 82       	std	Z+2, r1	; 0x02
- 106:	11 82       	std	Z+1, r1	; 0x01
+}
+ 13c:	01 97       	sbiw	r24, 0x01	; 1
+ 13e:	99 f4       	brne	.+38     	; 0x166 <_Z41__static_initialization_and_destruction_0ii+0x2a>
+ 140:	6f 3f       	cpi	r22, 0xFF	; 255
+ 142:	7f 4f       	sbci	r23, 0xFF	; 255
+ 144:	81 f4       	brne	.+32     	; 0x166 <_Z41__static_initialization_and_destruction_0ii+0x2a>
+ 146:	eb e0       	ldi	r30, 0x0B	; 11
+ 148:	f1 e0       	ldi	r31, 0x01	; 1
+ 14a:	10 82       	st	Z, r1
+ 14c:	12 82       	std	Z+2, r1	; 0x02
+ 14e:	11 82       	std	Z+1, r1	; 0x01
 {
 private:
 	bool interrupt_enabled = false;
 public:
 	
 	Button(void) {}
- 108:	13 82       	std	Z+3, r1	; 0x03
+ 150:	13 82       	std	Z+3, r1	; 0x03
 #define DISABLE_TIMER1 TIMSK1 = 0x00
 #define DISABLE_TIMER2 TIMSK2 = 0x00
 
 enum class PWM_Period { ON, OFF };
 
 class GPIO
- 10a:	e0 e0       	ldi	r30, 0x00	; 0
- 10c:	f1 e0       	ldi	r31, 0x01	; 1
- 10e:	10 82       	st	Z, r1
- 110:	12 82       	std	Z+2, r1	; 0x02
- 112:	11 82       	std	Z+1, r1	; 0x01
-private:
-	bool PWM_enabled = false;
-	bool motor_enabled = false;
-	bool interrupt_enabled = false;
+ 152:	e0 e0       	ldi	r30, 0x00	; 0
+ 154:	f1 e0       	ldi	r31, 0x01	; 1
+ 156:	10 82       	st	Z, r1
+ 158:	12 82       	std	Z+2, r1	; 0x02
+ 15a:	11 82       	std	Z+1, r1	; 0x01
+	uint8_t sensor_PIN;
+	uint8_t sensor_PCINT;
+	IO_port sensor_io_port;
 public:
+	bool forward_enabled = true;
 	Motor(void) {}
- 114:	13 82       	std	Z+3, r1	; 0x03
- 116:	14 82       	std	Z+4, r1	; 0x04
- 118:	15 82       	std	Z+5, r1	; 0x05
- 11a:	08 95       	ret
+ 15c:	13 82       	std	Z+3, r1	; 0x03
+ 15e:	14 82       	std	Z+4, r1	; 0x04
+ 160:	15 82       	std	Z+5, r1	; 0x05
+ 162:	81 e0       	ldi	r24, 0x01	; 1
+ 164:	82 87       	std	Z+10, r24	; 0x0a
+ 166:	08 95       	ret
 
-0000011c <_Z12start_Buttonh>:
-	 motor = pwm_motor(5);
+00000168 <_Z12start_Buttonh>:
+	 DDRD |= ((1<<7)|(1<<8));
 	 return;
 }
 
 Button start_Button(const uint8_t PIN)
 { 
- 11c:	cf 93       	push	r28
- 11e:	df 93       	push	r29
- 120:	00 d0       	rcall	.+0      	; 0x122 <_Z12start_Buttonh+0x6>
- 122:	00 d0       	rcall	.+0      	; 0x124 <_Z12start_Buttonh+0x8>
- 124:	cd b7       	in	r28, 0x3d	; 61
- 126:	de b7       	in	r29, 0x3e	; 62
+ 168:	cf 93       	push	r28
+ 16a:	df 93       	push	r29
+ 16c:	00 d0       	rcall	.+0      	; 0x16e <_Z12start_Buttonh+0x6>
+ 16e:	00 d0       	rcall	.+0      	; 0x170 <_Z12start_Buttonh+0x8>
+ 170:	cd b7       	in	r28, 0x3d	; 61
+ 172:	de b7       	in	r29, 0x3e	; 62
 	Button self(PIN); 
- 128:	68 2f       	mov	r22, r24
- 12a:	ce 01       	movw	r24, r28
- 12c:	01 96       	adiw	r24, 0x01	; 1
- 12e:	0e 94 54 00 	call	0xa8	; 0xa8 <_ZN6ButtonC1Eh>
+ 174:	68 2f       	mov	r22, r24
+ 176:	ce 01       	movw	r24, r28
+ 178:	01 96       	adiw	r24, 0x01	; 1
+ 17a:	0e 94 54 00 	call	0xa8	; 0xa8 <_ZN6ButtonC1Eh>
 	return self; 
- 132:	69 81       	ldd	r22, Y+1	; 0x01
- 134:	7a 81       	ldd	r23, Y+2	; 0x02
- 136:	8b 81       	ldd	r24, Y+3	; 0x03
- 138:	9c 81       	ldd	r25, Y+4	; 0x04
+ 17e:	69 81       	ldd	r22, Y+1	; 0x01
+ 180:	7a 81       	ldd	r23, Y+2	; 0x02
+ 182:	8b 81       	ldd	r24, Y+3	; 0x03
+ 184:	9c 81       	ldd	r25, Y+4	; 0x04
 }
- 13a:	0f 90       	pop	r0
- 13c:	0f 90       	pop	r0
- 13e:	0f 90       	pop	r0
- 140:	0f 90       	pop	r0
- 142:	df 91       	pop	r29
- 144:	cf 91       	pop	r28
- 146:	08 95       	ret
+ 186:	0f 90       	pop	r0
+ 188:	0f 90       	pop	r0
+ 18a:	0f 90       	pop	r0
+ 18c:	0f 90       	pop	r0
+ 18e:	df 91       	pop	r29
+ 190:	cf 91       	pop	r28
+ 192:	08 95       	ret
 
-00000148 <_Z9pwm_motorh>:
+00000194 <_Z9pwm_motorh>:
 
 Motor pwm_motor(const uint8_t PIN)
 {
- 148:	cf 93       	push	r28
- 14a:	df 93       	push	r29
- 14c:	cd b7       	in	r28, 0x3d	; 61
- 14e:	de b7       	in	r29, 0x3e	; 62
- 150:	2c 97       	sbiw	r28, 0x0c	; 12
- 152:	0f b6       	in	r0, 0x3f	; 63
- 154:	f8 94       	cli
- 156:	de bf       	out	0x3e, r29	; 62
- 158:	0f be       	out	0x3f, r0	; 63
- 15a:	cd bf       	out	0x3d, r28	; 61
+ 194:	cf 93       	push	r28
+ 196:	df 93       	push	r29
+ 198:	ec 01       	movw	r28, r24
 	Motor self(PIN);
- 15c:	68 2f       	mov	r22, r24
- 15e:	ce 01       	movw	r24, r28
- 160:	07 96       	adiw	r24, 0x07	; 7
- 162:	0e 94 f2 00 	call	0x1e4	; 0x1e4 <_ZN5MotorC1Eh>
+ 19a:	0e 94 1b 01 	call	0x236	; 0x236 <_ZN5MotorC1Eh>
 	return self;
- 166:	86 e0       	ldi	r24, 0x06	; 6
- 168:	fe 01       	movw	r30, r28
- 16a:	37 96       	adiw	r30, 0x07	; 7
- 16c:	de 01       	movw	r26, r28
- 16e:	11 96       	adiw	r26, 0x01	; 1
- 170:	01 90       	ld	r0, Z+
- 172:	0d 92       	st	X+, r0
- 174:	8a 95       	dec	r24
- 176:	e1 f7       	brne	.-8      	; 0x170 <_Z9pwm_motorh+0x28>
- 178:	29 81       	ldd	r18, Y+1	; 0x01
- 17a:	3a 81       	ldd	r19, Y+2	; 0x02
- 17c:	4b 81       	ldd	r20, Y+3	; 0x03
- 17e:	5c 81       	ldd	r21, Y+4	; 0x04
- 180:	6d 81       	ldd	r22, Y+5	; 0x05
- 182:	7e 81       	ldd	r23, Y+6	; 0x06
- 184:	80 e0       	ldi	r24, 0x00	; 0
- 186:	90 e0       	ldi	r25, 0x00	; 0
- 188:	2c 96       	adiw	r28, 0x0c	; 12
- 18a:	0f b6       	in	r0, 0x3f	; 63
- 18c:	f8 94       	cli
- 18e:	de bf       	out	0x3e, r29	; 62
- 190:	0f be       	out	0x3f, r0	; 63
- 192:	cd bf       	out	0x3d, r28	; 61
- 194:	df 91       	pop	r29
- 196:	cf 91       	pop	r28
- 198:	08 95       	ret
+}
+ 19e:	ce 01       	movw	r24, r28
+ 1a0:	df 91       	pop	r29
+ 1a2:	cf 91       	pop	r28
+ 1a4:	08 95       	ret
 
-0000019a <_Z9init_GPIOv>:
+000001a6 <_Z9init_GPIOv>:
+
 Button button;
 Motor motor;
 
 void init_GPIO() 
 { 
+ 1a6:	cf 93       	push	r28
+ 1a8:	df 93       	push	r29
+ 1aa:	cd b7       	in	r28, 0x3d	; 61
+ 1ac:	de b7       	in	r29, 0x3e	; 62
+ 1ae:	2b 97       	sbiw	r28, 0x0b	; 11
+ 1b0:	0f b6       	in	r0, 0x3f	; 63
+ 1b2:	f8 94       	cli
+ 1b4:	de bf       	out	0x3e, r29	; 62
+ 1b6:	0f be       	out	0x3f, r0	; 63
+ 1b8:	cd bf       	out	0x3d, r28	; 61
 	 button = start_Button(13); 
- 19a:	8d e0       	ldi	r24, 0x0D	; 13
- 19c:	0e 94 8e 00 	call	0x11c	; 0x11c <_Z12start_Buttonh>
- 1a0:	60 93 06 01 	sts	0x0106, r22	; 0x800106 <button>
- 1a4:	70 93 07 01 	sts	0x0107, r23	; 0x800107 <button+0x1>
- 1a8:	80 93 08 01 	sts	0x0108, r24	; 0x800108 <button+0x2>
- 1ac:	90 93 09 01 	sts	0x0109, r25	; 0x800109 <button+0x3>
+ 1ba:	8d e0       	ldi	r24, 0x0D	; 13
+ 1bc:	0e 94 b4 00 	call	0x168	; 0x168 <_Z12start_Buttonh>
+ 1c0:	60 93 0b 01 	sts	0x010B, r22	; 0x80010b <button>
+ 1c4:	70 93 0c 01 	sts	0x010C, r23	; 0x80010c <button+0x1>
+ 1c8:	80 93 0d 01 	sts	0x010D, r24	; 0x80010d <button+0x2>
+ 1cc:	90 93 0e 01 	sts	0x010E, r25	; 0x80010e <button+0x3>
 	 motor = pwm_motor(5);
- 1b0:	85 e0       	ldi	r24, 0x05	; 5
- 1b2:	0e 94 a4 00 	call	0x148	; 0x148 <_Z9pwm_motorh>
- 1b6:	20 93 00 01 	sts	0x0100, r18	; 0x800100 <__DATA_REGION_ORIGIN__>
- 1ba:	30 93 01 01 	sts	0x0101, r19	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
- 1be:	40 93 02 01 	sts	0x0102, r20	; 0x800102 <__DATA_REGION_ORIGIN__+0x2>
- 1c2:	50 93 03 01 	sts	0x0103, r21	; 0x800103 <__DATA_REGION_ORIGIN__+0x3>
- 1c6:	60 93 04 01 	sts	0x0104, r22	; 0x800104 <__DATA_REGION_ORIGIN__+0x4>
- 1ca:	70 93 05 01 	sts	0x0105, r23	; 0x800105 <__DATA_REGION_ORIGIN__+0x5>
- 1ce:	08 95       	ret
+ 1d0:	65 e0       	ldi	r22, 0x05	; 5
+ 1d2:	ce 01       	movw	r24, r28
+ 1d4:	01 96       	adiw	r24, 0x01	; 1
+ 1d6:	0e 94 ca 00 	call	0x194	; 0x194 <_Z9pwm_motorh>
+ 1da:	8b e0       	ldi	r24, 0x0B	; 11
+ 1dc:	fe 01       	movw	r30, r28
+ 1de:	31 96       	adiw	r30, 0x01	; 1
+ 1e0:	a0 e0       	ldi	r26, 0x00	; 0
+ 1e2:	b1 e0       	ldi	r27, 0x01	; 1
+ 1e4:	01 90       	ld	r0, Z+
+ 1e6:	0d 92       	st	X+, r0
+ 1e8:	8a 95       	dec	r24
+ 1ea:	e1 f7       	brne	.-8      	; 0x1e4 <_Z9init_GPIOv+0x3e>
+	 DDRD |= ((1<<7)|(1<<8));
+ 1ec:	8a b1       	in	r24, 0x0a	; 10
+ 1ee:	80 68       	ori	r24, 0x80	; 128
+ 1f0:	8a b9       	out	0x0a, r24	; 10
+	 return;
+}
+ 1f2:	2b 96       	adiw	r28, 0x0b	; 11
+ 1f4:	0f b6       	in	r0, 0x3f	; 63
+ 1f6:	f8 94       	cli
+ 1f8:	de bf       	out	0x3e, r29	; 62
+ 1fa:	0f be       	out	0x3f, r0	; 63
+ 1fc:	cd bf       	out	0x3d, r28	; 61
+ 1fe:	df 91       	pop	r29
+ 200:	cf 91       	pop	r28
+ 202:	08 95       	ret
 
-000001d0 <_GLOBAL__sub_I_button>:
+00000204 <_GLOBAL__sub_I_button>:
 
 Motor pwm_motor(const uint8_t PIN)
 {
 	Motor self(PIN);
 	return self;
- 1d0:	6f ef       	ldi	r22, 0xFF	; 255
- 1d2:	7f ef       	ldi	r23, 0xFF	; 255
- 1d4:	81 e0       	ldi	r24, 0x01	; 1
- 1d6:	90 e0       	ldi	r25, 0x00	; 0
- 1d8:	0e 94 7a 00 	call	0xf4	; 0xf4 <_Z41__static_initialization_and_destruction_0ii>
- 1dc:	08 95       	ret
+}
+ 204:	6f ef       	ldi	r22, 0xFF	; 255
+ 206:	7f ef       	ldi	r23, 0xFF	; 255
+ 208:	81 e0       	ldi	r24, 0x01	; 1
+ 20a:	90 e0       	ldi	r25, 0x00	; 0
+ 20c:	0e 94 9e 00 	call	0x13c	; 0x13c <_Z41__static_initialization_and_destruction_0ii>
+ 210:	08 95       	ret
 
-000001de <main>:
+00000212 <main>:
 #include "header.h"
 
 
 int main(void)
 {
     init_GPIO();
- 1de:	0e 94 cd 00 	call	0x19a	; 0x19a <_Z9init_GPIOv>
- 1e2:	ff cf       	rjmp	.-2      	; 0x1e2 <main+0x4>
+ 212:	0e 94 d3 00 	call	0x1a6	; 0x1a6 <_Z9init_GPIOv>
+    while (1) 
+    {
+		if (button.is_pressed())
+ 216:	8b e0       	ldi	r24, 0x0B	; 11
+ 218:	91 e0       	ldi	r25, 0x01	; 1
+ 21a:	0e 94 7a 00 	call	0xf4	; 0xf4 <_ZN6Button10is_pressedEv>
+ 21e:	88 23       	and	r24, r24
+ 220:	29 f0       	breq	.+10     	; 0x22c <main+0x1a>
+			motor.off();
+ 222:	80 e0       	ldi	r24, 0x00	; 0
+ 224:	91 e0       	ldi	r25, 0x01	; 1
+ 226:	0e 94 4f 01 	call	0x29e	; 0x29e <_ZN5Motor3offEv>
+ 22a:	f5 cf       	rjmp	.-22     	; 0x216 <main+0x4>
+		else
+			motor.on();
+ 22c:	80 e0       	ldi	r24, 0x00	; 0
+ 22e:	91 e0       	ldi	r25, 0x01	; 1
+ 230:	0e 94 8a 01 	call	0x314	; 0x314 <_ZN5Motor2onEv>
+ 234:	f0 cf       	rjmp	.-32     	; 0x216 <main+0x4>
 
-000001e4 <_ZN5MotorC1Eh>:
+00000236 <_ZN5MotorC1Eh>:
 #include "GPIO.h"
 
 Motor::Motor(const uint8_t PIN)
- 1e4:	fc 01       	movw	r30, r24
+ 236:	fc 01       	movw	r30, r24
 #define DISABLE_TIMER1 TIMSK1 = 0x00
 #define DISABLE_TIMER2 TIMSK2 = 0x00
 
 enum class PWM_Period { ON, OFF };
 
 class GPIO
- 1e6:	10 82       	st	Z, r1
- 1e8:	12 82       	std	Z+2, r1	; 0x02
- 1ea:	11 82       	std	Z+1, r1	; 0x01
- 1ec:	13 82       	std	Z+3, r1	; 0x03
- 1ee:	14 82       	std	Z+4, r1	; 0x04
- 1f0:	15 82       	std	Z+5, r1	; 0x05
+ 238:	10 82       	st	Z, r1
+ 23a:	12 82       	std	Z+2, r1	; 0x02
+ 23c:	11 82       	std	Z+1, r1	; 0x01
+ 23e:	13 82       	std	Z+3, r1	; 0x03
+ 240:	14 82       	std	Z+4, r1	; 0x04
+ 242:	15 82       	std	Z+5, r1	; 0x05
+ 244:	81 e0       	ldi	r24, 0x01	; 1
+ 246:	82 87       	std	Z+10, r24	; 0x0a
 {
 	if(PIN >=0 && PIN <= 7)
- 1f2:	68 30       	cpi	r22, 0x08	; 8
- 1f4:	80 f4       	brcc	.+32     	; 0x216 <_ZN5MotorC1Eh+0x32>
+ 248:	68 30       	cpi	r22, 0x08	; 8
+ 24a:	80 f4       	brcc	.+32     	; 0x26c <_ZN5MotorC1Eh+0x36>
 	{
 		this->io_port = IO_port::D;
- 1f6:	83 e0       	ldi	r24, 0x03	; 3
- 1f8:	90 e0       	ldi	r25, 0x00	; 0
- 1fa:	92 83       	std	Z+2, r25	; 0x02
- 1fc:	81 83       	std	Z+1, r24	; 0x01
+ 24c:	83 e0       	ldi	r24, 0x03	; 3
+ 24e:	90 e0       	ldi	r25, 0x00	; 0
+ 250:	92 83       	std	Z+2, r25	; 0x02
+ 252:	81 83       	std	Z+1, r24	; 0x01
 		this->PIN = PIN;
- 1fe:	60 83       	st	Z, r22
+ 254:	60 83       	st	Z, r22
 		SET(DDRD, this->PIN);
- 200:	2a b1       	in	r18, 0x0a	; 10
- 202:	81 e0       	ldi	r24, 0x01	; 1
- 204:	90 e0       	ldi	r25, 0x00	; 0
- 206:	02 c0       	rjmp	.+4      	; 0x20c <_ZN5MotorC1Eh+0x28>
- 208:	88 0f       	add	r24, r24
- 20a:	99 1f       	adc	r25, r25
- 20c:	6a 95       	dec	r22
- 20e:	e2 f7       	brpl	.-8      	; 0x208 <_ZN5MotorC1Eh+0x24>
- 210:	82 2b       	or	r24, r18
- 212:	8a b9       	out	0x0a, r24	; 10
- 214:	08 95       	ret
+ 256:	2a b1       	in	r18, 0x0a	; 10
+ 258:	81 e0       	ldi	r24, 0x01	; 1
+ 25a:	90 e0       	ldi	r25, 0x00	; 0
+ 25c:	02 c0       	rjmp	.+4      	; 0x262 <_ZN5MotorC1Eh+0x2c>
+ 25e:	88 0f       	add	r24, r24
+ 260:	99 1f       	adc	r25, r25
+ 262:	6a 95       	dec	r22
+ 264:	e2 f7       	brpl	.-8      	; 0x25e <_ZN5MotorC1Eh+0x28>
+ 266:	82 2b       	or	r24, r18
+ 268:	8a b9       	out	0x0a, r24	; 10
+ 26a:	10 c0       	rjmp	.+32     	; 0x28c <_ZN5MotorC1Eh+0x56>
 	}
 	else if (PIN >= 8 && PIN <= 13)
- 216:	68 50       	subi	r22, 0x08	; 8
- 218:	66 30       	cpi	r22, 0x06	; 6
- 21a:	68 f4       	brcc	.+26     	; 0x236 <_ZN5MotorC1Eh+0x52>
+ 26c:	68 50       	subi	r22, 0x08	; 8
+ 26e:	66 30       	cpi	r22, 0x06	; 6
+ 270:	68 f4       	brcc	.+26     	; 0x28c <_ZN5MotorC1Eh+0x56>
 	{
 		this->io_port = IO_port::B;
- 21c:	81 e0       	ldi	r24, 0x01	; 1
- 21e:	90 e0       	ldi	r25, 0x00	; 0
- 220:	92 83       	std	Z+2, r25	; 0x02
- 222:	81 83       	std	Z+1, r24	; 0x01
+ 272:	81 e0       	ldi	r24, 0x01	; 1
+ 274:	90 e0       	ldi	r25, 0x00	; 0
+ 276:	92 83       	std	Z+2, r25	; 0x02
+ 278:	81 83       	std	Z+1, r24	; 0x01
 		this->PIN = PIN - 8;
- 224:	60 83       	st	Z, r22
+ 27a:	60 83       	st	Z, r22
 		SET (DDRB, this->PIN);
- 226:	24 b1       	in	r18, 0x04	; 4
- 228:	02 c0       	rjmp	.+4      	; 0x22e <_ZN5MotorC1Eh+0x4a>
- 22a:	88 0f       	add	r24, r24
- 22c:	99 1f       	adc	r25, r25
- 22e:	6a 95       	dec	r22
- 230:	e2 f7       	brpl	.-8      	; 0x22a <_ZN5MotorC1Eh+0x46>
- 232:	82 2b       	or	r24, r18
- 234:	84 b9       	out	0x04, r24	; 4
- 236:	08 95       	ret
+ 27c:	24 b1       	in	r18, 0x04	; 4
+ 27e:	02 c0       	rjmp	.+4      	; 0x284 <_ZN5MotorC1Eh+0x4e>
+ 280:	88 0f       	add	r24, r24
+ 282:	99 1f       	adc	r25, r25
+ 284:	6a 95       	dec	r22
+ 286:	e2 f7       	brpl	.-8      	; 0x280 <_ZN5MotorC1Eh+0x4a>
+ 288:	82 2b       	or	r24, r18
+ 28a:	84 b9       	out	0x04, r24	; 4
+	}
+	this->sensor_PIN = 1;
+ 28c:	81 e0       	ldi	r24, 0x01	; 1
+ 28e:	86 83       	std	Z+6, r24	; 0x06
+	this->sensor_PCINT = this->sensor_PIN + 8;
+ 290:	89 e0       	ldi	r24, 0x09	; 9
+ 292:	87 83       	std	Z+7, r24	; 0x07
+	this->sensor_io_port = IO_port::C;
+ 294:	82 e0       	ldi	r24, 0x02	; 2
+ 296:	90 e0       	ldi	r25, 0x00	; 0
+ 298:	91 87       	std	Z+9, r25	; 0x09
+ 29a:	80 87       	std	Z+8, r24	; 0x08
+ 29c:	08 95       	ret
 
-00000238 <__tablejump2__>:
- 238:	ee 0f       	add	r30, r30
- 23a:	ff 1f       	adc	r31, r31
- 23c:	05 90       	lpm	r0, Z+
- 23e:	f4 91       	lpm	r31, Z
- 240:	e0 2d       	mov	r30, r0
- 242:	09 94       	ijmp
+0000029e <_ZN5Motor3offEv>:
+	this->read_direction();
+	return;
+}
 
-00000244 <_exit>:
- 244:	f8 94       	cli
+void Motor::off(void)
+{
+ 29e:	fc 01       	movw	r30, r24
+	if (this->io_port == IO_port::B)
+ 2a0:	81 81       	ldd	r24, Z+1	; 0x01
+ 2a2:	92 81       	ldd	r25, Z+2	; 0x02
+ 2a4:	81 30       	cpi	r24, 0x01	; 1
+ 2a6:	91 05       	cpc	r25, r1
+ 2a8:	81 f4       	brne	.+32     	; 0x2ca <_ZN5Motor3offEv+0x2c>
+	CLEAR(PORTB, this->PIN);
+ 2aa:	95 b1       	in	r25, 0x05	; 5
+ 2ac:	21 e0       	ldi	r18, 0x01	; 1
+ 2ae:	30 e0       	ldi	r19, 0x00	; 0
+ 2b0:	00 80       	ld	r0, Z
+ 2b2:	02 c0       	rjmp	.+4      	; 0x2b8 <_ZN5Motor3offEv+0x1a>
+ 2b4:	22 0f       	add	r18, r18
+ 2b6:	33 1f       	adc	r19, r19
+ 2b8:	0a 94       	dec	r0
+ 2ba:	e2 f7       	brpl	.-8      	; 0x2b4 <_ZN5Motor3offEv+0x16>
+ 2bc:	81 e0       	ldi	r24, 0x01	; 1
+ 2be:	23 2b       	or	r18, r19
+ 2c0:	09 f0       	breq	.+2      	; 0x2c4 <_ZN5Motor3offEv+0x26>
+ 2c2:	80 e0       	ldi	r24, 0x00	; 0
+ 2c4:	89 23       	and	r24, r25
+ 2c6:	85 b9       	out	0x05, r24	; 5
+ 2c8:	11 c0       	rjmp	.+34     	; 0x2ec <_ZN5Motor3offEv+0x4e>
+	else if(this->io_port == IO_port::D)
+ 2ca:	03 97       	sbiw	r24, 0x03	; 3
+ 2cc:	79 f4       	brne	.+30     	; 0x2ec <_ZN5Motor3offEv+0x4e>
+	CLEAR(PORTD, this->PIN);
+ 2ce:	9b b1       	in	r25, 0x0b	; 11
+ 2d0:	21 e0       	ldi	r18, 0x01	; 1
+ 2d2:	30 e0       	ldi	r19, 0x00	; 0
+ 2d4:	00 80       	ld	r0, Z
+ 2d6:	02 c0       	rjmp	.+4      	; 0x2dc <_ZN5Motor3offEv+0x3e>
+ 2d8:	22 0f       	add	r18, r18
+ 2da:	33 1f       	adc	r19, r19
+ 2dc:	0a 94       	dec	r0
+ 2de:	e2 f7       	brpl	.-8      	; 0x2d8 <_ZN5Motor3offEv+0x3a>
+ 2e0:	81 e0       	ldi	r24, 0x01	; 1
+ 2e2:	23 2b       	or	r18, r19
+ 2e4:	09 f0       	breq	.+2      	; 0x2e8 <_ZN5Motor3offEv+0x4a>
+ 2e6:	80 e0       	ldi	r24, 0x00	; 0
+ 2e8:	89 23       	and	r24, r25
+ 2ea:	8b b9       	out	0x0b, r24	; 11
+	this->motor_enabled = false;
+ 2ec:	14 82       	std	Z+4, r1	; 0x04
+ 2ee:	08 95       	ret
 
-00000246 <__stop_program>:
- 246:	ff cf       	rjmp	.-2      	; 0x246 <__stop_program>
+000002f0 <_ZN5Motor14read_directionEv>:
+	return;
+}
+
+void Motor::read_direction(void)
+{
+	if (forward_enabled)
+ 2f0:	fc 01       	movw	r30, r24
+ 2f2:	82 85       	ldd	r24, Z+10	; 0x0a
+ 2f4:	88 23       	and	r24, r24
+ 2f6:	31 f0       	breq	.+12     	; 0x304 <_ZN5Motor14read_directionEv+0x14>
+	{
+		PORTD |= (1<<7);
+ 2f8:	8b b1       	in	r24, 0x0b	; 11
+ 2fa:	80 68       	ori	r24, 0x80	; 128
+ 2fc:	8b b9       	out	0x0b, r24	; 11
+		PORTD &= ~(1<<8);
+ 2fe:	8b b1       	in	r24, 0x0b	; 11
+ 300:	8b b9       	out	0x0b, r24	; 11
+ 302:	08 95       	ret
+	}
+	else if (!forward_enabled)
+ 304:	81 11       	cpse	r24, r1
+ 306:	05 c0       	rjmp	.+10     	; 0x312 <_ZN5Motor14read_directionEv+0x22>
+	{
+		PORTD |= (1<<8);
+ 308:	8b b1       	in	r24, 0x0b	; 11
+ 30a:	8b b9       	out	0x0b, r24	; 11
+		PORTD &= ~(1<<7);
+ 30c:	8b b1       	in	r24, 0x0b	; 11
+ 30e:	8f 77       	andi	r24, 0x7F	; 127
+ 310:	8b b9       	out	0x0b, r24	; 11
+ 312:	08 95       	ret
+
+00000314 <_ZN5Motor2onEv>:
+	this->sensor_io_port = IO_port::C;
+}
+
+void Motor::on(void)
+{
+	if (this->io_port == IO_port::B)
+ 314:	fc 01       	movw	r30, r24
+ 316:	21 81       	ldd	r18, Z+1	; 0x01
+ 318:	32 81       	ldd	r19, Z+2	; 0x02
+ 31a:	21 30       	cpi	r18, 0x01	; 1
+ 31c:	31 05       	cpc	r19, r1
+ 31e:	61 f4       	brne	.+24     	; 0x338 <_ZN5Motor2onEv+0x24>
+	SET(PORTB, this->PIN);
+ 320:	45 b1       	in	r20, 0x05	; 5
+ 322:	21 e0       	ldi	r18, 0x01	; 1
+ 324:	30 e0       	ldi	r19, 0x00	; 0
+ 326:	00 80       	ld	r0, Z
+ 328:	02 c0       	rjmp	.+4      	; 0x32e <_ZN5Motor2onEv+0x1a>
+ 32a:	22 0f       	add	r18, r18
+ 32c:	33 1f       	adc	r19, r19
+ 32e:	0a 94       	dec	r0
+ 330:	e2 f7       	brpl	.-8      	; 0x32a <_ZN5Motor2onEv+0x16>
+ 332:	24 2b       	or	r18, r20
+ 334:	25 b9       	out	0x05, r18	; 5
+ 336:	0f c0       	rjmp	.+30     	; 0x356 <_ZN5Motor2onEv+0x42>
+	else if(this->io_port == IO_port::D)
+ 338:	23 30       	cpi	r18, 0x03	; 3
+ 33a:	31 05       	cpc	r19, r1
+ 33c:	61 f4       	brne	.+24     	; 0x356 <_ZN5Motor2onEv+0x42>
+	SET(PORTD, this->PIN);
+ 33e:	4b b1       	in	r20, 0x0b	; 11
+ 340:	21 e0       	ldi	r18, 0x01	; 1
+ 342:	30 e0       	ldi	r19, 0x00	; 0
+ 344:	fc 01       	movw	r30, r24
+ 346:	00 80       	ld	r0, Z
+ 348:	02 c0       	rjmp	.+4      	; 0x34e <_ZN5Motor2onEv+0x3a>
+ 34a:	22 0f       	add	r18, r18
+ 34c:	33 1f       	adc	r19, r19
+ 34e:	0a 94       	dec	r0
+ 350:	e2 f7       	brpl	.-8      	; 0x34a <_ZN5Motor2onEv+0x36>
+ 352:	24 2b       	or	r18, r20
+ 354:	2b b9       	out	0x0b, r18	; 11
+	this->motor_enabled = true;
+ 356:	21 e0       	ldi	r18, 0x01	; 1
+ 358:	fc 01       	movw	r30, r24
+ 35a:	24 83       	std	Z+4, r18	; 0x04
+	this->read_direction();
+ 35c:	0e 94 78 01 	call	0x2f0	; 0x2f0 <_ZN5Motor14read_directionEv>
+ 360:	08 95       	ret
+
+00000362 <__tablejump2__>:
+ 362:	ee 0f       	add	r30, r30
+ 364:	ff 1f       	adc	r31, r31
+ 366:	05 90       	lpm	r0, Z+
+ 368:	f4 91       	lpm	r31, Z
+ 36a:	e0 2d       	mov	r30, r0
+ 36c:	09 94       	ijmp
+
+0000036e <_exit>:
+ 36e:	f8 94       	cli
+
+00000370 <__stop_program>:
+ 370:	ff cf       	rjmp	.-2      	; 0x370 <__stop_program>
