@@ -92,4 +92,8 @@ public:
 	bool elapsed(void);
 };
 
+void init_GPIO();
+Motor pwm_motor(const uint8_t PIN);
+Button start_Button(const uint8_t PIN);
+
 #endif /* BUTTON_H_ */

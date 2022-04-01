@@ -157,6 +157,9 @@
     <Compile Include="Button.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="GPIO.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="GPIO.h">
       <SubType>compile</SubType>
     </Compile>

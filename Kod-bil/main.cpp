@@ -1,18 +1,16 @@
 
 #include "header.h"
 
-Button button;
-Motor motor;
+
 int main(void)
 {
-    button = Button(13);
-	motor = Motor(5);
+    init_GPIO();
     while (1) 
     {
-		if (button.is_pressed())
-			motor.on();
-		else
-			motor.off();
+		//if (button.is_pressed())
+			//motor.on();
+		//else
+		//	motor.off();
     }
 }
 
