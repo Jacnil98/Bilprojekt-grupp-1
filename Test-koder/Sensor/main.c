@@ -8,7 +8,11 @@ int main()
 		_delay_ms(200);
 		float in_signal = ADC_read(SENSOR)*0.0048828125; // = 5/1023
 		//float in_signal = ADC_read(SENSOR)*(5.0/1023); //viktigt med 5.0 annars så blir det int division.
+<<<<<<< HEAD
 		int distance = 13*(1/in_signal); //13*pow(in_signal, -1) läst från datablad 13/in_signal; 
+=======
+		int distance = 13*pow(in_signal, -1); //13*pow(in_signal, -1) läst från datablad 13/in_signal; alt 13*(1/in_signal)
+>>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 		serial_print_int(distance);
 		serial_print_int(in_signal);
 		/*
