@@ -56,13 +56,11 @@ void Motor::read_direction(void)
 {
 	if (forward_enabled)
 	{
-		PORTD |= (1<<IN1);
-		PORTD &= ~(1<<IN2);
+		this->forward_direction();
 	}
 	else if (!forward_enabled)
 	{
-		PORTD |= (1<<IN2);
-		PORTD &= ~(1<<IN1);
+		this->reverse_direction();
 	}
 }
 
@@ -84,7 +82,6 @@ void Motor::disable_interrupt()
 ******************************************************************************/
 void Motor::enabled()
 {
-	this->motor_enabled = true;
 	ENABLE_TIMER1;
 	this->on();
 }
@@ -93,7 +90,6 @@ void Motor::enabled()
 ******************************************************************************/
 void Motor::disabled()
 {
-	this->motor_enabled = false;
 	DISABLE_TIMER1; 
 	this->off();
 }
@@ -107,4 +103,16 @@ void Motor::PWM()
 bool Motor::is_enabled()
 {
 	return this->motor_enabled;
+}
+
+void Motor::forward_direction();
+{
+	PORTD |= (1<<IN1);
+	PORTD &= ~(1<<IN2);
+}
+
+void Motor::reverse_direction();
+{
+	PORTD |= (1<<IN1);
+	PORTD &= ~(1<<IN2);
 }

@@ -74,6 +74,8 @@ public:
 	void disabled();
 	void PWM();
 	bool is_enabled();
+	void forward_direction();
+	void read_direction();
 
 };
 
@@ -130,21 +132,7 @@ public:
 	bool is_enabled();
 };
 
-class Sensor
-{
-	private:
-		uint16_t ADC_read();
-		uint16_t distance;
-		uint8_t sensor_pin = 0x00;
-	public:
-		Sensor() {}
-		Sensor(const uint8_t PIN);
-		uint16_t calculate();
-		
-};
-
 void init_GPIO();
-Sensor new_sensor(const uint8_t PIN);
 Motor pwm_motor(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
 USART_Timer new_USART_Timer(const uint16_t delay);
