@@ -1,6 +1,5 @@
 #include "GPIO.h"
 
-
 Motor::Motor(const uint8_t PIN)
 {
 	if(PIN >=0 && PIN <= 7)

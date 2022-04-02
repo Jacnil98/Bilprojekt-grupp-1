@@ -7,5 +7,6 @@
 
 extern Motor motor;
 extern Button button;
+extern Sensor sensor;
 
 #endif /* HEADER_H_ */

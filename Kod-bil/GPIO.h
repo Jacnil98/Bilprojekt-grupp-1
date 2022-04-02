@@ -79,6 +79,17 @@ public:
 
 };
 
+class Sensor : public GPIO
+{
+private:
+	uint8_t sensor_PIN;
+	uint16_t ADC_read();
+public:
+	Sensor(void){}
+	Sensor(const uint8_t PIN);
+	uint16_t calculate();	
+};
+
 
 class Button : public GPIO
 {
@@ -135,9 +146,8 @@ public:
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
-USART_Timer new_USART_Timer(const uint16_t delay);
-
-
+USART_Timer new_USART_Timer(const uint16_t delay); 
+Sensor new_Sensor(const uint8_t PIN):
 
 void serial_print(const char* s); // Funktion för seriell överföring.
 void serial_print_int(const int number);

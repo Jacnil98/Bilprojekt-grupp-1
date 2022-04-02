@@ -2,6 +2,7 @@
 
 Motor motor;
 Button button;
+Sensor sensor;
 
 void init_GPIO()
 {
@@ -28,5 +29,11 @@ Motor pwm_motor(const uint8_t PIN)
 USART_Timer new_USART_Timer(const uint16_t delay)
 {
 	USART_Timer self(delay);
+	return self;
+}
+
+Sensor new_Sensor(const uint8_t PIN)
+{
+	Sensor self(PIN);
 	return self;
 }

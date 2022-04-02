@@ -12,6 +12,8 @@ main.cpp
 
 Motor.cpp
 
+Sensor.cpp
+
 Serial.cpp
 
 Timer.cpp
