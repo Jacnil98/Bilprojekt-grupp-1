@@ -1,5 +1,6 @@
 #include "GPIO.h"
 
+
 Motor::Motor(const uint8_t PIN)
 {
 	if(PIN >=0 && PIN <= 7)
@@ -40,6 +41,17 @@ void Motor::off(void)
 	return;
 }
 
+/******************************************************************************
+* Funktionen start ska toggla mellan Motor enable och disable via startknappen
+* på PORTB PIN 9
+* motor_enable sätts av respektive på av funktionerna enabled/disabled.
+******************************************************************************/
+void Motor::toggle(void)
+{
+	if (this->motor_enabled) this->disabled();
+	else this->enabled();
+}
+
 void Motor::read_direction(void)
 {
 	if (forward_enabled)
@@ -67,19 +79,32 @@ void Motor::disable_interrupt()
 	this->interrupt_enabled = false;
 }
 
-
+/******************************************************************************
+* enable ska aktivera PWM_Timer för motorn samt starta motorn via funktionen on.
+******************************************************************************/
 void Motor::enabled()
 {
-	
+	this->motor_enabled = true;
+	ENABLE_TIMER1;
+	this->on();
 }
-
+/******************************************************************************
+* enable ska avaktivera PWM_Timer för motorn samt stänga motorn via funktionen off.
+******************************************************************************/
 void Motor::disabled()
 {
-	
+	this->motor_enabled = false;
+	DISABLE_TIMER1; 
+	this->off();
 }
 
 
 void Motor::PWM()
 {
 	
+}
+
+bool Motor::is_enabled()
+{
+	return this->motor_enabled;
 }

@@ -1,7 +1,7 @@
 #include "GPIO.h"
 
-Button button;
 Motor motor;
+Button button;
 
 void init_GPIO() 
 { 

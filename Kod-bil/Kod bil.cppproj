@@ -178,6 +178,9 @@
     <Compile Include="Motor.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Serial.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="USART_Timer.cpp">
       <SubType>compile</SubType>
     </Compile>

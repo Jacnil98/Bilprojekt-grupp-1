@@ -7,6 +7,7 @@ PWM_Timer::PWM_Timer(const TimerSelection timerSelection, const double period, c
 	this->timerSelection = timerSelection;
 	this->PIN = FWD_SENSOR;
 	this->total_interrupts = get_interrupts(period);
+	
 	this->init();
 	return;
 }
@@ -28,7 +29,13 @@ void PWM_Timer::init(void)
 		TCCR2B = (1 << CS20);
 	return;
 }
-
+/******************************************************************************
+* Funktionen Timer_off används för att inaktivera en given timer. Ingående
+* argument self utgör en pekare till ett timerobjekt, vars medlem
+* timerSelection undersöks för att ta reda på vilken timerkrets som skall
+* inaktiveras. Aktuell timerkrets inaktiveras, följt av att medlemmen enabled
+* sätts till false för att indikera att timern i fråga nu är inaktiverad.
+******************************************************************************/
 void PWM_Timer::update()
 {
 	const uint16_t ADC_result = GPIO::ADC_read(this->PIN);
@@ -69,3 +76,4 @@ static inline uint32_t get_interrupts(const double period)
 {
 	return (uint32_t)(period / 0.016f + 0.5);
 }
+

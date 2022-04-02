@@ -12,6 +12,8 @@ main.cpp
 
 Motor.cpp
 
+Serial.cpp
+
 USART_Timer.cpp
 
 Timer.cpp

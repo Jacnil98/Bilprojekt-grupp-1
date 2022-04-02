@@ -1,11 +1,10 @@
-
 #ifndef GPIO_H_
 #define GPIO_H_
 #include "definitions.h"
 
 #define ADC_MAX 1023.0f
 #define PERIOD 10
-#define FWD_SENSOR 0
+#define FWD_SENSOR 2
 #define IN1 7
 #define IN2 8
 #define _9600_KBPS 103
@@ -14,6 +13,9 @@
 #define INTERRUPTS_FOR_10MS 625 // Det krävs 625 timeravbrott för 10 ms.
 #define CLOCK_TIME 1023
 #define MAX_COUNT
+
+#define BUTTON 1 //PB1 på uno, D9 på nano 
+#define BUTTON_IS_PRESSED (PINB & (1<<BUTTON))
 
 #define INIT_TIMER0 TCCR0B = (1 << CS00)
 #define INIT_TIMER1 TCCR1B = (1 << CS10) | (1 << WGM12)
@@ -29,6 +31,7 @@
 
 enum class PWM_Period { ON, OFF };
 
+
 class GPIO
 {
 protected:
@@ -42,6 +45,7 @@ public:
 		ADCSRA = ((1 << ADEN) | (1 << ADSC) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2));
 		while ((ADCSRA & (1 << ADIF)) == 0) ;
 		ADCSRA = (1 << ADIF);
+		
 		return ADC;
 	}
 };
@@ -50,8 +54,8 @@ class Motor : public GPIO
 {
 private:
 	bool PWM_enabled = false;
-	bool motor_enabled = false;
 	bool interrupt_enabled = false;
+	bool motor_enabled = false;
 	uint8_t sensor_PIN;
 	uint8_t sensor_PCINT;
 	IO_port sensor_io_port;
@@ -62,12 +66,14 @@ public:
 	Motor(const uint8_t PIN);
 	void on(void);
 	void off(void);
+	void toggle(void);
 	void read_direction(void);
 	void enable_interrupt();
 	void disable_interrupt();
 	void enabled();
 	void disabled();
 	void PWM();
+	bool is_enabled();
 
 };
 
@@ -129,4 +135,9 @@ Motor pwm_motor(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
 USART_Timer new_USART_Timer(const uint16_t delay);
 
+
+
+void serial_print(const char* s); // Funktion för seriell överföring.
+void serial_print_int(const int number);
+void init_serial();
 #endif /* BUTTON_H_ */
