@@ -42,11 +42,7 @@ C_SRCS +=  \
 ../interrupts.cpp \
 ../main.cpp \
 ../Motor.cpp \
-<<<<<<< HEAD
 ../Serial.cpp \
-=======
-../Sensor.cpp \
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 ../USART_Timer.cpp \
 ../Timer.cpp
 
@@ -63,11 +59,7 @@ GPIO.o \
 interrupts.o \
 main.o \
 Motor.o \
-<<<<<<< HEAD
 Serial.o \
-=======
-Sensor.o \
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 USART_Timer.o \
 Timer.o
 
@@ -77,11 +69,7 @@ GPIO.o \
 interrupts.o \
 main.o \
 Motor.o \
-<<<<<<< HEAD
 Serial.o \
-=======
-Sensor.o \
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 USART_Timer.o \
 Timer.o
 
@@ -91,11 +79,7 @@ GPIO.d \
 interrupts.d \
 main.d \
 Motor.d \
-<<<<<<< HEAD
 Serial.d \
-=======
-Sensor.d \
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 USART_Timer.d \
 Timer.d
 
@@ -105,11 +89,7 @@ GPIO.d \
 interrupts.d \
 main.d \
 Motor.d \
-<<<<<<< HEAD
 Serial.d \
-=======
-Sensor.d \
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 USART_Timer.d \
 Timer.d
 
@@ -162,11 +142,7 @@ LINKER_SCRIPT_DEP+=
 	@echo Finished building: $<
 	
 
-<<<<<<< HEAD
 ./Serial.o: .././Serial.cpp
-=======
-./Sensor.o: .././Sensor.cpp
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=c++17 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

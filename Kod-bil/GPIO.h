@@ -75,7 +75,7 @@ public:
 	void PWM();
 	bool is_enabled();
 	void forward_direction();
-	void read_direction();
+	void reverse_direction();
 
 };
 

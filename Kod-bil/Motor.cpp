@@ -105,13 +105,13 @@ bool Motor::is_enabled()
 	return this->motor_enabled;
 }
 
-void Motor::forward_direction();
+void Motor::forward_direction()
 {
 	PORTD |= (1<<IN1);
 	PORTD &= ~(1<<IN2);
 }
 
-void Motor::reverse_direction();
+void Motor::reverse_direction()
 {
 	PORTD |= (1<<IN1);
 	PORTD &= ~(1<<IN2);
