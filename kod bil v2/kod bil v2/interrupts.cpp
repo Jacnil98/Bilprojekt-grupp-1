@@ -1,4 +1,4 @@
-#include "GPIO.h"
+#include "header.h"
 
 
 ISR (TIMER0_OVF_vect)
@@ -13,6 +13,6 @@ ISR (TIMER0_OVF_vect)
 ******************************************************************************/
 ISR (PCINT1_vect)
 {
-	//if (button.is_pressed()) motor.toggle();
+	if (button.is_pressed()) motor.toggle();
 	return;
 }

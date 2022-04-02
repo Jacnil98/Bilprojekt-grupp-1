@@ -52,7 +52,7 @@ class GPIO
 
 class Motor : public GPIO
 {
-	private:
+private:
 	bool PWM_enabled = false;
 	bool interrupt_enabled = false;
 	bool motor_enabled = false;
@@ -60,7 +60,7 @@ class Motor : public GPIO
 	uint8_t sensor_PCINT;
 	IO_port sensor_io_port;
 	uint16_t ADC_read();
-	public:
+public:
 	bool forward_enabled = true;
 	Motor(void) {}
 	Motor(const uint8_t PIN);
@@ -81,10 +81,10 @@ class Motor : public GPIO
 
 class Sensor : public GPIO
 {
-	private:
+private:
 	uint8_t sensor_PIN;
 	uint16_t ADC_read();
-	public:
+public:
 	Sensor(void){}
 	Sensor(const uint8_t PIN);
 	uint16_t calculate();
@@ -92,9 +92,9 @@ class Sensor : public GPIO
 
 class Button : public GPIO
 {
-	private:
+private:
 	bool interrupt_enabled = false;
-	public:
+public:
 	
 	Button(void) {}
 	Button(const uint8_t PIN);
@@ -106,7 +106,7 @@ class Button : public GPIO
 
 class PWM_Timer
 {
-	private:
+private:
 	TimerSelection timerSelection = TimerSelection::NONE;
 	uint32_t executed_interrupts = 0x00;
 	uint32_t required_interrupts = 0x00;
@@ -114,7 +114,7 @@ class PWM_Timer
 	uint8_t PIN = 0x00;
 	uint32_t total_interrupts = 0x00;
 	void init(void);
-	public:
+public:
 	inline PWM_Timer(void) { }
 	PWM_Timer(const TimerSelection timerSelection, const double period, const uint8_t PIN);
 	void update(void);
@@ -126,13 +126,13 @@ class PWM_Timer
 
 class USART_Timer
 {
-	private:
+private:
 	bool enabled;
 	uint16_t delay;
 	uint16_t required_interrupts;
 	volatile uint16_t executed_interrupts;
 	void init_timer0();
-	public:
+public:
 	USART_Timer() {}
 	USART_Timer(const uint16_t delay);
 	void count_interrupts();
