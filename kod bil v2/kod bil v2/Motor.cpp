@@ -1,4 +1,5 @@
 #include "GPIO.h"
+#include "header.h"
 
 Motor::Motor(const uint8_t PIN)
 {
@@ -81,7 +82,9 @@ void Motor::disable_interrupt()
 ******************************************************************************/
 void Motor::enabled()
 {
+	this->PWM_enabled = true;
 	ENABLE_TIMER1;
+	pwm_timer.enabled = true;
 	this->on();
 }
 /******************************************************************************
@@ -89,7 +92,10 @@ void Motor::enabled()
 ******************************************************************************/
 void Motor::disabled()
 {
+	
+	this->PWM_enabled = false;
 	DISABLE_TIMER1;
+	pwm_timer.enabled = false;
 	this->off();
 }
 

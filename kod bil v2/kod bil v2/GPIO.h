@@ -54,8 +54,8 @@ class Motor : public GPIO
 {
 private:
 	bool PWM_enabled = false;
-	bool interrupt_enabled = false;
 	bool motor_enabled = false;
+	bool interrupt_enabled = false;
 	uint8_t sensor_PIN;
 	uint8_t sensor_PCINT;
 	IO_port sensor_io_port;
@@ -76,6 +76,7 @@ public:
 	bool is_enabled();
 	void forward_direction();
 	void reverse_direction();
+	void count_motor_PWM_interrupts();
 
 };
 
@@ -107,6 +108,7 @@ public:
 class PWM_Timer
 {
 private:
+	
 	TimerSelection timerSelection = TimerSelection::NONE;
 	uint32_t executed_interrupts = 0x00;
 	uint32_t required_interrupts = 0x00;
@@ -115,11 +117,13 @@ private:
 	uint32_t total_interrupts = 0x00;
 	void init(void);
 public:
+	bool enabled;
 	inline PWM_Timer(void) { }
 	PWM_Timer(const TimerSelection timerSelection, const double period, const uint8_t PIN);
 	void update(void);
 	void switch_mode(void);
 	bool elapsed(void);
+	void count_interrupts();
 };
 
 

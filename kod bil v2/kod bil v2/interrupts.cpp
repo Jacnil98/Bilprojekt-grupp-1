@@ -8,6 +8,24 @@ ISR (TIMER0_OVF_vect)
 }
 
 /******************************************************************************
+* Timer 1 används för PWM till motorn, Update läser av främre sensron via 
+* funktonen ADC_read, sätter period till ON samt nollställer executed_interrupts
+*
+* Count interrupts ittererar executed_interrupts on PWM_timer är enabled=true.
+*
+* elapsed jämför executed_interrupts med required_interrupts och när executed är
+* större eller lika med required så sätts period till off och en ny uppräkning 
+* för off tiden startar.
+******************************************************************************/
+ISR (TIMER1_COMPA_vect)
+{
+	pwm_timer.update();
+	pwm_timer.count_interrupts();
+	pwm_timer.elapsed();
+	return;
+}
+
+/******************************************************************************
 * avbrottsrutin som ska användas vid start av tävling.
 * PCICR = (1<<PCINT1);   PCICR = 0x00; PIN 9
 ******************************************************************************/

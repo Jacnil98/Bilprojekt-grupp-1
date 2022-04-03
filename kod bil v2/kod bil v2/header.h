@@ -8,5 +8,6 @@
 extern Motor motor;
 extern Button button;
 extern Sensor sensor;
+extern PWM_Timer pwm_timer;
 
 #endif /* HEADER_H_ */

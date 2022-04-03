@@ -3,6 +3,7 @@
 Motor motor;
 Button button;
 Sensor sensor;
+PWM_Timer pwm_timer;
 
 void init_GPIO()
 {
@@ -10,6 +11,7 @@ void init_GPIO()
 	button.enable_interrupt();
 	motor = pwm_motor(5);
 	motor.enable_interrupt();
+	
 	DDRD |= ((1<<IN1)|(1<<IN2));
 	return;
 }
