@@ -684,11 +684,19 @@ void Motor::reverse_direction()
  446:	80 68       	ori	r24, 0x80	; 128
  448:	8b b9       	out	0x0b, r24	; 11
 	PORTD &= ~(1<<IN2);
+<<<<<<< Updated upstream
  44a:	8b b1       	in	r24, 0x0b	; 11
  44c:	8b b9       	out	0x0b, r24	; 11
  44e:	08 95       	ret
 
 00000450 <_ZN5Motor14read_directionEv>:
+=======
+ 4cc:	8b b1       	in	r24, 0x0b	; 11
+ 4ce:	8b b9       	out	0x0b, r24	; 11
+ 4d0:	08 95       	ret
+
+000004d2 <_ZN5Motor14read_directionEv>:
+>>>>>>> Stashed changes
 /******************************************************************************
 * Funktionen read_direktion läser av om bilen ska åka framåt eller bakåt och 
 * och ettställer antingen IN1 eller IN2 på H bryggan för att bestämma riktning.
