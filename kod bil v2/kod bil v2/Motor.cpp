@@ -52,6 +52,10 @@ void Motor::toggle(void)
 	else this->enabled();
 }
 
+/******************************************************************************
+* Funktionen read_direktion läser av om bilen ska åka framåt eller bakåt och 
+* och ettställer antingen IN1 eller IN2 på H bryggan för att bestämma riktning.
+******************************************************************************/
 void Motor::read_direction(void)
 {
 	if (forward_enabled)
