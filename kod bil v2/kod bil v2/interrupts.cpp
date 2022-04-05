@@ -31,6 +31,7 @@ ISR (TIMER1_COMPA_vect)
 ******************************************************************************/
 ISR (PCINT1_vect)
 {
-	if (button.is_pressed()) motor.toggle();
+	if(button.is_pressed())motor.enabled();
+	//if (button.is_pressed()) motor.toggle();
 	return;
 }

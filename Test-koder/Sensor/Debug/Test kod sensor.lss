@@ -21,19 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  000000c4  00000000  00000000  00002270  2**2
                   CONTENTS, READONLY, DEBUGGING
-<<<<<<< HEAD
-  9 .debug_str    0000042a  00000000  00000000  00002334  2**0
+  9 .debug_str    00000434  00000000  00000000  00002334  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000001c8  00000000  00000000  0000275e  2**0
+ 10 .debug_loc    000001c8  00000000  00000000  00002768  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000040  00000000  00000000  00002926  2**0
-=======
-  9 .debug_str    00000426  00000000  00000000  000022f8  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000001e6  00000000  00000000  0000271e  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000040  00000000  00000000  00002904  2**0
->>>>>>> 282972ae78f3b3024595f3273302eddf98d9fb35
+ 11 .debug_ranges 00000040  00000000  00000000  00002930  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -232,7 +224,7 @@ void serial_print_int(const int number)
 uint32_t ADC_read()
 {
 	ADMUX = ((1 << REFS0) | SENSOR);
- 164:	82 e4       	ldi	r24, 0x42	; 66
+ 164:	80 e4       	ldi	r24, 0x40	; 64
  166:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
 	ADCSRA = ((1 << ADEN) | (1 << ADSC) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2));
  16a:	87 ec       	ldi	r24, 0xC7	; 199
@@ -295,7 +287,7 @@ int main()
     {
 		_delay_ms(200);
 		float in_signal = ADC_read(SENSOR)*0.0048828125; // = 5/1023
- 1bc:	82 e0       	ldi	r24, 0x02	; 2
+ 1bc:	80 e0       	ldi	r24, 0x00	; 0
  1be:	90 e0       	ldi	r25, 0x00	; 0
  1c0:	0e 94 b2 00 	call	0x164	; 0x164 <ADC_read>
  1c4:	0e 94 af 01 	call	0x35e	; 0x35e <__floatunsisf>
@@ -321,6 +313,8 @@ int main()
  1ee:	51 e4       	ldi	r21, 0x41	; 65
  1f0:	0e 94 3d 02 	call	0x47a	; 0x47a <__mulsf3>
  1f4:	0e 94 79 01 	call	0x2f2	; 0x2f2 <__fixsfsi>
+		//int distance = 13*pow(in_signal, -1); //13*pow(in_signal, -1) läst från datablad 13/in_signal; alt 13*(1/in_signal)
+
 		serial_print_int(distance);
  1f8:	cb 01       	movw	r24, r22
  1fa:	0e 94 84 00 	call	0x108	; 0x108 <serial_print_int>

@@ -7,7 +7,7 @@ PWM_Timer pwm_timer;
 
 void init_GPIO()
 {
-	button = start_Button(13);
+	button = start_Button(9);
 	button.enable_interrupt();
 	motor = pwm_motor(5);
 	motor.enable_interrupt();

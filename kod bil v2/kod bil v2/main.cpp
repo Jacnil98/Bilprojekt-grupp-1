@@ -7,10 +7,6 @@ int main(void)
 	
 	while (1)
 	{
-		if (button.is_pressed())
-		motor.off();
-		else
-		motor.on();
 		
 		
 	}
