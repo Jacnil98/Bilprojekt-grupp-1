@@ -4,7 +4,7 @@
 
 #define ADC_MAX 1023.0f
 #define PERIOD 10
-#define FWD_SENSOR 2
+#define FWD_SENSOR 1
 #define IN1 7
 #define IN2 8
 #define _9600_KBPS 103
@@ -31,7 +31,6 @@
 #define DISABLE_TIMER2 TIMSK2 = 0x00
 
 enum class PWM_Period { ON, OFF };
-
 
 class GPIO
 {
@@ -106,10 +105,9 @@ public:
 	bool interrupt_is_enabled(void) {return this->interrupt_enabled; }
 };
 
-class PWM_Timer
+class PWM_Timer : public GPIO
 {
 private:
-	
 	TimerSelection timerSelection = TimerSelection::NONE;
 	uint32_t executed_interrupts = 0x00;
 	uint32_t required_interrupts = 0x00;
@@ -154,6 +152,7 @@ Motor pwm_motor(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
 USART_Timer new_USART_Timer(const uint16_t delay);
 Sensor new_Sensor(const uint8_t PIN);
+PWM_Timer new_PWM_Timer(const double period, const uint8_t PIN);
 
 
 void serial_print(const char* s); // Funktion för seriell överföring.

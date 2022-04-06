@@ -103,7 +103,6 @@ void Motor::disabled()
 	this->off();
 }
 
-
 void Motor::PWM()
 {
 	
