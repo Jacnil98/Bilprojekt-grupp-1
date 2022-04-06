@@ -40,13 +40,14 @@ void Button::enable_interrupt()
 		SET(PCICR, PCIE2);
 		SET(PCMSK2, this->PIN);
 	}
+	this->interrupt_enabled = true;
 }
 void Button::disable_interrupt(void)
 {
 	if (this->io_port== IO_port::B)
-	CLEAR(PCMSK0, this->PIN);
+		CLEAR(PCMSK0, this->PIN);
 	else if (this->io_port == IO_port::D)
-	CLEAR(PCMSK2, this->PIN);
+		CLEAR(PCMSK2, this->PIN);
 	this->interrupt_enabled = false;
 	return;
 }

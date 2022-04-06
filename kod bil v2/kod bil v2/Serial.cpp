@@ -2,12 +2,23 @@
 
 static void serial_write_byte(const char data);
 
+void init_serial(void)
+{
+	UCSR0B = (1 << TXEN0);
+	UCSR0C = (1 << UCSZ00) | (1 << UCSZ01);
+	UBRR0 = 103;
+	UDR0 = '\r';
+}
+
 void serial_print(const char* s)
 {
-	const char* end = "\n\r";
-	for (uint32_t i = 0; s[i]; i++) serial_write_byte(s[i]);
-	for (uint32_t i = 0; end[i]; i++) serial_write_byte(end[i]);
-	serial_write_byte('\0');
+	for (size_t i = 0; s[i]; i++)
+	{
+		serial_write_byte(s[i]);
+		if (s[i] == '\n')
+			serial_write_byte('\r');
+	}
+	
 	return;
 }
 

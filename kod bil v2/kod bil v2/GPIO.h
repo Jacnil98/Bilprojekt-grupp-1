@@ -14,6 +14,7 @@
 #define CLOCK_TIME 1023
 #define MAX_COUNT
 
+#define MOTOR 5
 #define BUTTON 1 //PB1 på uno, D9 på nano
 #define BUTTON_IS_PRESSED (PINB & (1<<BUTTON))
 
@@ -158,4 +159,5 @@ Sensor new_Sensor(const uint8_t PIN);
 void serial_print(const char* s); // Funktion för seriell överföring.
 void serial_print_int(const int number);
 void init_serial();
+
 #endif /* BUTTON_H_ */

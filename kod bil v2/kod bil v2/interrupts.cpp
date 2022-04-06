@@ -29,9 +29,9 @@ ISR (TIMER1_COMPA_vect)
 * avbrottsrutin som ska användas vid start av tävling.
 * PCICR = (1<<PCINT1);   PCICR = 0x00; PIN 9
 ******************************************************************************/
-ISR (PCINT1_vect)
+ISR (PCINT0_vect)
 {
-	if(button.is_pressed())motor.enabled();
-	//if (button.is_pressed()) motor.toggle();
+	//if(button.is_pressed())motor.enabled();
+	if (button.is_pressed()) motor.toggle();
 	return;
 }

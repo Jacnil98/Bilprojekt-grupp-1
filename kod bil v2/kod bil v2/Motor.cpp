@@ -122,6 +122,6 @@ void Motor::forward_direction()
 
 void Motor::reverse_direction()
 {
-	PORTD |= (1<<IN1);
-	PORTD &= ~(1<<IN2);
+	PORTD |= (1<<IN2);
+	PORTD &= ~(1<<IN1);
 }

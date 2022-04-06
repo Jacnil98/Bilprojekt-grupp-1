@@ -7,13 +7,13 @@ PWM_Timer pwm_timer;
 
 void init_GPIO()
 {
+	asm("SEI");
 	button = start_Button(9);
 	button.enable_interrupt();
 	motor = pwm_motor(5);
 	motor.enable_interrupt();
-	
 	DDRD |= ((1<<IN1)|(1<<IN2));
-	PCICR = (1<<5) //finns den?
+	init_serial();
 	return;
 }
 
