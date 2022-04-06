@@ -13,6 +13,7 @@ void init_GPIO()
 	motor.enable_interrupt();
 	
 	DDRD |= ((1<<IN1)|(1<<IN2));
+	PCICR = (1<<5) //finns den?
 	return;
 }
 
