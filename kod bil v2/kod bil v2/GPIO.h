@@ -57,7 +57,6 @@ private:
 	bool motor_enabled = false;
 	bool interrupt_enabled = false;
 	uint8_t sensor_PIN;
-	uint8_t sensor_PCINT;
 	IO_port sensor_io_port;
 	uint16_t ADC_read();
 public:
@@ -78,6 +77,15 @@ public:
 	void reverse_direction();
 	void count_motor_PWM_interrupts();
 
+};
+
+class H_Bridge
+{
+private:
+	// Led in1.
+	// Led in2.
+	H_Bridge(void) { }
+	
 };
 
 class Sensor : public GPIO
