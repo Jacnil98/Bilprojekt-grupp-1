@@ -37,6 +37,7 @@ void PWM_Timer::init(void)
 ******************************************************************************/
 void PWM_Timer::update()
 {
+	serial_print_int(1);
 	const uint16_t ADC_result = GPIO::ADC_read(this->PIN);
 	this->required_interrupts = (uint32_t)(ADC_result / ADC_MAX * this->total_interrupts + 0.5); // On-time, avrundat till närmaste heltal.
 	this->pwm_period = PWM_Period::ON;
@@ -80,4 +81,10 @@ void PWM_Timer::count_interrupts()
 {
 	if (this->enabled) executed_interrupts++;
 	else this->executed_interrupts = 0x00;
+}
+
+void PWM_Timer::PWM_function()
+{
+	//if(this->pwm_period = PWM_Period::ON) Motor.on();
+//	if (!this->pwm_period = PWM_Period::OFF) Motor.off();
 }

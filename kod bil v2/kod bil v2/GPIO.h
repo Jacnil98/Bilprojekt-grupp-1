@@ -123,6 +123,7 @@ public:
 	void switch_mode(void);
 	bool elapsed(void);
 	void count_interrupts();
+	void PWM_function();
 };
 
 

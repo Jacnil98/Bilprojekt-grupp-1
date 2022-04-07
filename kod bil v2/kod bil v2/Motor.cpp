@@ -86,10 +86,12 @@ void Motor::disable_interrupt()
 ******************************************************************************/
 void Motor::enabled()
 {
+	PWM_Timer(TimerSelection::TIMER1, PERIOD, sensor_PIN );
 	this->PWM_enabled = true;
 	ENABLE_TIMER1;
 	pwm_timer.enabled = true;
-	this->on();
+	pwm_timer.PWM_function();
+	
 }
 /******************************************************************************
 * enable ska avaktivera PWM_Timer för motorn samt stänga motorn via funktionen off.
@@ -100,7 +102,7 @@ void Motor::disabled()
 	this->PWM_enabled = false;
 	DISABLE_TIMER1;
 	pwm_timer.enabled = false;
-	this->off();
+	
 }
 
 void Motor::PWM()
