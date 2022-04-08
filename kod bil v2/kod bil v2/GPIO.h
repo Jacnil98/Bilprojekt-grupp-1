@@ -44,8 +44,7 @@ class GPIO
 		ADMUX = ((1 << REFS0) | PIN);
 		ADCSRA = ((1 << ADEN) | (1 << ADSC) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2));
 		while ((ADCSRA & (1 << ADIF)) == 0) ;
-		ADCSRA = (1 << ADIF);
-		
+		ADCSRA = (1 << ADIF);		
 		return ADC;
 	}
 };
@@ -76,6 +75,7 @@ public:
 	void forward_direction();
 	void reverse_direction();
 	void count_motor_PWM_interrupts();
+	uint8_t get_sensor_PIN(void) { return this->sensor_PIN; }
 
 };
 
@@ -117,8 +117,8 @@ class PWM_Timer : public GPIO
 {
 private:
 	TimerSelection timerSelection = TimerSelection::NONE;
-	uint32_t executed_interrupts = 0x00;
-	uint32_t required_interrupts = 0x00;
+	volatile uint32_t executed_interrupts = 0x00;
+	volatile uint32_t required_interrupts = 0x00;
 	PWM_Period pwm_period = PWM_Period::ON;
 	uint8_t PIN = 0x00;
 	uint32_t total_interrupts = 0x00;
@@ -156,6 +156,11 @@ public:
 	bool is_enabled();
 };
 
+extern Motor motor;
+extern Button button;
+extern Sensor sensor;
+extern PWM_Timer pwm_timer;
+
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
@@ -163,9 +168,8 @@ USART_Timer new_USART_Timer(const uint16_t delay);
 Sensor new_Sensor(const uint8_t PIN);
 PWM_Timer new_PWM_Timer(const double period, const uint8_t PIN);
 
-
 void serial_print(const char* s); // Funktion för seriell överföring.
-void serial_print_int(const int number);
+void serial_print_int(const uint32_t number);
 void init_serial();
 
 #endif /* BUTTON_H_ */

@@ -29,11 +29,11 @@ static void serial_write_byte(const char data)
 	return;
 }
 
-void serial_print_int(const int number)
+void serial_print_int(const uint32_t number)
 {
 	char text[50];
 	text[0] = '\0';
-	sprintf(text, "%d ", number);
+	sprintf(text, "%lu ", number);
 	serial_print(text);
 	return;
 }

@@ -20,11 +20,9 @@ ISR (TIMER0_OVF_vect)
 ISR (TIMER1_COMPA_vect)
 {
 	
-	pwm_timer.update();
-	
 	pwm_timer.count_interrupts();
-	pwm_timer.PWM_function();
-	pwm_timer.elapsed();
+	if (pwm_timer.elapsed())
+		pwm_timer.update();
 	return;
 }
 

@@ -1,4 +1,5 @@
 #include "GPIO.h"
+
 Motor motor;
 Button button;
 Sensor sensor;
@@ -8,11 +9,13 @@ void init_GPIO()
 {
 	asm("SEI");
 	INIT_TIMER1;
+	SET_TIMER1_LIMIT;
 	//Kalla på timer? new_timer? PWM_Timer??
 	button = start_Button(9);
 	button.enable_interrupt();
 	motor = pwm_motor(5);
-	motor.enable_interrupt();
+	pwm_timer = PWM_Timer(TimerSelection::TIMER1, 10, 5);
+	// motor.enable_interrupt();
 	sensor = new_Sensor(0);
 	DDRD |= ((1<<IN1)|(1<<IN2));
 	init_serial();

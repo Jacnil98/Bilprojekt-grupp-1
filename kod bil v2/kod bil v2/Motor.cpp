@@ -70,13 +70,13 @@ void Motor::read_direction(void)
 
 void Motor::enable_interrupt()
 {
-	PCMSK1 |= (1 << this->sensor_PIN);
+	// PCMSK1 |= (1 << this->sensor_PIN);
 	this->interrupt_enabled = true;
 }
 
 void Motor::disable_interrupt()
 {
-	PCMSK1 &= ~(1 << this->sensor_PIN);
+	// PCMSK1 &= ~(1 << this->sensor_PIN);
 	this->interrupt_enabled = false;
 }
 
@@ -85,7 +85,7 @@ void Motor::disable_interrupt()
 ******************************************************************************/
 void Motor::enabled()
 {
-	PWM_Timer(TimerSelection::TIMER1, PERIOD, this->sensor_PIN);
+	// PWM_Timer(TimerSelection::TIMER1, PERIOD, this->sensor_PIN);
 	this->PWM_enabled = true;
 	ENABLE_TIMER1;
 	pwm_timer.enabled = true;
@@ -97,11 +97,12 @@ void Motor::enabled()
 ******************************************************************************/
 void Motor::disabled()
 {
-	
 	this->PWM_enabled = false;
 	DISABLE_TIMER1;
 	pwm_timer.enabled = false;
 	this->motor_enabled = false;
+	this->off();
+	return;
 	
 }
 
