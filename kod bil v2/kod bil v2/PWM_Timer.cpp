@@ -1,5 +1,5 @@
 #include "GPIO.h"
-#include "header.h"
+
 static inline uint32_t get_interrupts(const double period);
 
 PWM_Timer::PWM_Timer(const TimerSelection timerSelection, const double period, const uint8_t PIN)
@@ -8,13 +8,6 @@ PWM_Timer::PWM_Timer(const TimerSelection timerSelection, const double period, c
 	this->PIN = PIN;
 	this->total_interrupts = get_interrupts(period);
 	this->init();
-	serial_print("PERIOD: ");
-	serial_print_int(period);
-	serial_print("\nPIN: ");
-	serial_print_int(PIN);
-	serial_print("\ntotal_interrupts: ");
-	serial_print_int(total_interrupts);
-	serial_print("\n ");
 	return;
 }
 
@@ -38,47 +31,50 @@ void PWM_Timer::init(void)
 
 
 /******************************************************************************
-* 
+* Funktionen update läser av främre sensorn (sensor_PIN) via funktionen 
+* calculate och ger ett värde från 0-1023 som motsvarar 8 bitar, detta omvandlas
+* till det ett värde mellan 0 och antalet interrupts som genereras av timer1 
+* under en duty_cycle som är 625st för 10ms.
+* Period sätts till ON och executed_interrupts nollställs och motorn sätts igång
+* via funktionen on i motorclassen.
 ******************************************************************************/
 void PWM_Timer::update()
 {
 	if (!this->enabled)	 return;
-	const uint16_t ADC_result = GPIO::ADC_read(motor.get_sensor_PIN());
-	serial_print("ADC value: ");
+	const uint16_t ADC_result = sensor.calculate(); //GPIO::ADC_read(motor.get_sensor_PIN());
 	serial_print_int(ADC_result);
-	serial_print("\n");
-	this->required_interrupts = (uint32_t)(ADC_result / ADC_MAX * this->total_interrupts + 0.5); // On-time, avrundat till närmaste heltal.
-	serial_print("Required interrupts during on time: ");
-	serial_print_int(this->required_interrupts);
-	serial_print("of 625 in total!\n");
-	this->pwm_period = PWM_Period::ON;
+	this->required_interrupts = (uint32_t)(ADC_result / ADC_MAX * this->total_interrupts + 0.5);
+	this->pwm_period = PWM_Period::ON; 
 	this->executed_interrupts = 0x00;
-	motor.on();
+	motor.on(); 
 	return;
 }
 
-// Byter Mode. Om aktuell Mode än ON, så beräknas off-tiden i interrupts.
-// Annrars så beräknas en ny on- och off-tid via anrop av metoden update.
+/******************************************************************************
+* Funktionen switched mode kallas på så fort antalet timergenererade avbrott
+* överstigit required interrupts i funktionen elapsed. 
+* Den används för att beräkna required_interrupts för period OFF, om inte 
+* tidigare vilkor var OFF, då kallas funktionen update och antalet interrupts
+* för period ON beräknas.
+******************************************************************************/
 void PWM_Timer::switch_mode(void)
 {
-		
-	if (this->pwm_period == PWM_Period::ON)
+	if (this->pwm_period == PWM_Period::ON) 
 	{
-		this->pwm_period = PWM_Period::OFF;
-		this->required_interrupts = this->total_interrupts - this->required_interrupts; // Beräknar off-tid ur periodtid samt on-tid (men med interrupts).
-		serial_print("Required interrupts during off time: ");
-		serial_print_int(this->required_interrupts);
-		serial_print("of 625 in total!\n");
+		this->pwm_period = PWM_Period::OFF; 
+		this->required_interrupts = this->total_interrupts - this->required_interrupts; 
 		this->executed_interrupts = 0x00;
-		motor.off();
-		
+		motor.off(); 
 	}
-	
 	else
 		this->update();
 	return;
 }
-
+/******************************************************************************
+* Funktionen elapsed kallar på funktionen switch mode för att sätta period till
+* ON eller OFF beroende på tidigare tillstånd när executed interrupts blir
+* lika eller högre än required_interrupts.
+******************************************************************************/
 bool PWM_Timer::elapsed(void)
 {
 	if (this->executed_interrupts >= this->required_interrupts) 
@@ -86,10 +82,12 @@ bool PWM_Timer::elapsed(void)
 		this->switch_mode();
 		return true;
 	}
-	
 	return false;
 }
-
+/******************************************************************************
+* Funktioonen count_interrupts anropas av Timer1 vid timergenererat avbrott,
+* den börjar då räkna upp om vilkoret är uppfyllt.
+******************************************************************************/
 void PWM_Timer::count_interrupts()
 {
 	if (this->enabled) 
@@ -101,29 +99,14 @@ void PWM_Timer::count_interrupts()
 	{
 		this->executed_interrupts = 0x00;
 	}
-	
-
-	
 }
 
-void PWM_Timer::PWM_function()
-{
-	if(this->pwm_period == PWM_Period::ON) 
-	{
-		// serial_print_int(1);
-		motor.on();
-	}
-	if(this->pwm_period == PWM_Period::OFF)
-	{
-		// serial_print_int(2);
-		motor.off();
-	}
-}
-
+/******************************************************************************
+* Funktioonen get_interrupts kallas på vid initiering för att beräkna antalet
+* avbrott som krävs för en bestämd periodtid, som i detta fallet är 10ms och 
+* ger 625 avbrott. som "ges" till variabeln total_interrupts.
+******************************************************************************/
 static inline uint32_t get_interrupts(const double period)
 {
-	serial_print("Number of interrupts: ");
-	serial_print_int((uint32_t)(period / 0.016f + 0.5));
-	serial_print("\n");
 	return (uint32_t)(period / 0.016f + 0.5);
 }

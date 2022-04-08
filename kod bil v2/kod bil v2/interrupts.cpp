@@ -19,7 +19,6 @@ ISR (TIMER0_OVF_vect)
 ******************************************************************************/
 ISR (TIMER1_COMPA_vect)
 {
-	
 	pwm_timer.count_interrupts();
 	if (pwm_timer.elapsed())
 		pwm_timer.update();
@@ -32,7 +31,6 @@ ISR (TIMER1_COMPA_vect)
 ******************************************************************************/
 ISR (PCINT0_vect)
 {
-	//if(button.is_pressed())motor.enabled();
 	if (button.is_pressed()) motor.toggle();
 	return;
 }

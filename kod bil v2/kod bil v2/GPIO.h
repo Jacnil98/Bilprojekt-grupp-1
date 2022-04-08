@@ -7,12 +7,8 @@
 #define FWD_SENSOR 1
 #define IN1 7
 #define IN2 8
-#define _9600_KBPS 103
 #define INTERRUPT_TIME 0.016f // 0.016 ms mellan timeravbrott,
-#define SET_TIMER1_LIMIT OCR1A = 256
 #define INTERRUPTS_FOR_10MS 625 // Det krävs 625 timeravbrott för 10 ms.
-#define CLOCK_TIME 1023
-#define MAX_COUNT
 
 #define MOTOR 5
 #define BUTTON 1 //PB1 på uno, D9 på nano
@@ -70,22 +66,12 @@ public:
 	void disable_interrupt();
 	void enabled();
 	void disabled();
-	void PWM();
 	bool is_enabled();
 	void forward_direction();
 	void reverse_direction();
 	void count_motor_PWM_interrupts();
 	uint8_t get_sensor_PIN(void) { return this->sensor_PIN; }
 
-};
-
-class H_Bridge
-{
-private:
-	// Led in1.
-	// Led in2.
-	H_Bridge(void) { }
-	
 };
 
 class Sensor : public GPIO
@@ -134,28 +120,6 @@ public:
 	void PWM_function();
 };
 
-
-
-class USART_Timer
-{
-private:
-	bool enabled;
-	uint16_t delay;
-	uint16_t required_interrupts;
-	volatile uint16_t executed_interrupts;
-	void init_timer0();
-public:
-	USART_Timer() {}
-	USART_Timer(const uint16_t delay);
-	void count_interrupts();
-	bool elapsed();
-	void set_delay(const uint16_t delay);
-	void on();
-	void off();
-	void toggle();
-	bool is_enabled();
-};
-
 extern Motor motor;
 extern Button button;
 extern Sensor sensor;
@@ -164,7 +128,6 @@ extern PWM_Timer pwm_timer;
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
-USART_Timer new_USART_Timer(const uint16_t delay);
 Sensor new_Sensor(const uint8_t PIN);
 PWM_Timer new_PWM_Timer(const double period, const uint8_t PIN);
 

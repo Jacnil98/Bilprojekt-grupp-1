@@ -1,5 +1,4 @@
 #include "GPIO.h"
-#include "header.h"
 
 Motor::Motor(const uint8_t PIN)
 {
@@ -67,25 +66,11 @@ void Motor::read_direction(void)
 	}
 }
 
-
-void Motor::enable_interrupt()
-{
-	// PCMSK1 |= (1 << this->sensor_PIN);
-	this->interrupt_enabled = true;
-}
-
-void Motor::disable_interrupt()
-{
-	// PCMSK1 &= ~(1 << this->sensor_PIN);
-	this->interrupt_enabled = false;
-}
-
 /******************************************************************************
 * enable ska aktivera PWM_Timer för motorn samt starta motorn via funktionen on.
 ******************************************************************************/
 void Motor::enabled()
 {
-	// PWM_Timer(TimerSelection::TIMER1, PERIOD, this->sensor_PIN);
 	this->PWM_enabled = true;
 	ENABLE_TIMER1;
 	pwm_timer.enabled = true;
@@ -103,11 +88,6 @@ void Motor::disabled()
 	this->motor_enabled = false;
 	this->off();
 	return;
-	
-}
-
-void Motor::PWM()
-{
 	
 }
 

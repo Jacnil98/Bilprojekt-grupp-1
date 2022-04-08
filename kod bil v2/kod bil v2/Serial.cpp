@@ -18,7 +18,6 @@ void serial_print(const char* s)
 		if (s[i] == '\n')
 			serial_write_byte('\r');
 	}
-	
 	return;
 }
 
