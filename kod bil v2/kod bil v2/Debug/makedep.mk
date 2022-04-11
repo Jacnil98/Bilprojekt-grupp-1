@@ -12,6 +12,8 @@ main.cpp
 
 Motor.cpp
 
+Servo.cpp
+
 Sensor.cpp
 
 Serial.cpp

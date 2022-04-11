@@ -3,7 +3,8 @@
 
 ISR (TIMER0_OVF_vect)
 {
-	
+	servo_timer.count_interrupts();
+	 //fixa uträkning och inställningar för timer 0
 	return;
 }
 

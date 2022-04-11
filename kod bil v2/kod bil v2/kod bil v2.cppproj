@@ -178,6 +178,9 @@
     <Compile Include="Motor.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Servo.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Sensor.cpp">
       <SubType>compile</SubType>
     </Compile>

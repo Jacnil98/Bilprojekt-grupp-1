@@ -45,6 +45,31 @@ class GPIO
 	}
 };
 
+class Servo : public GPIO
+{
+private:
+	bool PWM_enabled = false;
+	bool servo_enabled = false;
+	bool interrupt_enabled = false;
+	uint8_t left_sensor_PIN;
+	uint8_t right_sensor_PIN;
+	IO_port left_sensor_io_port;
+	IO_port right_sensor_io_port;
+	uint16_t ADC_read();
+public:
+	Servo(void) {}
+	Servo(const uint8_t PIN);
+	void on(void);
+	void off();
+	void toggle();
+	void enabled();
+	void disabled();
+	bool is_enabled();
+	uint8_t get_left_sensor_PIN() {return this->left_sensor_PIN; }
+	uint8_t get_right_sensor_PIN() {return this->right_sensor_PIN; }
+};
+
+
 class Motor : public GPIO
 {
 private:
@@ -71,7 +96,6 @@ public:
 	void reverse_direction();
 	void count_motor_PWM_interrupts();
 	uint8_t get_sensor_PIN(void) { return this->sensor_PIN; }
-
 };
 
 class Sensor : public GPIO
@@ -121,12 +145,15 @@ public:
 };
 
 extern Motor motor;
+extern Servo servo;
 extern Button button;
 extern Sensor sensor;
-extern PWM_Timer pwm_timer;
+extern PWM_Timer pwm_timer, servo_timer;
+
 
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);
+Servo pwm_servo(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
 Sensor new_Sensor(const uint8_t PIN);
 PWM_Timer new_PWM_Timer(const double period, const uint8_t PIN);
