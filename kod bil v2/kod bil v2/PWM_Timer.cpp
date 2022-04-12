@@ -50,6 +50,17 @@ void PWM_Timer::update()
 	return;
 }
 
+void PWM_Timer::servo_update()
+{
+	const uint16_t ADC_result = sensor.servo_position(); //GPIO::ADC_read(motor.get_sensor_PIN());
+	//serial_print_int(ADC_result);
+	this->required_interrupts = (uint32_t)(ADC_result / ADC_MAX * this->total_interrupts + 0.5);
+	this->servo_period = PWM_Period::ON;
+	this->executed_interrupts = 0x00;
+	servo.on();
+	return;
+}
+
 /******************************************************************************
 * Funktionen switched mode kallas på så fort antalet timergenererade avbrott
 * överstigit required interrupts i funktionen elapsed. 
@@ -70,6 +81,21 @@ void PWM_Timer::switch_mode(void)
 		this->update();
 	return;
 }
+
+void PWM_Timer::switch_servo_mode()
+{
+	if (this->servo_period == PWM_Period::ON)
+	{
+		this->servo_period = PWM_Period::OFF;
+		this->required_interrupts = this->total_interrupts;
+		this->executed_interrupts = 0x00;
+		servo.off();
+	}
+	else
+	this->servo_update();
+	return;
+}
+
 /******************************************************************************
 * Funktionen elapsed kallar på funktionen switch mode för att sätta period till
 * ON eller OFF beroende på tidigare tillstånd när executed interrupts blir
@@ -81,6 +107,15 @@ bool PWM_Timer::elapsed(void)
 	{
 		this->switch_mode();
 		return true;
+	}
+	return false;
+}
+
+bool PWM_Timer::servo_elapsed()
+{
+	if (this->executed_interrupts >= this->required_interrupts)
+	{
+		this->switch_servo_mode();
 	}
 	return false;
 }

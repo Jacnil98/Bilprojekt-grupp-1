@@ -65,6 +65,9 @@ public:
 	void enabled();
 	void disabled();
 	bool is_enabled();
+	
+	
+	
 	uint8_t get_left_sensor_PIN() {return this->left_sensor_PIN; }
 	uint8_t get_right_sensor_PIN() {return this->right_sensor_PIN; }
 };
@@ -102,11 +105,18 @@ class Sensor : public GPIO
 {
 private:
 	uint8_t sensor_PIN;
+	uint16_t target = 90;
+	uint16_t actual_value = 0;
 	uint16_t ADC_read();
 public:
 	Sensor(void){}
 	Sensor(const uint8_t PIN);
 	uint16_t calculate();
+	uint16_t servo_position();
+	uint16_t get_left_sensor();
+	uint16_t get_right_sensor();
+	uint16_t get_sensor_input(const uint8_t PIN);
+	
 };
 
 class Button : public GPIO
@@ -130,6 +140,7 @@ private:
 	volatile uint32_t executed_interrupts = 0x00;
 	volatile uint32_t required_interrupts = 0x00;
 	PWM_Period pwm_period = PWM_Period::ON;
+	PWM_Period servo_period = PWM_Period::ON;
 	uint8_t PIN = 0x00;
 	uint32_t total_interrupts = 0x00;
 	void init(void);
@@ -139,9 +150,13 @@ public:
 	PWM_Timer(const TimerSelection timerSelection, const double period, const uint8_t PIN);
 	void update(void);
 	void switch_mode(void);
+	void switch_servo_mode();
 	bool elapsed(void);
+	bool servo_elapsed();
+	void servo_update();
 	void count_interrupts();
 	void PWM_function();
+	
 };
 
 extern Motor motor;
