@@ -33,7 +33,6 @@ uint16_t Sensor::get_sensor_input(const uint8_t PIN)
 {
 	float in_signal_right = GPIO::ADC_read(const uint8_t PIN);
 	float in_signal = in_signal_right * 0.0048828125;
-	uint16_t distance_in_cm = 13*(1/in_signal);
-	uint16_t distance = distance_in_cm * 12;
+	uint16_t distance = 13*(1/in_signal);
 	return distance;
 }

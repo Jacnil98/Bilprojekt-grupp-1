@@ -12,6 +12,8 @@ main.cpp
 
 Motor.cpp
 
+PID_Controller.cpp
+
 Servo.cpp
 
 Sensor.cpp

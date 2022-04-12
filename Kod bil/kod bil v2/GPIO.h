@@ -26,6 +26,12 @@
 #define DISABLE_TIMER1 TIMSK1 = 0x00
 #define DISABLE_TIMER2 TIMSK2 = 0x00
 
+static constexpr auto SENSOR_MIN = 0.0;
+static constexpr auto SENSOR_MAX = 1023.0;
+static constexpr auto OUTPUT_MIN = 0.0;
+static constexpr auto OUTPUT_MAX = 180.0;
+static constexpr auto TARGET = 90.0;
+
 enum class PWM_Period { ON, OFF };
 
 class GPIO
@@ -101,12 +107,46 @@ public:
 	uint8_t get_sensor_PIN(void) { return this->sensor_PIN; }
 };
 
+class PID_Controller
+{
+private:
+	
+	double actual_value = 0x00;
+	double output = 0x00;
+	double current_error = 0x00;
+	double last_error = 0x00;
+	double target = 0x00;
+	double Kp = 0x00;
+	double Ki = 0x00;
+	double Kd = 0x00;
+	double integral = 0x00;
+	double derivative = 0x00;
+	double output_min = 0x00;
+	double output_max = 0x00;
+public:
+	PID_Controller(void) {}
+	PID_Controller(const double target, const double Kp, const double Ki, const double Kd);
+	PID_Controller(const double target, const double Kp, const double Ki, const double Kd, const double output_min, const double output_max);
+	~PID_Controller(void) { }
+	void set_target(const double new_target) {this->target = new_target; }
+	void set_parameters(const double Kp, const double Ki, const double Kd);
+	void set_actual_value(const double new_actual_value) {this->actual_value = new_actual_value; }
+	double get_output(void) {return this->output; }
+	void regulate(void);
+	void print(void);
+};
+
 class Sensor : public GPIO
 {
 private:
 	uint8_t sensor_PIN;
-	uint16_t target = 90;
-	uint16_t actual_value = 0;
+	static constexpr auto SENSOR_MIN = 0.0;
+	static constexpr auto SENSOR_MAX = 1023.0;
+	static constexpr auto OUTPUT_MIN = 0.0;
+	static constexpr auto OUTPUT_MAX = 180.0;
+	static constexpr auto TARGET = 90.0;
+	
+	
 	uint16_t ADC_read();
 public:
 	Sensor(void){}
