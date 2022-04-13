@@ -51,7 +51,8 @@ void PWM_Timer::update()
 
 void PWM_Timer::servo_update()
 {
-	const uint8_t mapped_position = sensor.set_input(); // set_input förväntas skickas med 2 värden! vilka? //GPIO::ADC_read(motor.get_sensor_PIN());
+	//const uint8_t mapped_position = sensor.set_input(); // set_input förväntas skickas med 2 värden! vilka? //GPIO::ADC_read(motor.get_sensor_PIN());
+	sensor.set_input();
 	PID_Controller::regulate();
 	//utvärde?
 	//räkna om till HZ
