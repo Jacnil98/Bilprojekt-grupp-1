@@ -18,8 +18,9 @@ double Sensor::check_sensor_input(const double sensor_input)
 	return sensor_input;
 }
 
-Sensor::Sensor(const double target, const double Kp, const double Ki, const double Kd)
+Sensor::Sensor(const uint8_t PIN,const double target, const double Kp, const double Ki, const double Kd)
 {
+	this->PIN = PIN;
 	this->target = target;
 	this->Kp = Kp;
 	this->Ki = Ki;
@@ -43,17 +44,17 @@ void Sensor::set_input(void)
 	return;
 }
 
-void Sensor::print();
+/*void Sensor::print();
 {
 	return;
-}
+}*/
 
 
 uint16_t Sensor::calculate()
 {
 	//uint16_t distance = distance_in_cm * 12;
 	//float in_signal = GPIO::ADC_read(this->PIN)*0.0048828125;
-	float in_signal1 = GPIO::ADC_read(Sensor.get_sensor_PIN());
+	float in_signal1 = GPIO::ADC_read(this->PIN);
 	float in_signal = in_signal1 * 0.0048828125;
 	uint16_t distance = 13*(1/in_signal);
 	if (distance >=800) distance = 800;
@@ -61,7 +62,7 @@ uint16_t Sensor::calculate()
 	return distance;
 }
 
-uint16_t Sensor::servo_position()
+/*uint16_t Sensor::servo_position()
 {
 	//input värde mellan 0-180 för att här göras om till en frekvens mellan 1000-2000
 	uint16_t right_distance = this->get_sensor_input(const uint8_t servo.right_sensor_PIN);

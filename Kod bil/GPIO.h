@@ -26,11 +26,11 @@
 #define DISABLE_TIMER1 TIMSK1 = 0x00
 #define DISABLE_TIMER2 TIMSK2 = 0x00
 
-#define SENSOR_MIN = 0.0
-#define SENSOR_MAX = 80.0
-#define OUTPUT_MIN = 0.0
-#define OUTPUT_MAX = 180.0
-#define TARGET = 90.0
+#define SENSOR_MIN 0.0
+#define SENSOR_MAX 80.0
+#define OUTPUT_MIN 0.0
+#define OUTPUT_MAX 180.0
+#define TARGET 90.0
 
 enum class PWM_Period { ON, OFF };
 
@@ -136,7 +136,7 @@ public:
 	void check_output();
 };
 
-class Sensor : public GPIO
+class Sensor : public GPIO, PID_Controller
 {
 private:
 	uint8_t sensor_PIN;
@@ -149,7 +149,8 @@ private:
 	void map();
 public:
 	Sensor(void){}
-	Sensor(const double target, const double Kp, const double Ki, const double Kd);
+	Sensor(const uint8_t PIN);
+	Sensor(const uint8_t PIN, const double target, const double Kp, const double Ki, const double Kd);
 	void set_input(const double new_left_sensor_input, const double new_right_sensor_input);
 	void set_input(void);
 	void print(void);

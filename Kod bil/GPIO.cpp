@@ -7,6 +7,7 @@ Sensor sensor;
 Sensor right_sensor;
 Sensor left_sensor;
 PWM_Timer pwm_timer, servo_timer;
+PID_Controller pid;
 
 void init_GPIO()
 {
@@ -14,6 +15,7 @@ void init_GPIO()
 	INIT_TIMER0;
 	INIT_TIMER1;
 	OCR1A = 256;
+	pid = PID_Controller(90, 1, 0.01, 0.1);
 	button = start_Button(9);
 	button.enable_interrupt();
 	motor = pwm_motor(5);
