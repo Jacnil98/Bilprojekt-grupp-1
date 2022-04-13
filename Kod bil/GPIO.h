@@ -151,7 +151,7 @@ public:
 	Sensor(void){}
 	Sensor(const uint8_t PIN);
 	Sensor(const uint8_t PIN, const double target, const double Kp, const double Ki, const double Kd);
-	void set_input(const double new_left_sensor_input, const double new_right_sensor_input);
+	void set_input();
 	void print(void);
 	
 	uint16_t calculate();
