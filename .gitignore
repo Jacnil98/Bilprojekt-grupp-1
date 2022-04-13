@@ -41,6 +41,7 @@
 *.su
 *.idb
 *.pdb
+*.atsuo
 
 # Kernel Module Compile Results
 .mod

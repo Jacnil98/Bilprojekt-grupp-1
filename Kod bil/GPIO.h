@@ -1,5 +1,6 @@
 #ifndef GPIO_H_
 #define GPIO_H_
+
 #include "definitions.h"
 
 #define ADC_MAX 1023.0f
@@ -75,7 +76,6 @@ public:
 	uint8_t get_left_sensor_PIN() {return this->left_sensor_PIN; }
 	uint8_t get_right_sensor_PIN() {return this->right_sensor_PIN; }
 };
-
 
 class Motor : public GPIO
 {
@@ -176,7 +176,7 @@ public:
 	bool interrupt_is_enabled(void) {return this->interrupt_enabled; }
 };
 
-class PWM_Timer : public GPIO
+class PWM_Timer : public GPIO, PID_Controller
 {
 private:
 	TimerSelection timerSelection = TimerSelection::NONE;
@@ -207,7 +207,6 @@ extern Servo servo;
 extern Button button;
 extern Sensor sensor, new_left_sensor, new_right_sensor;;
 extern PWM_Timer pwm_timer, servo_timer;
-
 
 void init_GPIO();
 Motor pwm_motor(const uint8_t PIN);

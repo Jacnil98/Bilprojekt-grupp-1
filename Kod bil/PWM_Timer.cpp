@@ -29,7 +29,6 @@ void PWM_Timer::init(void)
 	return;
 }
 
-
 /******************************************************************************
 * Funktionen update läser av främre sensorn (sensor_PIN) via funktionen 
 * calculate och ger ett värde från 0-1023 som motsvarar 8 bitar, detta omvandlas
@@ -52,8 +51,8 @@ void PWM_Timer::update()
 
 void PWM_Timer::servo_update()
 {
-	const uint8_t mapped_position = sensor.set_input(); //GPIO::ADC_read(motor.get_sensor_PIN());
-	PID_Controller.regulate();
+	//const uint8_t mapped_position = sensor.set_input(); // set_input förväntas skickas med 2 värden! vilka? //GPIO::ADC_read(motor.get_sensor_PIN());
+	PID_Controller::regulate();
 	//utvärde?
 	//räkna om till HZ
 	this->servo_period = PWM_Period::ON;
@@ -120,6 +119,7 @@ bool PWM_Timer::servo_elapsed()
 	}
 	return false;
 }
+
 /******************************************************************************
 * Funktioonen count_interrupts anropas av Timer1 vid timergenererat avbrott,
 * den börjar då räkna upp om vilkoret är uppfyllt.
