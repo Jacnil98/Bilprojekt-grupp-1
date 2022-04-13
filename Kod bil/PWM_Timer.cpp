@@ -52,8 +52,10 @@ void PWM_Timer::update()
 
 void PWM_Timer::servo_update()
 {
-	const uint16_t ADC_result = sensor.servo_position(); //GPIO::ADC_read(motor.get_sensor_PIN());
-	this->required_interrupts = (uint32_t)(ADC_result / ADC_MAX * this->total_interrupts + 0.5);
+	const uint8_t mapped_position = sensor.set_input(); //GPIO::ADC_read(motor.get_sensor_PIN());
+	PID_Controller.regulate();
+	//utvärde?
+	//räkna om till HZ
 	this->servo_period = PWM_Period::ON;
 	this->executed_interrupts = 0x00;
 	servo.on();

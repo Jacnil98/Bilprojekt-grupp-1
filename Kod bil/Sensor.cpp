@@ -9,7 +9,6 @@ void Sensor::map(void)
 {
 	this->mapped_left_sensor_input = this->left_sensor_input / SENSOR_MAX * TARGET;
 	this->mapped_right_sensor_input = this->right_sensor_input / SENSOR_MAX * TARGET;
-	
 }
 double Sensor::check_sensor_input(const double sensor_input)
 {
@@ -30,17 +29,18 @@ Sensor::Sensor(const uint8_t PIN,const double target, const double Kp, const dou
 	return;
 }
 
-void Sensor::set_input(const double new_left_sensor_input, const double new_right_sensor_input)
+void Sensor::set_input(const double left_sensor_input, const double right_sensor_input)
 {
-	this->left_sensor_input = this->check_sensor_input(new_left_sensor_input);
-	this->right_sensor_input = this->check_sensor_input(new_right_sensor_input);
+	this->left_sensor_input = GPIO::ADC_read(left_sensor);
+	this->right_sensor_input = GPIO::ADC_read(right_sensor);
 	this->map();
 	this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
-	return;
+	return ;
 }
-
+/*
 void Sensor::set_input(void)
 {
+	
 	return;
 }
 
@@ -49,7 +49,7 @@ void Sensor::set_input(void)
 	return;
 }*/
 
-
+/*
 uint16_t Sensor::calculate()
 {
 	//uint16_t distance = distance_in_cm * 12;
