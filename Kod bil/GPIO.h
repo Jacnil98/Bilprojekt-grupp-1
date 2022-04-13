@@ -26,11 +26,11 @@
 #define DISABLE_TIMER1 TIMSK1 = 0x00
 #define DISABLE_TIMER2 TIMSK2 = 0x00
 
-static constexpr auto SENSOR_MIN = 0.0;
-static constexpr auto SENSOR_MAX = 1023.0;
-static constexpr auto OUTPUT_MIN = 0.0;
-static constexpr auto OUTPUT_MAX = 180.0;
-static constexpr auto TARGET = 90.0;
+#define SENSOR_MIN = 0.0
+#define SENSOR_MAX = 80.0
+#define OUTPUT_MIN = 0.0
+#define OUTPUT_MAX = 180.0
+#define TARGET = 90.0
 
 enum class PWM_Period { ON, OFF };
 
@@ -72,8 +72,6 @@ public:
 	void disabled();
 	bool is_enabled();
 	
-	
-	
 	uint8_t get_left_sensor_PIN() {return this->left_sensor_PIN; }
 	uint8_t get_right_sensor_PIN() {return this->right_sensor_PIN; }
 };
@@ -109,12 +107,14 @@ public:
 
 class PID_Controller
 {
-private:
+protected:
 	
 	double actual_value = 0x00;
 	double output = 0x00;
 	double current_error = 0x00;
 	double last_error = 0x00;
+	
+public:
 	double target = 0x00;
 	double Kp = 0x00;
 	double Ki = 0x00;
@@ -123,7 +123,6 @@ private:
 	double derivative = 0x00;
 	double output_min = 0x00;
 	double output_max = 0x00;
-public:
 	PID_Controller(void) {}
 	PID_Controller(const double target, const double Kp, const double Ki, const double Kd);
 	PID_Controller(const double target, const double Kp, const double Ki, const double Kd, const double output_min, const double output_max);
@@ -134,29 +133,33 @@ public:
 	double get_output(void) {return this->output; }
 	void regulate(void);
 	void print(void);
+	void check_output();
 };
 
 class Sensor : public GPIO
 {
 private:
 	uint8_t sensor_PIN;
-	static constexpr auto SENSOR_MIN = 0.0;
-	static constexpr auto SENSOR_MAX = 1023.0;
-	static constexpr auto OUTPUT_MIN = 0.0;
-	static constexpr auto OUTPUT_MAX = 180.0;
-	static constexpr auto TARGET = 90.0;
-	
-	
+	double left_sensor_input = 0x00;
+	double right_sensor_input = 0x00;
+	double mapped_left_sensor_input = 0x00;
+	double mapped_right_sensor_input = 0x00;
 	uint16_t ADC_read();
+	double check_sensor_input(const double sensor_input);
+	void map();
 public:
 	Sensor(void){}
-	Sensor(const uint8_t PIN);
+	Sensor(const double target, const double Kp, const double Ki, const double Kd);
+	void set_input(const double new_left_sensor_input, const double new_right_sensor_input);
+	void set_input(void);
+	void print(void);
+	
 	uint16_t calculate();
 	uint16_t servo_position();
 	uint16_t get_left_sensor();
 	uint16_t get_right_sensor();
-	uint16_t get_sensor_input(const uint8_t PIN);
-	
+	uint16_t get_sensor_PIN(const uint8_t PIN);
+
 };
 
 class Button : public GPIO
@@ -211,6 +214,8 @@ Motor pwm_motor(const uint8_t PIN);
 Servo pwm_servo(const uint8_t PIN);
 Button start_Button(const uint8_t PIN);
 Sensor new_Sensor(const uint8_t PIN);
+Sensor new_left_Sensor(const uint8_t PIN);
+Sensor new_right_Sensor(const uint8_t PIN);
 PWM_Timer new_PWM_Timer(const double period, const uint8_t PIN);
 
 void serial_print(const char* s); // Funktion för seriell överföring.

@@ -4,6 +4,8 @@ Motor motor;
 Servo servo;
 Button button;
 Sensor sensor;
+Sensor right_sensor;
+Sensor left_sensor;
 PWM_Timer pwm_timer, servo_timer;
 
 void init_GPIO()
@@ -18,7 +20,9 @@ void init_GPIO()
 	servo = pwm_servo(6);
 	pwm_timer = PWM_Timer(TimerSelection::TIMER1, 10, 5);
 	servo_timer = PWM_Timer(TimerSelection::TIMER0, 20, 6);
-	sensor = new_Sensor(0);
+	sensor = new_Sensor(1);
+	right_sensor = new_right_Sensor(0);
+	left_sensor = new_left_Sensor(2);
 	DDRD |= ((1<<IN1)|(1<<IN2));
 	init_serial();
 	return;
@@ -42,6 +46,18 @@ Servo pwm_servo(const uint8_t PIN)
 }
 
 Sensor new_Sensor(const uint8_t PIN)
+{
+	Sensor self(PIN);
+	return self;
+}
+
+Sensor new_right_Sensor(const uint8_t PIN)
+{
+	Sensor self(PIN);
+	return self;
+}
+
+Sensor new_left_Sensor(const uint8_t PIN)
 {
 	Sensor self(PIN);
 	return self;

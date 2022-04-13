@@ -5,27 +5,72 @@ Sensor::Sensor(const uint8_t PIN)
 	this->PIN = PIN;
 }
 
+void Sensor::map(void)
+{
+	this->mapped_left_sensor_input = this->left_sensor_input / SENSOR_MAX * TARGET;
+	this->mapped_right_sensor_input = this->right_sensor_input / SENSOR_MAX * TARGET;
+	
+}
+double Sensor::check_sensor_input(const double sensor_input)
+{
+	if (sensor_input < SENSOR_MIN) return SENSOR_MIN;
+	else if (sensor_input > SENSOR_MAX) return SENSOR_MAX;
+	return sensor_input;
+}
+
+Sensor::Sensor(const double target, const double Kp, const double Ki, const double Kd)
+{
+	this->target = target;
+	this->Kp = Kp;
+	this->Ki = Ki;
+	this->Kd = Kd;
+	this->output_min = OUTPUT_MIN;
+	this->output_max = OUTPUT_MAX;
+	return;
+}
+
+void Sensor::set_input(const double new_left_sensor_input, const double new_right_sensor_input)
+{
+	this->left_sensor_input = this->check_sensor_input(new_left_sensor_input);
+	this->right_sensor_input = this->check_sensor_input(new_right_sensor_input);
+	this->map();
+	this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
+	return;
+}
+
+void Sensor::set_input(void)
+{
+	return;
+}
+
+void Sensor::print();
+{
+	return;
+}
+
+
 uint16_t Sensor::calculate()
 {
+	//uint16_t distance = distance_in_cm * 12;
 	//float in_signal = GPIO::ADC_read(this->PIN)*0.0048828125;
-	float in_signal1 = GPIO::ADC_read(motor.get_sensor_PIN());
+	float in_signal1 = GPIO::ADC_read(Sensor.get_sensor_PIN());
 	float in_signal = in_signal1 * 0.0048828125;
-	uint16_t distance_in_cm = 13*(1/in_signal);
-	uint16_t distance = distance_in_cm * 12;
+	uint16_t distance = 13*(1/in_signal);
 	if (distance >=800) distance = 800;
-	else if (distance <=100) distance =100;
+	else if (distance <=100) distance = 100;
 	return distance;
 }
 
 uint16_t Sensor::servo_position()
 {
+	//input värde mellan 0-180 för att här göras om till en frekvens mellan 1000-2000
 	uint16_t right_distance = this->get_sensor_input(const uint8_t servo.right_sensor_PIN);
 	uint16_t left_distance = this->get_sensor_input(const uint8_t servo.left_sensor_PIN);
 	int16_t savox_position = (left_distance - right_distance);
 	// Mappa värdena så att det blir lämpligt för grader.
 	// actual_value = target - mapped_savox_position.
 	// Reglerra med PID.
-	
+	return savox_position;
 }
 
 
@@ -36,3 +81,4 @@ uint16_t Sensor::get_sensor_input(const uint8_t PIN)
 	uint16_t distance = 13*(1/in_signal);
 	return distance;
 }
+*/
