@@ -34,6 +34,7 @@
 #define TARGET 90.0
 
 enum class PWM_Period { ON, OFF };
+enum class Servo_Period { ON, OFF };
 
 class GPIO
 {
@@ -110,11 +111,12 @@ class PID_Controller
 protected:
 	
 	double actual_value = 0x00;
-	double output = 0x00;
+	
 	double current_error = 0x00;
 	double last_error = 0x00;
 	
 public:
+double output = 0x00;
 	double target = 0x00;
 	double Kp = 0x00;
 	double Ki = 0x00;
@@ -131,7 +133,7 @@ public:
 	void set_parameters(const double Kp, const double Ki, const double Kd);
 	void set_actual_value(const double new_actual_value) {this->actual_value = new_actual_value; }
 	double get_output(void) {return this->output; }
-	void regulate(void);
+	void regulate();
 	void print(void);
 	void check_output();
 };
@@ -183,7 +185,7 @@ private:
 	volatile uint32_t executed_interrupts = 0x00;
 	volatile uint32_t required_interrupts = 0x00;
 	PWM_Period pwm_period = PWM_Period::ON;
-	PWM_Period servo_period = PWM_Period::ON;
+	Servo_Period servo_period = Servo_Period::ON;
 	uint8_t PIN = 0x00;
 	uint32_t total_interrupts = 0x00;
 	void init(void);

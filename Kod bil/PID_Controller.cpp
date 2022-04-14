@@ -47,4 +47,5 @@ void PID_Controller::regulate(void)
 	* this->integral + this->Kd * this->derivative;
 	this->check_output();
 	this->last_error = this->current_error;
+	return;
 }

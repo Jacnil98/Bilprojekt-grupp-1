@@ -56,7 +56,8 @@ uint16_t Sensor::calculate()
 	//float in_signal = GPIO::ADC_read(this->PIN)*0.0048828125;
 	float in_signal1 = GPIO::ADC_read(this->PIN);
 	float in_signal = in_signal1 * 0.0048828125;
-	uint16_t distance = 29.988*(pow(in_signal,-1.173)); //13*(1/insignal) för 4-30 cm elr 13*pow(in_signal, -1)
+	uint16_t distance_in_cm = 29.988*(pow(in_signal,-1.173)); //13*(1/insignal) för 4-30 cm elr 13*pow(in_signal, -1)
+	uint16_t distance = distance_in_cm * 12;
 	if (distance >=800) distance = 800;
 	else if (distance <=100) distance = 100;
 	return distance;

@@ -51,14 +51,15 @@ void PWM_Timer::update()
 
 void PWM_Timer::servo_update()
 {
+
 	//const uint8_t mapped_position = sensor.set_input(); // set_input förväntas skickas med 2 värden! vilka? //GPIO::ADC_read(motor.get_sensor_PIN());
 	sensor.set_input(0, 2);
 	pid_controller.regulate();
-	//utvärde?
-	//räkna om till HZ
-	this->servo_period = PWM_Period::ON;
+	
+	this->servo_period = Servo_Period::ON;
 	this->executed_interrupts = 0x00;
 	servo.on();
+	serial_print_int(1);
 	return;
 }
 
@@ -85,12 +86,13 @@ void PWM_Timer::switch_mode(void)
 
 void PWM_Timer::switch_servo_mode()
 {
-	if (this->servo_period == PWM_Period::ON)
+	if (this->servo_period == Servo_Period::ON)
 	{
-		this->servo_period = PWM_Period::OFF;
+		this->servo_period = Servo_Period::OFF;
 		this->required_interrupts = this->total_interrupts;
 		this->executed_interrupts = 0x00;
 		servo.off();
+		
 	}
 	else
 	this->servo_update();
@@ -115,8 +117,11 @@ bool PWM_Timer::elapsed(void)
 bool PWM_Timer::servo_elapsed()
 {
 	if (this->executed_interrupts >= this->required_interrupts)
+	
 	{
+		
 		this->switch_servo_mode();
+		return true;
 	}
 	return false;
 }

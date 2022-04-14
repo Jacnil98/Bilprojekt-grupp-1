@@ -80,6 +80,7 @@ void Motor::read_direction(void)
 void Motor::enabled()
 {
 	this->PWM_enabled = true;
+	ENABLE_TIMER0;
 	ENABLE_TIMER1;
 	pwm_timer.enabled = true;
 	this->motor_enabled = true;
