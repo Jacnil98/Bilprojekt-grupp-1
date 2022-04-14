@@ -41,7 +41,7 @@ void PWM_Timer::update()
 {
 	if (!this->enabled)	 return;
 	const uint16_t ADC_result = sensor.calculate(); //GPIO::ADC_read(motor.get_sensor_PIN());
-	serial_print_int(ADC_result);
+	//serial_print_int(ADC_result);
 	this->required_interrupts = (uint32_t)(ADC_result / ADC_MAX * this->total_interrupts + 0.5);
 	this->pwm_period = PWM_Period::ON; 
 	this->executed_interrupts = 0x00;
@@ -55,11 +55,13 @@ void PWM_Timer::servo_update()
 	//const uint8_t mapped_position = sensor.set_input(); // set_input förväntas skickas med 2 värden! vilka? //GPIO::ADC_read(motor.get_sensor_PIN());
 	sensor.set_input(0, 2);
 	pid_controller.regulate();
-	
+	if(pid_controller.output <= 70) pid_controller.output = 70;
+	else if (pid_controller.output >= 200) pid_controller.output = 200;
+	required_interrupts = pid_controller.output * 17;
 	this->servo_period = Servo_Period::ON;
 	this->executed_interrupts = 0x00;
 	servo.on();
-	serial_print_int(1);
+	serial_print_int(required_interrupts);
 	return;
 }
 
