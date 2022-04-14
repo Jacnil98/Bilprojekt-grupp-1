@@ -151,7 +151,7 @@ public:
 	Sensor(void){}
 	Sensor(const uint8_t PIN);
 	Sensor(const uint8_t PIN, const double target, const double Kp, const double Ki, const double Kd);
-	void set_input();
+	void set_input(const uint8_t left_PIN, const uint8_t right_PIN);
 	void print(void);
 	
 	uint16_t calculate();
@@ -207,16 +207,9 @@ extern Servo servo;
 extern Button button;
 extern Sensor sensor, new_left_sensor, new_right_sensor;;
 extern PWM_Timer pwm_timer, servo_timer;
+extern PID_Controller pid_controller;
 
 void init_GPIO();
-Motor pwm_motor(const uint8_t PIN);
-Servo pwm_servo(const uint8_t PIN);
-Button start_Button(const uint8_t PIN);
-Sensor new_Sensor(const uint8_t PIN);
-Sensor new_left_Sensor(const uint8_t PIN);
-Sensor new_right_Sensor(const uint8_t PIN);
-PWM_Timer new_PWM_Timer(const double period, const uint8_t PIN);
-
 void serial_print(const char* s); // Funktion för seriell överföring.
 void serial_print_int(const uint32_t number);
 void init_serial();

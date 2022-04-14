@@ -30,10 +30,10 @@ Sensor::Sensor(const uint8_t PIN,const double target, const double Kp, const dou
 	return;
 }
 
-void Sensor::set_input()
+void Sensor::set_input(const uint8_t left_PIN, const uint8_t right_PIN)
 {
-	this->left_sensor_input = GPIO::ADC_read(left_sensor_input);
-	this->right_sensor_input = GPIO::ADC_read(right_sensor_input);
+	this->left_sensor_input = GPIO::ADC_read(left_PIN);
+	this->right_sensor_input = GPIO::ADC_read(right_PIN);
 	this->map();
 	this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
 	return ;
