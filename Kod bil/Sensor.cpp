@@ -9,7 +9,7 @@ void Sensor::map(void)
 {
 	this->mapped_left_sensor_input = this->left_sensor_input / SENSOR_MAX * TARGET;
 	this->mapped_right_sensor_input = this->right_sensor_input / SENSOR_MAX * TARGET;
-	serial_print_int(mapped_right_sensor_input);
+	
 }
 
 double Sensor::check_sensor_input(const double sensor_input)
@@ -46,8 +46,12 @@ void Sensor::set_input(const uint8_t left_PIN, const uint8_t right_PIN)
 	
 	
 	this->map();
-	this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
-	
+	this->actual_value = TARGET + this->mapped_left_sensor_input - this->mapped_right_sensor_input; //this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
+	serial_print("-----------------------------------\n");
+	serial_print_int(mapped_right_sensor_input);
+	serial_print_int(mapped_left_sensor_input);
+	serial_print_int(actual_value);
+	serial_print("\n-----------------------------------\n");
 	return ;
 }
 

@@ -111,10 +111,8 @@ class PID_Controller
 protected:
 	
 	double actual_value = 0x00;
-	
 	double current_error = 0x00;
 	double last_error = 0x00;
-	
 public:
 double output = 0x00;
 	double target = 0x00;
@@ -129,7 +127,7 @@ double output = 0x00;
 	PID_Controller(const double target, const double Kp, const double Ki, const double Kd);
 	PID_Controller(const double target, const double Kp, const double Ki, const double Kd, const double output_min, const double output_max);
 	~PID_Controller(void) { }
-	void set_target(const double new_target) {this->target = new_target; }
+	void set_target(const double new_target) {90 = new_target; } //void set_target(const double new_target) {this->target = new_target; }
 	void set_parameters(const double Kp, const double Ki, const double Kd);
 	void set_actual_value(const double new_actual_value) {this->actual_value = new_actual_value; }
 	double get_output(void) {return this->output; }
