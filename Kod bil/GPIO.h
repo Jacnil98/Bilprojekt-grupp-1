@@ -29,8 +29,8 @@
 
 #define SENSOR_MIN 0.0
 #define SENSOR_MAX 80.0
-#define OUTPUT_MIN 0.0
-#define OUTPUT_MAX 180.0
+#define OUTPUT_MIN 45.0
+#define OUTPUT_MAX 135.0
 #define TARGET 90.0
 
 enum class PWM_Period { ON, OFF };

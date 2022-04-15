@@ -4,7 +4,6 @@
 ISR (TIMER0_OVF_vect)
 {
 	servo_timer.count_interrupts();
-	//serial_print_int(1);
 	if (servo_timer.servo_elapsed())
 		servo_timer.servo_update();//fixa uträkning och inställningar för timer 0
 	return;
