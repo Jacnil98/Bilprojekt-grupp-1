@@ -94,6 +94,7 @@ void Motor::disabled()
 {
 	this->PWM_enabled = false;
 	DISABLE_TIMER1;
+	DISABLE_TIMER0;
 	pwm_timer.enabled = false;
 	this->motor_enabled = false;
 	this->off();

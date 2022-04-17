@@ -13,7 +13,7 @@ void init_GPIO()
 	INIT_TIMER0;
 	INIT_TIMER1;
 	OCR1A = 256;
-	pid_controller = PID_Controller(90, 1, 0.01, 0.1, 0, 70);
+	pid_controller = PID_Controller(90, 1, 0.01, 0.1);
 	button = Button(9);
 	button.enable_interrupt();
 	motor = Motor(5);

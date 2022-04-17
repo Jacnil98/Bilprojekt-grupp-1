@@ -110,13 +110,14 @@ class PID_Controller
 {
 protected:
 	
+	
+public:
+	double output = 0x00;
+	double targett = 0x00;
+	double Kp = 0x00;
 	double actual_value = 0x00;
 	double current_error = 0x00;
 	double last_error = 0x00;
-public:
-double output = 0x00;
-	double target = 0x00;
-	double Kp = 0x00;
 	double Ki = 0x00;
 	double Kd = 0x00;
 	double integral = 0x00;
@@ -124,10 +125,10 @@ double output = 0x00;
 	double output_min = 0x00;
 	double output_max = 0x00;
 	PID_Controller(void) {}
-	PID_Controller(const double target, const double Kp, const double Ki, const double Kd);
-	PID_Controller(const double target, const double Kp, const double Ki, const double Kd, const double output_min, const double output_max);
+	PID_Controller(const double targett, const double Kp, const double Ki, const double Kd);
+	PID_Controller(const double targett, const double Kp, const double Ki, const double Kd, const double output_min, const double output_max);
 	~PID_Controller(void) { }
-	void set_target(const double new_target) {90 = new_target; } //void set_target(const double new_target) {this->target = new_target; }
+	void set_target(const double new_target) {this->targett = new_target; } //void set_target(const double new_target) {this->target = new_target; }
 	void set_parameters(const double Kp, const double Ki, const double Kd);
 	void set_actual_value(const double new_actual_value) {this->actual_value = new_actual_value; }
 	double get_output(void) {return this->output; }
@@ -150,7 +151,7 @@ private:
 public:
 	Sensor(void){}
 	Sensor(const uint8_t PIN);
-	Sensor(const uint8_t PIN, const double target, const double Kp, const double Ki, const double Kd);
+	Sensor(const uint8_t PIN, const double targett, const double Kp, const double Ki, const double Kd);
 	void set_input(const uint8_t left_PIN, const uint8_t right_PIN);
 	void print(void);
 	

@@ -19,10 +19,10 @@ double Sensor::check_sensor_input(const double sensor_input)
 	return sensor_input;
 }
 
-Sensor::Sensor(const uint8_t PIN,const double target, const double Kp, const double Ki, const double Kd)
+Sensor::Sensor(const uint8_t PIN,const double targett, const double Kp, const double Ki, const double Kd)
 {
 	this->PIN = PIN;
-	this->target = target;
+	this->targett = targett;
 	this->Kp = Kp;
 	this->Ki = Ki;
 	this->Kd = Kd;
@@ -38,20 +38,22 @@ void Sensor::set_input(const uint8_t left_PIN, const uint8_t right_PIN)
 	uint16_t left_distance_in_cm = 29.988*(pow(in_signal_left,-1.173));
 	this->left_sensor_input = left_distance_in_cm;
 	if(left_sensor_input > SENSOR_MAX) left_sensor_input = 80;
+	
 	uint16_t right_sensor_in = GPIO::ADC_read(right_PIN);
 	float in_signal_right = right_sensor_in * 0.0048828125;
 	uint16_t right_distance_in_cm = 29.988*(pow(in_signal_right,-1.173));
 	this->right_sensor_input = right_distance_in_cm;
 	if(right_sensor_input > SENSOR_MAX) right_sensor_input = 80;
 	
-	
 	this->map();
-	this->actual_value = TARGET + this->mapped_left_sensor_input - this->mapped_right_sensor_input; //this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
+	this->actual_value = this->targett + this->mapped_left_sensor_input - this->mapped_right_sensor_input; //this->actual_value = this->target + this->mapped_left_sensor_input - this->mapped_right_sensor_input;
 	serial_print("-----------------------------------\n");
+	serial_print("first function\n");
 	serial_print_int(mapped_right_sensor_input);
 	serial_print_int(mapped_left_sensor_input);
+	serial_print_int(targett);
 	serial_print_int(actual_value);
-	serial_print("\n-----------------------------------\n");
+	serial_print("\n-----------------------------------\n\n");
 	return ;
 }
 
