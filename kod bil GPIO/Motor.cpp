@@ -116,6 +116,3 @@ void Motor::run_PWM(void)
 		Serial::print("\n run_PWM elapsed: ");
 	return;
 }
-
-
-	

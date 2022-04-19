@@ -28,3 +28,12 @@ uint16_t Analog::read(void)
 	ADCSRA = (1 << ADIF);
 	return ADC;
 }
+
+uint16_t Analog::calculate(void)
+{
+	float in_signal = read();
+	float calculated_value = in_signal * 0.0048828125;
+	uint16_t distance_in_cm = 29.988*(pow(calculated_value, -1.173));
+	uint16_t distance = distance_in_cm * 12; // Tolv kan variera för att få önskat värde.
+	return distance;
+}

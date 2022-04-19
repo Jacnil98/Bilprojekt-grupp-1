@@ -60,6 +60,7 @@ public:
 	static constexpr double output_min(void) { return Analog::ADC_MIN; }
 	static constexpr double output_max(void) { return Analog::ADC_MAX; }
 	uint16_t read(void);
+	uint16_t calculate(void);
 	double duty_cycle(void) { return this->read() / ADC_MAX; }
 	double on_time(const double period) { return this->duty_cycle() * period; }
 	double off_time(const double period) { return period - this->on_time(period); }
