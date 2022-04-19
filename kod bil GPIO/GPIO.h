@@ -51,8 +51,8 @@ class Analog
 {
 protected:
 	uint8_t PIN = 0x00;
-	static constexpr double MAX_SPEED = 80; // max 80, lägre sänker max fart
-	static constexpr double MIN_SPEED = 10; // min 0, högre höjer lägsta hastighet
+	static constexpr double MAX_SPEED = 80.0; // max 80, lägre sänker max fart
+	static constexpr double MIN_SPEED = 10.0; // min 0, högre höjer lägsta hastighet
 	static constexpr double SPEED_SCALE = 12.7; // utväxling 12.7 = 1023
 	static constexpr double ADC_MIN = 0.0;
 	static constexpr double ADC_MAX = 1023.0;
