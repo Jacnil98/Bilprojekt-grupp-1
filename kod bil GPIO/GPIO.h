@@ -2,6 +2,7 @@
 #define GPIO_H_
 
 #include "definitions.h"
+#include "Serial.h"
 
 class GPIO
 {
@@ -50,6 +51,9 @@ class Analog
 {
 protected:
 	uint8_t PIN = 0x00;
+	static constexpr double MAX_SPEED = 80; // max 80, lägre sänker max fart
+	static constexpr double MIN_SPEED = 10; // min 0, högre höjer lägsta hastighet
+	static constexpr double SPEED_SCALE = 12.7; // utväxling 12.7 = 1023
 	static constexpr double ADC_MIN = 0.0;
 	static constexpr double ADC_MAX = 1023.0;
 	static void init(void);
@@ -61,7 +65,9 @@ public:
 	static constexpr double output_max(void) { return Analog::ADC_MAX; }
 	uint16_t read(void);
 	uint16_t calculate(void);
-	double duty_cycle(void) { return this->read() / ADC_MAX; }
+	double duty_cycle(void);
+	
+	//double duty_cycle(void) { return this->read() / ADC_MAX; }
 	double on_time(const double period) { return this->duty_cycle() * period; }
 	double off_time(const double period) { return period - this->on_time(period); }
 	uint32_t get_interrupts_on_time(const uint32_t total_amount_of_interrupts)

@@ -29,11 +29,15 @@ uint16_t Analog::read(void)
 	return ADC;
 }
 
-uint16_t Analog::calculate(void)
+double Analog::duty_cycle(void)
 {
-	float in_signal = read();
-	float calculated_value = in_signal * 0.0048828125;
-	uint16_t distance_in_cm = 29.988*(pow(calculated_value, -1.173));
-	uint16_t distance = distance_in_cm * 12; // Tolv kan variera för att få önskat värde.
+	double in_signal = read();
+	double calculated_value = in_signal * 0.0048828125;
+	double distance_in_cm = 29.988*(pow(calculated_value, -1.173));
+	if(distance_in_cm > MAX_SPEED) distance_in_cm = MAX_SPEED;
+	else if (distance_in_cm < MIN_SPEED) distance_in_cm = MIN_SPEED;
+	double distance = (distance_in_cm * SPEED_SCALE) / ADC_MAX; // Tolv kan variera för att få önskat värde.
+	//Serial::print(distance);
+	//Serial::print("\n");
 	return distance;
 }
