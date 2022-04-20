@@ -16,6 +16,18 @@ PWM_Timer::PWM_Timer(const TimerSelection timerSelection, const double period, c
 	return;
 }
 
+PWM_Timer::PWM_Timer(const TimerSelection timerSelection,const double period)
+{
+	Serial::init();
+	this->timerSelection = timerSelection;
+	this->total_amount_of_interrupts = this->get_required_interrupts(period);
+	// avläsning, pid-target?
+	this->init(this->timerSelection);
+	this->executed_interrupts = 0x00;
+	this->required_interrupts = 0x00; // target,get_servo_interrupts_on_time(this->total_amount_of_interrups);
+	return;
+}
+
 void PWM_Timer::switch_mode(void)
 {
 	if (this->pwm_period == PWM_Period::On)
