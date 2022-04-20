@@ -22,5 +22,7 @@ Sensor.cpp
 
 Serial.cpp
 
+Servo.cpp
+
 Timer.cpp
 

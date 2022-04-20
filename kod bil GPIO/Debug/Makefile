@@ -47,6 +47,7 @@ C_SRCS +=  \
 ../PWM_Timer.cpp \
 ../Sensor.cpp \
 ../Serial.cpp \
+../Servo.cpp \
 ../Timer.cpp
 
 
@@ -67,6 +68,7 @@ Analog.o \
 PWM_Timer.o \
 Sensor.o \
 Serial.o \
+Servo.o \
 Timer.o
 
 OBJS_AS_ARGS +=  \
@@ -80,6 +82,7 @@ Analog.o \
 PWM_Timer.o \
 Sensor.o \
 Serial.o \
+Servo.o \
 Timer.o
 
 C_DEPS +=  \
@@ -93,6 +96,7 @@ Analog.d \
 PWM_Timer.d \
 Sensor.d \
 Serial.d \
+Servo.d \
 Timer.d
 
 C_DEPS_AS_ARGS +=  \
@@ -106,6 +110,7 @@ Analog.d \
 PWM_Timer.d \
 Sensor.d \
 Serial.d \
+Servo.d \
 Timer.d
 
 OUTPUT_FILE_PATH +=Car\ code.elf
@@ -186,6 +191,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./Serial.o: .././Serial.cpp
+	@echo Building file: $<
+	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=c++11 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./Servo.o: .././Servo.cpp
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe$(QUOTE) -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=c++11 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

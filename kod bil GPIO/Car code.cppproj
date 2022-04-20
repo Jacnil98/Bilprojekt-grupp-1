@@ -196,6 +196,12 @@
     <Compile Include="Serial.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Servo.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Servo.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Timer.cpp">
       <SubType>compile</SubType>
     </Compile>

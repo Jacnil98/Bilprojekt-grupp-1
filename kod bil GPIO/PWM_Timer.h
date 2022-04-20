@@ -16,6 +16,7 @@ protected:
 public:
 	PWM_Timer(void) { }
 	PWM_Timer(const TimerSelection timerSelection, const double period, const uint8_t pot_PIN);
+	PWM_Timer(const TimerSelection timerSelection, const double period);
 	~PWM_Timer(void) { }
 	void switch_mode(void);
 };
