@@ -1,4 +1,5 @@
 #include "Sensor.h"
+#include "Serial.h"
 
 double Sensor::check_input(const double input)
 {
@@ -82,5 +83,11 @@ void Sensor::print(void)
 		Serial::print("Car driving straight forward!\n\n");
 	}
 	
+	return;
+}
+
+Sensor::~Sensor(void)
+{
+	Serial::print("\n Sensor destructor called!\n");
 	return;
 }

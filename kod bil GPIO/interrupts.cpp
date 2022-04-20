@@ -7,6 +7,7 @@ ISR (PCINT0_vect)
 	{
 		Serial::print("\n Button is pressed: ");
 		motor.toggle();
+		servo.enable();
 	}
 	
 	return;
@@ -25,11 +26,11 @@ ISR (TIMER0_OVF_vect)
 
 ISR (TIMER1_COMPA_vect)
 {
-	/*
-	if (timer1.elapsed())
-	Serial::print("\n interrupts elapsed   1: ");
-		output.toggle();
-		*/
+	if(servo.elapsed())
+	{
+		servo.switch_servo_mode();
+		sensor.set_input(const double left_sensor, const double right_sensor);
+	}
 	return;
 }
 

@@ -70,8 +70,10 @@ public:
 	//double duty_cycle(void) { return this->read() / ADC_MAX; }
 	double on_time(const double period) { return this->duty_cycle() * period; }
 	double off_time(const double period) { return period - this->on_time(period); }
+	
 	uint32_t get_interrupts_on_time(const uint32_t total_amount_of_interrupts)
 	{ return (uint32_t)(total_amount_of_interrupts * this->duty_cycle() + 0.5);}
+	
 	uint32_t get_interrupts_off_time(const uint32_t total_amount_of_interrupts)
 	{ return (uint32_t)(total_amount_of_interrupts - this->get_interrupts_on_time(total_amount_of_interrupts)); }
 };

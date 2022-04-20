@@ -8,12 +8,62 @@ Servo::Servo(const uint8_t servo_PIN, const TimerSelection timerSelection, const
 	return;
 }
 
-void on(void)
+void Servo::on(void)
 {
-	
+	this->servo_enabled = true;
+	this->servo.on();
 	return;
 }
-void off(void)
+void Servo::off(void)
 {
+	this->servo_enabled = false;
+	this->servo.off();
+	return;
+}
+
+void Servo::toggle_PWM(void)
+{
+	if (this->servo_enabled)
+		this->off();
+	else
+		this->on();
+	return;
+}
+
+void Servo::enable(void)
+{
+	this->enabled = true;
+	this->servo_timer.on();
+	Serial::print("Servo timer now on!\n");
+	return;
+}
+
+void Servo::disable(void)
+{
+	this->enabled = false;
+	this->servo_timer.off();
+	Serial::print("Servo timer now off!\n");
+	return;
+}
+
+void Servo::toggle(void)
+{
+	if (this->enabled)
+	{
+		
+		this->disable();
+		Serial::print("The Servo is now disabled!\n");
+	}
+	else
+	{
+		this->enable();
+		Serial::print("The Servo is now enabled!\n");
+	}
+	return;
+}
+
+Servo::~Servo(void)
+{
+	Serial::print("\n Timer destructor called!\n");
 	return;
 }

@@ -1,4 +1,3 @@
-
 #ifndef SENSOR_H_
 #define SENSOR_H_
 
@@ -28,7 +27,7 @@ public:
 		const double Kp, const double Ki, const double Kd);
 	Sensor(const uint8_t left_PIN, const uint8_t right_PIN, const double target, 
 		const double Kp, const double Ki, const double Kd, const double output_min, const double output_max);
-	~Sensor(void) { }
+	~Sensor(void);
 	static double min(void) { return Sensor::SENSOR_MIN; }
 	static double max(void) { return Sensor::SENSOR_MAX; }
 	void set_map_value(const double new_map_value) { this->map_value = new_map_value; }

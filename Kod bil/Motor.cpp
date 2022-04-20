@@ -85,6 +85,7 @@ void Motor::enabled()
 	pwm_timer.enabled = true;
 	this->motor_enabled = true;
 	
+	
 }
 
 /******************************************************************************

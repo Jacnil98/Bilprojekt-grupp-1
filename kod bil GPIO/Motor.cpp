@@ -54,7 +54,7 @@ void Motor::enable(void)
 	this->enabled = true;
 	this->pwm_timer.on();
 	this->drive_forward();
-	Serial::print("PWM timer now on!\n");
+	Serial::print("Motor timer now on!\n");
 	return;
 }
 
@@ -62,7 +62,7 @@ void Motor::disable(void)
 {
 	this->enabled = false;
 	this->pwm_timer.off();
-	Serial::print("PWM timer now off!\n");
+	Serial::print("Motor timer now off!\n");
 	return;
 }
 

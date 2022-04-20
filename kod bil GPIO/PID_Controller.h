@@ -24,7 +24,7 @@ public:
 	PID_Controller(const double target, const double Kp, const double Ki, const double Kd);
 	PID_Controller(const double target, const double Kp, const double Ki, const double Kd, 
 		const double output_min, const double output_max);
-	~PID_Controller(void);
+	~PID_Controller(void) {}
 	double get_output(void) { return this->output; }
 	double get_output_min(void) { return this->output_min; }
 	double get_output_max(void) { return this->output_max; }

@@ -12,6 +12,7 @@ protected:
 	volatile uint32_t total_amount_of_interrupts = 0x00;
 	double period = 0x00;
 	PWM_Period pwm_period = PWM_Period::Off;
+	PWM_Period servo_period = PWM_Period::Off;
 	Analog analog;
 public:
 	PWM_Timer(void) { }
@@ -19,6 +20,7 @@ public:
 	PWM_Timer(const TimerSelection timerSelection, const double period);
 	~PWM_Timer(void) { }
 	void switch_mode(void);
+	void switch_servo_mode(void);
 };
 
 
