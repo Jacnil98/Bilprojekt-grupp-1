@@ -6,7 +6,7 @@ void Timer::init(const TimerSelection timerSelection)
 	Serial::init();
 	if (timerSelection == TimerSelection::Timer0)
 	{
-		TCCR0B = (1 << CS00); // prescaler 1
+		TCCR0B = (1 << CS00); 
 		Serial::print("\n Timer 0 initiated ");
 	}
 	
@@ -103,11 +103,9 @@ void Timer::toggle(void)
 }
 
 bool Timer::elapsed(void)
-{
-	//Serial::print("\n Required interrutps: "); Serial::print(this->required_interrupts);
+{	
 	if (!this->required_interrupts)
 	{
-		Serial::print("\n required_interrupts = 0x00 ");
 		return false;
 	}
 	

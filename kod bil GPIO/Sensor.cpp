@@ -39,10 +39,10 @@ Sensor::Sensor(const uint8_t left_PIN, const uint8_t right_PIN, const double tar
 	return;
 }
 	
-void Sensor::set_input(const double left_input, const double right_input)
+void Sensor::set_input(const double left_sensor, const double right_sensor)
 {
-	this->left_input = this->check_input(left_input);
-	this->right_input = this->check_input(right_input);
+	this->left_input = this->check_input(left_sensor);
+	this->right_input = this->check_input(right_sensor);
 	this->map();
 	this->actual_value = this->target + this->mapped_left_input - this->mapped_right_input;
 	return;

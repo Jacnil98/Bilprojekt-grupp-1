@@ -1,10 +1,12 @@
 #include "Servo.h"
 #include "Serial.h"
 
-Servo::Servo(const uint8_t servo_PIN, const TimerSelection timerSelection, const double period)
+Servo::Servo(const uint8_t servo_PIN, const uint8_t left_PIN, const uint8_t right_PIN, 
+	const TimerSelection timerSelection, const double period)
 {
 	this->servo = Output(servo_PIN);
 	this->servo_timer = PWM_Timer(timerSelection, period);
+	this->sensor = Sensor(left_PIN, right_PIN, 90, 1.5, 0.01, 1, 40, 140);
 	return;
 }
 
@@ -14,6 +16,7 @@ void Servo::on(void)
 	this->servo.on();
 	return;
 }
+
 void Servo::off(void)
 {
 	this->servo_enabled = false;
@@ -65,5 +68,12 @@ void Servo::toggle(void)
 Servo::~Servo(void)
 {
 	Serial::print("\n Timer destructor called!\n");
+	return;
+}
+
+void Servo::regulate(void) 
+{
+	this->sensor.read();
+	this->sensor.regulate();
 	return;
 }

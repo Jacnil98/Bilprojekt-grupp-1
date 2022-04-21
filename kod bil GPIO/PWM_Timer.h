@@ -20,7 +20,7 @@ public:
 	PWM_Timer(const TimerSelection timerSelection, const double period);
 	~PWM_Timer(void) { }
 	void switch_mode(void);
-	void switch_servo_mode(void);
+	void switch_servo_mode(const double output);
 };
 
 

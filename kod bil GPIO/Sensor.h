@@ -31,7 +31,7 @@ public:
 	static double min(void) { return Sensor::SENSOR_MIN; }
 	static double max(void) { return Sensor::SENSOR_MAX; }
 	void set_map_value(const double new_map_value) { this->map_value = new_map_value; }
-	void set_input(const double left_input, const double right_input);
+	void set_input(const double left_sensor, const double right_sensor);
 	void read(void);
 	void print(void);
 };
