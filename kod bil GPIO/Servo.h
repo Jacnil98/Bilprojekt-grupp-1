@@ -23,7 +23,7 @@ public:
 	void disable(void);
 	void toggle(void);
 	bool elapsed(void) {return this->servo_timer.elapsed(); }
-	void switch_servo_mode(void) { this->servo_timer.switch_mode(); }
+	void switch_servo_mode(void) { this->servo_timer.switch_servo_mode(); }
 };
 
 #endif /* SERVO_H_ */

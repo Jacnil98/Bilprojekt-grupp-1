@@ -59,7 +59,7 @@ void PWM_Timer::switch_servo_mode(void)
 	
 	else
 	{
-		this->required_interrupts = sensor.target 
+		this->required_interrupts = 0x00; //pid controller output ska ligga här
 		this->servo_period = PWM_Period::On;
 		//Serial::print("\n switched pwm mode to on: ");
 	}

@@ -30,6 +30,8 @@ ISR (TIMER1_COMPA_vect)
 	{
 		servo.switch_servo_mode();
 		sensor.set_input(const double left_sensor, const double right_sensor);
+		sensor.regulate();
+		servo.toggle_PWM();
 	}
 	return;
 }

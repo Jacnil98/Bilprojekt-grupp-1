@@ -6,15 +6,24 @@ void Timer::init(const TimerSelection timerSelection)
 	Serial::init();
 	if (timerSelection == TimerSelection::Timer0)
 	{
-		TCCR0B = (1 << CS00);
+		TCCR0B = (1 << CS00); // prescaler 1
 		Serial::print("\n Timer 0 initiated ");
 	}
 	
 	else if (timerSelection == TimerSelection::Timer1)
 	{
 		TCCR1B = (1 << CS10) | (1 << WGM12);
-		OCR1A = 256;
+		OCR1A = 333;
 		Serial::print("\n Timer 1 initiated ");
+/*
+1/20M = 0.05us => 1.5ms/0.05us = 30k  => 30k/256 = 117 interrupts för rakt fram
+                  1ms                    20k/256 = 78 interrupts för vänster  
+	              2ms                    40k/256 = 156 interrupts för höger
+				  
+	                                     30k/333 = 90 interrupts   
+										 
+		                                 30k/166.6 = 180 interrupts    
+*/                                  
 	}
 	
 	else if (timerSelection == TimerSelection::Timer2)
