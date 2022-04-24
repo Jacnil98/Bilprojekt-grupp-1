@@ -1,4 +1,4 @@
-20165879478676884
+20167530219143428
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -85665,6 +85665,13 @@ CP Radial series Radial pin pitch 2.50mm  diameter 6.3mm Electrolytic Capacitor
 0
 2
 2
+footprints
+DIPS1778W50P254L2100H170Q16N
+MP3-TF-16P
+Undefined or Miscellaneous
+0
+16
+16
 footprints
 SW_TH_Tactile_Omron_B3F-10xx
 SW_TH_Tactile_Omron_B3F-10xx_https://www.omron.com/ecb/products/pdf/en-b3f.pdf
