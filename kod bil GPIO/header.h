@@ -16,7 +16,7 @@
 
 
 static Output output(4); //oanvänd
-static Button button(9);
+static Button button(5);
 //static Timer timer0(TimerSelection::Timer0, 300);
 //static Timer timer1(TimerSelection::Timer1, 500);
 static Motor motor(7, 8, 5, TimerSelection::Timer2, 10, 1);

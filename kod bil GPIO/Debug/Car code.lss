@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000ccc  00000000  00000000  000100cc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000166d  00000000  00000000  00010d98  2**0
+ 10 .debug_str    0000165e  00000000  00000000  00010d98  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000341c  00000000  00000000  00012405  2**0
+ 11 .debug_loc    0000341c  00000000  00000000  000123f6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000002e0  00000000  00000000  00015821  2**0
+ 12 .debug_ranges 000002e0  00000000  00000000  00015812  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -479,8 +479,8 @@ static Output output(4); //oanvänd
      2de:	8e ee       	ldi	r24, 0xEE	; 238
      2e0:	94 e0       	ldi	r25, 0x04	; 4
      2e2:	0e 94 7d 02 	call	0x4fa	; 0x4fa <_ZN6OutputC1Eh>
-static Button button(9);
-     2e6:	69 e0       	ldi	r22, 0x09	; 9
+static Button button(5);
+     2e6:	65 e0       	ldi	r22, 0x05	; 5
      2e8:	8a ee       	ldi	r24, 0xEA	; 234
      2ea:	94 e0       	ldi	r25, 0x04	; 4
      2ec:	0e 94 a3 00 	call	0x146	; 0x146 <_ZN6ButtonC1Eh>
@@ -1144,8 +1144,8 @@ Output::~Output(void)
      6ce:	8a e7       	ldi	r24, 0x7A	; 122
      6d0:	95 e0       	ldi	r25, 0x05	; 5
      6d2:	0e 94 7d 02 	call	0x4fa	; 0x4fa <_ZN6OutputC1Eh>
-static Button button(9);
-     6d6:	69 e0       	ldi	r22, 0x09	; 9
+static Button button(5);
+     6d6:	65 e0       	ldi	r22, 0x05	; 5
      6d8:	86 e7       	ldi	r24, 0x76	; 118
      6da:	95 e0       	ldi	r25, 0x05	; 5
      6dc:	0e 94 a3 00 	call	0x146	; 0x146 <_ZN6ButtonC1Eh>
@@ -3419,6 +3419,7 @@ void Servo::on(void)
 000015dc <_ZN5Servo3offEv>:
 	return;
 }
+
 void Servo::off(void)
 {
 	this->servo_enabled = false;
