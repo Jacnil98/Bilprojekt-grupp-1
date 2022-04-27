@@ -1,5 +1,6 @@
 #include "GPIO.h"
 #include "Serial.h"
+
 Analog::Analog(const uint8_t PIN)
 {
 	if (PIN >= 0 && PIN <= 5)
@@ -23,7 +24,7 @@ void Analog::init(void)
 uint16_t Analog::read(void)
 {
 	ADMUX = (1 << REFS0) | this->PIN;
-	ADCSRA = (1 << ADEN) | (1 << ADSC) | (1 << ADPS0) | (1 << ADPS1);
+	ADCSRA = (1 << ADEN) | (1 << ADSC)  | (1 << ADPS1); // | (1 << ADPS0) | (1 << ADPS1)
 	while ((ADCSRA & (1 << ADIF)) == 0);
 	ADCSRA = (1 << ADIF);
 	return ADC;
@@ -32,11 +33,11 @@ uint16_t Analog::read(void)
 double Analog::duty_cycle(void)
 {
 	double in_signal = read();
-	double calculated_value = in_signal * 0.0048828125;
+	double calculated_value = in_signal * SENSOR_CONSTANT;
 	double distance_in_cm = 29.988*(pow(calculated_value, -1.173));
-	if(distance_in_cm > MAX_SPEED) distance_in_cm = MAX_SPEED;
-	else if (distance_in_cm < MIN_SPEED) distance_in_cm = MIN_SPEED;
-	double distance = (distance_in_cm * SPEED_SCALE) / ADC_MAX; // Tolv kan variera för att få önskat värde.
+	if(distance_in_cm > MAX_DISTANCE) distance_in_cm = MAX_DISTANCE;
+	else if (distance_in_cm < MIN_DISTANCE) distance_in_cm = MIN_DISTANCE;
+	double distance = (distance_in_cm * DISTANCE_SCALE) / ADC_MAX; // Tolv kan variera för att få önskat värde.
 	//Serial::print(distance);
 	//Serial::print("\n");
 	return distance;

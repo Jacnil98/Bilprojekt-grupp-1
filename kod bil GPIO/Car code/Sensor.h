@@ -3,12 +3,14 @@
 
 #include "definitions.h"
 #include "PID_Controller.h"
-#include "Pot.h"
+#include "GPIO.h"
 #include "Serial.h"
 
 class Sensor : public PID_Controller
 {
 protected:
+    uint8_t read_counter = 0x00;
+	uint8_t counter_max = 5;
 	Analog left_sensor;
 	Analog right_sensor;
 	double left_input = 0x00;
@@ -18,7 +20,6 @@ protected:
 	double map_value = 0x00;
 	static constexpr double SENSOR_MIN = Analog::output_min();
 	static constexpr double SENSOR_MAX = Analog::output_max();
-	//void init()
 	double check_input(const double input);
 	void map(void);
 public:
@@ -34,6 +35,7 @@ public:
 	void set_input(const double left_sensor, const double right_sensor);
 	void read(void);
 	void print(void);
+	void set_counter_max(const uint8_t new_counter_max) { this->counter_max = new_counter_max; }
 };
 
 

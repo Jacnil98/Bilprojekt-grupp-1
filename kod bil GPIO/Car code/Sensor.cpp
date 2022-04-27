@@ -50,7 +50,11 @@ void Sensor::set_input(const double left_sensor, const double right_sensor)
 
 void Sensor::read(void)
 {
-	this->set_input(this->left_sensor.read(), this->right_sensor.read());
+	if (++this->read_counter >= this->counter_max)
+	{
+		this->read_counter = 0x00;
+		this->set_input(this->left_sensor.read(), this->right_sensor.read());
+	}
 	return;
 }
 

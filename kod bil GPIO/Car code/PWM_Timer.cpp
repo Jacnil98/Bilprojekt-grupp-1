@@ -47,6 +47,8 @@ void PWM_Timer::switch_mode(void)
 	else
 	{
 		this->required_interrupts = analog.get_interrupts_on_time(this->total_amount_of_interrupts);
+		
+		//this->required_interrupts = required_interrupts1 / 2;
 		this->pwm_period = PWM_Period::On;
 		//Serial::print("\n switched pwm mode to on: ");
 	}
@@ -64,9 +66,8 @@ void PWM_Timer::switch_servo_mode(const double output)
 	
 	else
 	{
-		this->required_interrupts = output;
+		this->required_interrupts = output * 0.9;
 		this->servo_period = PWM_Period::On;
 	}
-	
 	return;
 }

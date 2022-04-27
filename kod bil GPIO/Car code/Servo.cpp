@@ -6,7 +6,7 @@ Servo::Servo(const uint8_t servo_PIN, const uint8_t left_PIN, const uint8_t righ
 {
 	this->servo = Output(servo_PIN);
 	this->servo_timer = PWM_Timer(timerSelection, period);
-	this->sensor = Sensor(left_PIN, right_PIN, 90, 1.5, 0.01, 1, 40, 140);
+	this->sensor = Sensor(left_PIN, right_PIN, 90, 3.5, 0.01, 0.3, 50, 110);
 	return;
 }
 

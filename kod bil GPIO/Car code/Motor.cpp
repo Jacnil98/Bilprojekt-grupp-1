@@ -108,7 +108,7 @@ void Motor::change_direction(void)
 		this->drive_forward();
 	return;
 }
-
+/*
 void Motor::run_PWM(void)
 {
 	if (!this->enabled) return;
@@ -116,3 +116,4 @@ void Motor::run_PWM(void)
 		Serial::print("\n run_PWM elapsed: ");
 	return;
 }
+*/

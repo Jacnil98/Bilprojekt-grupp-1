@@ -1,7 +1,7 @@
 #ifndef DEFINITIONS_H_
 #define DEFINITIONS_H_
 
-#define F_CPU 20000000UL
+#define F_CPU 16000000UL
 
 #include <avr/io.h>
 #include <avr/interrupt.h>

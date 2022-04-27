@@ -13,7 +13,7 @@ void Timer::init(const TimerSelection timerSelection)
 	else if (timerSelection == TimerSelection::Timer1)
 	{
 		TCCR1B = (1 << CS10) | (1 << WGM12);
-		OCR1A = 333;
+		OCR1A = 255;
 		Serial::print("\n Timer 1 initiated ");
 /*
 1/20M = 0.05us => 1.5ms/0.05us = 30k  => 30k/256 = 117 interrupts för rakt fram

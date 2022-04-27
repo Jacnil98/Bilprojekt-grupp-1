@@ -5,9 +5,10 @@ ISR (PCINT0_vect)
 	
 	if (button.is_pressed()) 
 	{
-		Serial::print("\n Button is pressed: ");
+		
 		motor.toggle();
-		servo.toggle();
+		servo.enable();
+		Serial::print("\n Button is pressed: ");
 	}
 	
 	return;
