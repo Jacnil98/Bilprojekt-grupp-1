@@ -1,0 +1,43 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Car code Motor</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <ProjectType>CandCPP</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Car code Motor</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Car code.cppproj" File="Car code.cppproj" ReplaceParameters="true">
+      <Folder Name="libm" TargetFolderName="libm" />
+      <ProjectItem ReplaceParameters="true" TargetFileName="Analog.cpp">Analog.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Button.cpp">Button.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="definitions.h">definitions.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="GPIO.h">GPIO.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="header.h">header.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="interrupts.cpp">interrupts.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="main.cpp">main.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Motor.cpp">Motor.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Motor.h">Motor.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Output.cpp">Output.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="PID_Controller.cpp">PID_Controller.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="PID_Controller.h">PID_Controller.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="PWM_Timer.cpp">PWM_Timer.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="PWM_Timer.h">PWM_Timer.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Sensor.cpp">Sensor.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Sensor.h">Sensor.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Serial.cpp">Serial.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Serial.h">Serial.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Servo.cpp">Servo.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Servo.h">Servo.h</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Timer.cpp">Timer.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Timer.h">Timer.h</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
