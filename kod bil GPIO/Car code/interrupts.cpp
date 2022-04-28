@@ -5,7 +5,7 @@ ISR (PCINT0_vect)
 	
 	if (button.is_pressed()) 
 	{
-		motor.toggle();
+		//motor.toggle();
 		//Serial::print("\n Button is pressed: ");
 	}
 	
@@ -31,6 +31,7 @@ ISR (TIMER1_COMPA_vect)
 
 ISR (TIMER2_OVF_vect)
 {
+	/*
 	//Serial::print("\n interrupt OVF Timer 2: ");
 	if (motor.elapsed())
 	{
@@ -38,6 +39,6 @@ ISR (TIMER2_OVF_vect)
 		motor.switch_mode();
 		motor.toggle_PWM();
 	}
-	
+	*/
 	return;
 }

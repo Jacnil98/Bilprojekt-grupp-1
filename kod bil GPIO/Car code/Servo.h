@@ -29,9 +29,9 @@ public:
 	bool elapsed(void) {return this->servo_timer.elapsed(); }
 	void switch_servo_mode(void) 
 	{ 
-		//Serial::print("Servo motor output: ");
-		//Serial::print(this->sensor.get_output());
-		// Serial::print("\n\n");
+	//	Serial::print("Servo motor output: ");
+	//	Serial::print(this->sensor.get_output());
+	//	 Serial::print("\n\n");
 		this->servo_timer.switch_servo_mode(this->sensor.get_output()); 
 	}
 	void regulate(void);

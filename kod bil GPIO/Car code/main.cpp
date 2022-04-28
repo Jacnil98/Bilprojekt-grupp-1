@@ -9,7 +9,7 @@ int main(void)
 {
 	Serial::init();
 	button.enable_interrupt();
-	//servo.enable(); //kommentera bort för koden för motorn
+	servo.enable(); //kommentera bort för koden för motorn
 	while (true)
 	{
 	}

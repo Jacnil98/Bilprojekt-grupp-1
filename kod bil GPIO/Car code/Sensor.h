@@ -10,7 +10,7 @@ class Sensor : public PID_Controller
 {
 protected:
     uint8_t read_counter = 0x00;
-	uint8_t counter_max = 1;
+	uint8_t counter_max = 3;
 	Analog left_sensor;
 	Analog right_sensor;
 	double left_input = 0x00;
