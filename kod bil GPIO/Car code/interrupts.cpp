@@ -5,10 +5,8 @@ ISR (PCINT0_vect)
 	
 	if (button.is_pressed()) 
 	{
-		
 		motor.toggle();
-		servo.enable();
-		Serial::print("\n Button is pressed: ");
+		//Serial::print("\n Button is pressed: ");
 	}
 	
 	return;
@@ -16,12 +14,7 @@ ISR (PCINT0_vect)
 
 ISR (TIMER0_OVF_vect)
 {
-	/*if (timer1.elapsed())
-	{
-		Serial::print("\ninterrupts elapsed    0: ");
-		button.enable_interrupt();
-	}
-	*/
+	
 	return;
 }
 

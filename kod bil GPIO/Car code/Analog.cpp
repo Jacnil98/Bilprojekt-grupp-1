@@ -24,7 +24,7 @@ void Analog::init(void)
 uint16_t Analog::read(void)
 {
 	ADMUX = (1 << REFS0) | this->PIN;
-	ADCSRA = (1 << ADEN) | (1 << ADSC)  | (1 << ADPS1); // | (1 << ADPS0) | (1 << ADPS1)
+	ADCSRA = (1 << ADEN) | (1 << ADSC)  | (1 << ADPS1) | (1 << ADPS0); // | (1 << ADPS0) | (1 << ADPS1)
 	while ((ADCSRA & (1 << ADIF)) == 0);
 	ADCSRA = (1 << ADIF);
 	return ADC;

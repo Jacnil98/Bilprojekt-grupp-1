@@ -66,7 +66,7 @@ void PWM_Timer::switch_servo_mode(const double output)
 	
 	else
 	{
-		this->required_interrupts = output * 0.9;
+		this->required_interrupts = output;
 		this->servo_period = PWM_Period::On;
 	}
 	return;

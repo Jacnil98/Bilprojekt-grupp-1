@@ -24,17 +24,21 @@ const TimerSelection timerSelection, const double period, const uint8_t pot_PIN)
 
 void Motor::on(void)
 {
+	
 	this->actuator_enabled = true;
 	this->actuator.on();
 	//Serial::print("\n Motor On: ");
+	
 	return;
 }
 
 void Motor::off(void)
 {
+	
 	this->actuator_enabled = false;
 	this->actuator.off();
 	//Serial::print("\n Motor Off: ");
+	
 	return;
 }
 
@@ -62,6 +66,7 @@ void Motor::disable(void)
 {
 	this->enabled = false;
 	this->pwm_timer.off();
+	this->actuator.off();
 	Serial::print("Motor timer now off!\n");
 	return;
 }
@@ -108,12 +113,4 @@ void Motor::change_direction(void)
 		this->drive_forward();
 	return;
 }
-/*
-void Motor::run_PWM(void)
-{
-	if (!this->enabled) return;
-	if (this->pwm_timer.elapsed())
-		Serial::print("\n run_PWM elapsed: ");
-	return;
-}
-*/
+
