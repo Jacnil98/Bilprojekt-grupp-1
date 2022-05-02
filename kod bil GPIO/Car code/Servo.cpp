@@ -37,7 +37,7 @@ void Servo::enable(void)
 {
 	this->enabled = true;
 	this->servo_timer.on();
-	Serial::print("Servo timer now on!\n");
+	//Serial::print("Servo timer now on!\n");
 	return;
 }
 
@@ -45,7 +45,7 @@ void Servo::disable(void)
 {
 	this->enabled = false;
 	this->servo_timer.off();
-	Serial::print("Servo timer now off!\n");
+	//Serial::print("Servo timer now off!\n");
 	return;
 }
 
@@ -55,19 +55,19 @@ void Servo::toggle(void)
 	{
 		
 		this->disable();
-		Serial::print("The Servo is now disabled!\n");
+		//Serial::print("The Servo is now disabled!\n");
 	}
 	else
 	{
 		this->enable();
-		Serial::print("The Servo is now enabled!\n");
+		//Serial::print("The Servo is now enabled!\n");
 	}
 	return;
 }
 
 Servo::~Servo(void)
 {
-	Serial::print("\n Timer destructor called!\n");
+	//Serial::print("\n Timer destructor called!\n");
 	return;
 }
 

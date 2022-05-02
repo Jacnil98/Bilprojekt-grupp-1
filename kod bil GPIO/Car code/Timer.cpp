@@ -3,18 +3,18 @@
 void Timer::init(const TimerSelection timerSelection)
 {
 	asm("SEI");
-	Serial::init();
+	//Serial::init();
 	if (timerSelection == TimerSelection::Timer0)
 	{
 		TCCR0B = (1 << CS00); 
-		Serial::print("\n Timer 0 initiated ");
+		//Serial::print("\n Timer 0 initiated ");
 	}
 	
 	else if (timerSelection == TimerSelection::Timer1)
 	{
 		TCCR1B = (1 << CS10) | (1 << WGM12);
 		OCR1A = 255;
-		Serial::print("\n Timer 1 initiated ");
+		//Serial::print("\n Timer 1 initiated ");
 /*
 1/20M = 0.05us => 1.5ms/0.05us = 30k  => 30k/256 = 117 interrupts för rakt fram
                   1ms                    20k/256 = 78 interrupts för vänster  
@@ -29,7 +29,7 @@ void Timer::init(const TimerSelection timerSelection)
 	else if (timerSelection == TimerSelection::Timer2)
 	{
 		TCCR2B = (1 << CS20);
-		Serial::print("\n Timer 2 initiated ");
+		//Serial::print("\n Timer 2 initiated ");
 	}
 	
 	return;
@@ -57,7 +57,7 @@ Timer::Timer(const TimerSelection timerSelection, const double delay_time)
 
 Timer::~Timer(void)
 {
-	Serial::print("\nTimer destructor called!\n");
+	//Serial::print("\nTimer destructor called!\n");
 	// this->reset();
 	// this->disable(this->timerSelection);
 	return;
@@ -72,7 +72,7 @@ void Timer::on(void)
 	else if (this->timerSelection == TimerSelection::Timer2)
 	{
 		TIMSK2 = (1 << TOIE2);
-		Serial::print("\n Timer 2 on: ");
+		//Serial::print("\n Timer 2 on: ");
 	}
 	this->enabled = true;
 	return;
@@ -87,7 +87,7 @@ void Timer::off(void)
 	else if (this->timerSelection == TimerSelection::Timer2)
 	{
 		TIMSK2 = 0x00;
-		Serial::print("\n Timer 2 off: ");
+		//Serial::print("\n Timer 2 off: ");
 	}
 	this->enabled = false;
 	return;

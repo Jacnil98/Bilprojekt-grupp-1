@@ -17,7 +17,7 @@ void Analog::init(void)
 	ADCSRA = (1 << ADEN) | (1 << ADSC) | (1 << ADPS0) | (1 << ADPS1);
 	while ((ADCSRA & (1 << ADIF)) == 0);
 	ADCSRA = (1 << ADIF);
-	Serial::print("\n init ADC: ");
+	//Serial::print("\n init ADC: ");
 	return;
 }
 
