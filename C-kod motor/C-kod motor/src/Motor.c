@@ -2,8 +2,7 @@
 
 static void motor_enable();
 static void motor_disable();
-static void motor_on();
-static void motor_off();
+
 
 void motor_toggle()
 {
@@ -29,28 +28,17 @@ void motor_backwards()
 
 static void motor_enable()
 {
+    serial_print("motor enabled\n");
     motor_enabled = true;
     timer_enable();
-    motor_on();
     return;
 }
 
 static void motor_disable()
 {
+    serial_print("motor disabled\n");
     motor_enabled = false;
     timer_disable();
-    motor_off();
-    return;
-}
-
-static void motor_on()
-{
-    MOTOR_ON;
-    return;
-}
-
-static void motor_off()
-{
     MOTOR_OFF;
     return;
 }

@@ -1,6 +1,6 @@
 #include "header.h"
 
-ISR (PCINT0_vect)
+ISR(PCINT0_vect) //denna får vi dubbelkolla
 {
     if(BUTTON_IS_PRESSED) 
     {
@@ -9,11 +9,12 @@ ISR (PCINT0_vect)
     return;
 }
 
-ISR (TIMER1_COMPA_vect)
+
+ISR(TIMER1_COMPA_vect)
 {
 	if(timer_elapsed())
     {
-        switch_servo_mode();
+        switch_pwm_mode();
     }
 	return;
 }

@@ -8,12 +8,12 @@
 #include <avr/interrupt.h>
 #include <stdbool.h>
 
-#define BUTTON 9
+#define BUTTON 1 //ska va en 9 där ju
 #define BUTTON_IS_PRESSED (PINB & (1<<BUTTON))
 
 #define MOTOR 5
-#define MOTOR_ON PORTB |= (1<<MOTOR) //port b pin 5
-#define MOTOR_OFF PORTB &= ~(1<<MOTOR)
+#define MOTOR_ON PORTD |= (1<<MOTOR) //port d pin 5
+#define MOTOR_OFF PORTD &= ~(1<<MOTOR)
 
 #define MOTOR_DIRECTION1 7
 #define MOTOR_DIRECTION2 8
@@ -35,19 +35,23 @@ uint16_t Calculate_distance();
 void timer_enable();
 void timer_disable();
 bool timer_elapsed();
+//void timer_count();
 
 void motor_toggle();
 void motor_forward();
 void motor_backwards();
-void switch_servo_mode();
+void switch_pwm_mode();
+
+void serial_print(const char* s); // Funktion för seriell överföring.
+void serial_print_int(const char* s, const int number);
 
 bool motor_enabled;
 bool timer_enabled;
 
 typedef enum {ON = 0, OFF = 1} period;
-period current_period;
-uint16_t required_interrupts;
-volatile uint16_t executed_interrupts;
+
+
+
 
 //motor
 #endif /* HEADER_H_ */

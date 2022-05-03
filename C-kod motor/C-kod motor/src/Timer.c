@@ -1,14 +1,20 @@
 #include "header.h"
 
+static uint16_t required_interrupts;
+static volatile uint16_t executed_interrupts;
+static period current_period = ON;
+
 void timer_enable()
 {
-    TIMSK1 = (1 << OCIE1A);
-    timer_enabled = true;
+    TIMSK1 = (1 << OCIE1A); //här, 
+    timer_enabled = true; //men varför kallar den på motor disabled?
+    serial_print("timer enabled\n");
     return;
 }
 
 void timer_disable()
 {
+    serial_print("timer disabled\n");
     TIMSK1 = 0x00;
     timer_enabled = false;
     return;
@@ -16,28 +22,32 @@ void timer_disable()
 
 bool timer_elapsed()
 {	
-    executed_interrupts++;
-	if (executed_interrupts >= required_interrupts)
+    //serial_print_int("%d\n", executed_interrupts);
+	if (++executed_interrupts >= required_interrupts)
 	{
 		return true;
 	}
 	return false;
 }
 
-void switch_servo_mode()
+void switch_pwm_mode()
 {
-     if(current_period == ON)
+    if(current_period == ON)
         {
             required_interrupts = TOTAL_INTERRUPTS - executed_interrupts;
             current_period = OFF;
+            
             executed_interrupts = 0x00;
+            MOTOR_OFF;
         }
         
-        else
-        {
-            required_interrupts = Calculate_distance();
-            current_period = ON;
-            executed_interrupts = 0x00;
-        }
+    else
+    {
+        required_interrupts = Calculate_distance();
+        current_period = ON;
+        //serial_print_int("%d\n", executed_interrupts);
+        executed_interrupts = 0x00;
+        MOTOR_ON;
+    }
     return;
 }
