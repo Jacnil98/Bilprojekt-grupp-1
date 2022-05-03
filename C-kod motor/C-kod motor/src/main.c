@@ -1,13 +1,11 @@
 #include "header.h"
 
-
-
 int main(void)
 {
-
-  while(TRUE)
+  setup();
+  while(true)
   {
-
+    
   }
   return 0;
 }

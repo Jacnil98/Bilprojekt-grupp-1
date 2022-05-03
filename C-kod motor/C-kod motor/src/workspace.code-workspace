@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "C-kod Servo",
+			"path": "..\\..\\..\\C-kod servo\\C-kod Servo"
+		},
+		{
+			"name": "C-kod motor",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"header.h": "c"
+		}
+	}
+}
