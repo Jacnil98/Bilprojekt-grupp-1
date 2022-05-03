@@ -6,6 +6,7 @@
 #include <util/delay.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
+#include <stdbool.h>
 
 #define BUTTON 9
 #define BUTTON_IS_PRESSED (PINB & (1<<BUTTON))
@@ -19,14 +20,13 @@
 
 #define SENSOR 1
 
-#define MAX_DISTANCE 80.0
+#define MAX_DISTANCE 625.0
 #define MIN_DISTANCE 10.0
 
 #define ADC_MAX 1023
+#define TOTAL_INTERRUPTS 625
 #define PERIOD 10
 #define INTERRUPT_TIME 0.016f
-
-typedef enum {TRUE = 1, FALSE = 0} boolean;
 
 void setup();
 uint32_t ADC_read();
@@ -34,14 +34,20 @@ uint16_t Calculate_distance();
 
 void timer_enable();
 void timer_disable();
+bool timer_elapsed();
 
 void motor_toggle();
 void motor_forward();
 void motor_backwards();
+void switch_servo_mode();
 
-boolean timer_enabled;
-boolean motor_enabled;
-uint32_t required_interrupts; //Vad ska detta vara?
+bool motor_enabled;
+bool timer_enabled;
+
+typedef enum {ON = 0, OFF = 1} period;
+period current_period;
+uint16_t required_interrupts;
+volatile uint16_t executed_interrupts;
 
 //motor
 #endif /* HEADER_H_ */

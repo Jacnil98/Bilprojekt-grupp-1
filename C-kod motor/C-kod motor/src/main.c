@@ -3,9 +3,9 @@
 int main(void)
 {
   setup();
-  while(TRUE)
+  while(true)
   {
-
+    
   }
   return 0;
 }

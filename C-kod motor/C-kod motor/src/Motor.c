@@ -29,7 +29,7 @@ void motor_backwards()
 
 static void motor_enable()
 {
-    motor_enabled = TRUE;
+    motor_enabled = true;
     timer_enable();
     motor_on();
     return;
@@ -37,7 +37,7 @@ static void motor_enable()
 
 static void motor_disable()
 {
-    motor_enabled = FALSE;
+    motor_enabled = false;
     timer_disable();
     motor_off();
     return;

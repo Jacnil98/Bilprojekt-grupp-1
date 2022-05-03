@@ -11,6 +11,9 @@ ISR (PCINT0_vect)
 
 ISR (TIMER1_COMPA_vect)
 {
-	
+	if(timer_elapsed())
+    {
+        switch_servo_mode();
+    }
 	return;
 }

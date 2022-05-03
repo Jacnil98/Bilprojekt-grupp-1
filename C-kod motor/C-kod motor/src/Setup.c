@@ -7,6 +7,8 @@ static void init_timer();
 
 void setup()
 {
+    required_interrupts = 0x00;
+    executed_interrupts = 0x00;
     init_ports();
     init_interrupts();
     init_ADC();
@@ -43,5 +45,5 @@ static void init_timer()
     asm("sei");
     TCCR1B = (1 << CS10) | (1 << WGM12);
     OCR1A = 255;
-    return;   
+    return;
 }

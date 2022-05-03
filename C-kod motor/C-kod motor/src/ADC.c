@@ -13,14 +13,16 @@ uint16_t Calculate_distance()
 {
     float in_signal = ADC_read() * 0.0048828125;
     double distance_in_cm = 29.988*(pow(in_signal, -1.173));
-
+    
     if(distance_in_cm >= MAX_DISTANCE)
     { 
         distance_in_cm = MAX_DISTANCE;
     }
+
     else if(distance_in_cm <= MIN_DISTANCE)
     {
         distance_in_cm = MIN_DISTANCE;
     }
-    return distance_in_cm;
+    uint16_t on_time_interrupts = distance_in_cm * 8;
+    return on_time_interrupts;
 }
