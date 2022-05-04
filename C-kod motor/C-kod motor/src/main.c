@@ -6,7 +6,7 @@ int main(void)
   while(true)
   {
     
-    MOTOR_ON;
+    
   }
   return 0;
 }

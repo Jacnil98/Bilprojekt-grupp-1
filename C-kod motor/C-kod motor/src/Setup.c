@@ -43,8 +43,9 @@ static void init_ADC()
 static void init_timer()
 {
     asm("sei");
-    TCCR1B = (1 << CS10) | (1 << WGM12);
-    OCR1A = 255;
+    TCCR2B = ((0 << CS22) | (1 << CS21) | (0 << CS20));
+	TCCR2A = (1 << WGM21);
+	OCR2A = 16;
     return;
 }
 

@@ -30,7 +30,7 @@ static void motor_enable()
 {
     serial_print("motor enabled\n");
     motor_enabled = true;
-    timer_enable();
+    timer_on();
     return;
 }
 
