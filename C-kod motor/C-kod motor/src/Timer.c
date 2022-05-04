@@ -16,7 +16,8 @@ void timer_on()
 void timer_disable()
 {
     serial_print("timer disabled\n");
-    TCCR2B = 0x00;
+    //TCCR2B = 0x00;
+    TIMSK2 = 0x00;
     timer_enabled = false;
     return;
 }

@@ -46,8 +46,8 @@ void switch_pwm_mode();
 void serial_print(const char* s); // Funktion för seriell överföring.
 void serial_print_int(const char* s, const int number);
 
-bool motor_enabled = false;
-bool timer_enabled = false;
+bool motor_enabled;
+bool timer_enabled;
 
 typedef enum {ON = 1, OFF = 0} period;
 
