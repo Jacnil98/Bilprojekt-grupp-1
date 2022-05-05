@@ -12,17 +12,19 @@ ISR(PCINT0_vect) //denna får vi dubbelkolla
 }
 
 
-ISR (TIMER2_COMPA_vect)
+ISR (TIMER1_COMPA_vect)
 {
 	if(timer_elapsed())
     {
         // serial_print("on\n");
         MOTOR_ON;
     }
+    
     if(duty_cycle_elapsed())
     {
         //serial_print("off\n");
         MOTOR_OFF;
     }
+
 	return;
 }

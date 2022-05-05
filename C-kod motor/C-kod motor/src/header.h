@@ -26,7 +26,7 @@
 #define ADC_MAX 1023
 #define TOTAL_INTERRUPTS 625
 #define PERIOD 4
-#define INTERRUPT_TIME 0.009f
+#define INTERRUPT_TIME 0.008f
 
 void setup();
 uint32_t ADC_read();
@@ -36,6 +36,7 @@ void timer_on();
 void timer_disable();
 bool timer_elapsed();
 bool duty_cycle_elapsed();
+void get_new_duty_cycle();
 //void timer_count();
 
 void motor_toggle();
