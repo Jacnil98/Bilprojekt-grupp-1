@@ -53,7 +53,5 @@ bool timer_enabled;
 typedef enum {ON = 1, OFF = 0} period;
 
 
-
-
 //motor
 #endif /* HEADER_H_ */
