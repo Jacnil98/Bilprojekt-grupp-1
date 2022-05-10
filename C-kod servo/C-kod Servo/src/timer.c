@@ -1,15 +1,14 @@
 #include "header.h"
 
 static volatile uint16_t required_interrupts = PERIOD / INTERRUPT_TIME;
-static volatile uint16_t required_interrupts_on;
 static volatile uint16_t executed_interrupts;
 
 //static uint16_t duty_cycle_interrupts;
 
 void timer_on()
 {
-    TCCR1B = (1 << CS10) | (1 << WGM12); //här, 
-    timer_enabled = true; //men varför kallar den på motor disabled?
+    TCCR1B = (1 << CS10) | (1 << WGM12); 
+    timer_enabled = true;
     serial_print("timer enabled\n");
     return;
 }
@@ -29,8 +28,21 @@ bool timer_elapsed()
 	if (++executed_interrupts >= required_interrupts)
 	{
         executed_interrupts = 0x00;
+        
         //get_new_duty_cycle();
-        //serial_print_int("%d\n", required_interrupts);
+        
+		return true;
+	}
+	return false;
+}
+
+bool duty_cycle_elapsed()
+{
+    
+    if (++executed_interrupts >= output) //beehöver ett värde snabbt)duty_cycle_interruptsCalculate_distance()
+	{
+        //serial_print_int("%d\n", output);
+        //serial_print_int("%d\n", Calculate_distance);
 		return true;
 	}
 	return false;

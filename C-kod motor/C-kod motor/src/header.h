@@ -16,7 +16,7 @@
 #define MOTOR_OFF PORTD &= ~(1<<MOTOR)
 
 #define MOTOR_DIRECTION1 7
-#define MOTOR_DIRECTION2 8
+#define MOTOR_DIRECTION2 0
 
 #define SENSOR 1
 

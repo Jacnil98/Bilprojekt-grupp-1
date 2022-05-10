@@ -12,19 +12,8 @@ uint32_t ADC_read(const uint8_t PIN)
 uint16_t Calculate_distance(const uint8_t PIN)
 {
     float in_signal = ADC_read(PIN) * 0.0048828125;
-    double distance_in_cm = 29.988*(pow(in_signal, -1.173));
-    
-    if(distance_in_cm >= MAX_DISTANCE)
-    { 
-        distance_in_cm = MAX_DISTANCE;
-    }
-
-    else if(distance_in_cm <= MIN_DISTANCE)
-    {
-        distance_in_cm = MIN_DISTANCE;
-    }
-    
-    uint16_t on_time_interrupts = distance_in_cm * 7;
+    uint16_t distance_in_cm = 29.988*(pow(in_signal, -1.173));
+    uint16_t on_time_interrupts = distance_in_cm * 13;
     //serial_print_int("%d\n", distance_in_cm);
     //serial_print("ADC");
     //serial_print_int("%d\n", on_time_interrupts);
