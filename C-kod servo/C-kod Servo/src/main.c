@@ -10,7 +10,7 @@ int main(void)
     set_input();
     duty_cycle = regulate();
     //serial_print_int("%d", duty_cycle);
-    PID_print();
+    //PID_print();
     
   }
 

@@ -40,7 +40,7 @@ bool duty_cycle_elapsed()
 {
     if (++executed_interrupts >= required_interrupts_on) //beehöver ett värde snabbt)duty_cycle_interruptsCalculate_distance()
 	{
-        //serial_print_int("%d\n", Calculate_distance);
+        //serial_print_int("%d\n", required_interrupts_on);
 		return true;
 	}
 	return false;
@@ -49,5 +49,6 @@ bool duty_cycle_elapsed()
 void get_new_duty_cycle()
 {
     required_interrupts_on = Calculate_distance();
+    
     return;
 }

@@ -16,7 +16,7 @@ double regulate()
     last_error = error;
     output = output1 + 80;
     if (output >= 250) output = 250;
-    else if (output <= 100) output = 100;
+    else if (output <= 90) output = 90;
     return output;
 }
 
@@ -28,7 +28,7 @@ static void check_output()
         output1 = OUTPUT_MIN;
     return;
 }
-
+/*
 void PID_print()
 {
     serial_print("-------------------------\n");
@@ -39,3 +39,4 @@ void PID_print()
 
     return;
 }
+*/

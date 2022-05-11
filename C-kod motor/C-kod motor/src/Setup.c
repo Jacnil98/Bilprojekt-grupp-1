@@ -19,7 +19,8 @@ void setup()
 
 static void init_ports()
 {
-    DDRD |= ((1<<MOTOR) | (1 << MOTOR_DIRECTION1) | (1 << MOTOR_DIRECTION2));
+    DDRB |= (1<<MOTOR_DIRECTION2);
+    DDRD |= ((1<<MOTOR) | (1 << MOTOR_DIRECTION1));
     PORTB |= (1<<BUTTON);
     return;
 }

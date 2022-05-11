@@ -21,7 +21,7 @@
 #define SENSOR 1
 
 #define MAX_DISTANCE 80.0
-#define MIN_DISTANCE 10.0
+#define MIN_DISTANCE 50.0
 
 #define ADC_MAX 1023
 #define TOTAL_INTERRUPTS 625
