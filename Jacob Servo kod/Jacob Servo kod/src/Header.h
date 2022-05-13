@@ -10,8 +10,8 @@
 
 #include "PID_Controller.h"
 
-#define SENSOR_RIGHT 1 //Byt pin
-#define SENSOR_LEFT 0 //Byt pin
+#define SENSOR_RIGHT 0 //Byt pin
+#define SENSOR_LEFT 1 //Byt pin
 
 #define SERVO_PIN 6 //Vilken pin
 #define SERVO_ON PORTD |= (1 << SERVO_PIN)
