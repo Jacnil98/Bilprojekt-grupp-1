@@ -44,7 +44,7 @@ bool timer_elapsed()
 
 bool duty_cycle_elapsed()
 {
-    if (++executed_interrupts >= required_interrupts_on) //beehöver ett värde snabbt)duty_cycle_interruptsCalculate_distance()
+    if (++executed_interrupts >= required_interrupts_on)
 	{
         //serial_print_int("%d\n", required_interrupts_on);
 		return true;
@@ -73,7 +73,7 @@ void reverse_timer_on()
 void reverse_timer_off()
 {
     serial_print("timer2 disabled\n");
-    
+    reverse_executed_interrupts = 0x00;
     TIMSK2 = 0x00;
     timer2_enabled = false;
     return;
@@ -84,6 +84,7 @@ bool reverse_timer_elapsed()
     if (++reverse_executed_interrupts >= reverse_total_interrupts)
 	{
         reverse_executed_interrupts = 0x00;
+        reverse_timer_off();
 		return true;
 	}
     

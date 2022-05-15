@@ -16,7 +16,7 @@ uint16_t Calculate_distance()
     
     if(distance_in_cm <= 20)
     {
-        
+        reverse_timer_on();
     }
 
     if(distance_in_cm >= 70)
