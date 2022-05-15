@@ -52,3 +52,23 @@ void get_new_duty_cycle()
     
     return;
 }
+
+
+
+
+void reverse_timer_on()
+{
+    TIMSK2 = (1 << OCIE2A); 
+    timer2_enabled = true; //men varför kallar den på motor disabled?
+    serial_print("timer2 enabled\n");
+    return;
+}
+
+void reverse_timer_off()
+{
+    serial_print("timer2 disabled\n");
+    
+    TIMSK2 = 0x00;
+    timer2_enabled = false;
+    return;
+}

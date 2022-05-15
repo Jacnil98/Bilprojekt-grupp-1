@@ -26,6 +26,7 @@
 #define ADC_MAX 1023
 #define TOTAL_INTERRUPTS 625
 #define PERIOD 4
+#define PERIOD2 10
 #define INTERRUPT_TIME 0.008f
 
 void setup();
@@ -49,6 +50,7 @@ void serial_print_int(const char* s, const int number);
 
 bool motor_enabled;
 bool timer_enabled;
+bool timer2_enabled;
 
 typedef enum {ON = 1, OFF = 0} period;
 

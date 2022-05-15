@@ -47,6 +47,10 @@ static void init_timer()
     TCCR1B = ((0 << CS12) | (1 << CS11) | (0 << CS10) | (1 << WGM12));
     TIMSK1 = (1 << OCIE1A);
 	OCR1A = 255;
+
+    TCCR2B = ((1 << CS22) | (1 << CS21) | (1 << CS20));
+	TCCR2A = (1 << WGM21);
+	OCR2A = PERIOD2;
     return;
 }
 
