@@ -1,9 +1,5 @@
 #include "header.h"
 
- 
-
-
-
 void motor_toggle()
 {
     if(motor_enabled)

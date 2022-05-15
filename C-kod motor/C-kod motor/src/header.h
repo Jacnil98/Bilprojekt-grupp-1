@@ -47,6 +47,8 @@ void timer_on();
 
 void timer_disable();
 bool timer_elapsed();
+void reverse_timer_on();
+void reverse_timer_off();
 bool reverse_timer_elapsed();
 bool start_reversing();
 bool duty_cycle_elapsed();
