@@ -52,7 +52,7 @@ static void init_timer()
 
     TCCR2B = ((1 << CS22) | (1 << CS21) | (1 << CS20));
 	TCCR2A = (1 << WGM21);
-	OCR2A = PERIOD2;
+	OCR2A = 255;
     return;
 }
 

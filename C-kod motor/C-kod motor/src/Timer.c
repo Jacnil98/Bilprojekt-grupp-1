@@ -3,7 +3,9 @@
 static volatile uint16_t required_interrupts = PERIOD / INTERRUPT_TIME;
 static volatile uint16_t required_interrupts_on;
 static volatile uint16_t executed_interrupts;
-
+static volatile uint32_t reverse_executed_interrupts;
+static volatile uint32_t reverse_total_interrupts = TOTAL_REVERSE_PERIOD / REVERSE_INTERRUPT_TIME;
+static volatile uint32_t required_interrupts_for_reverse = REQUIRED_FOR_REVERSE / REVERSE_INTERRUPT_TIME;
 //static uint16_t duty_cycle_interrupts;
 
 void timer_on()
@@ -63,7 +65,7 @@ void get_new_duty_cycle()
 void reverse_timer_on()
 {
     TIMSK2 = (1 << OCIE2A); 
-    timer2_enabled = true; //men varför kallar den på motor disabled?
+    timer2_enabled = true; 
     serial_print("timer2 enabled\n");
     return;
 }
@@ -76,3 +78,24 @@ void reverse_timer_off()
     timer2_enabled = false;
     return;
 }
+
+bool reverse_timer_elapsed()
+{
+    if (++reverse_executed_interrupts >= reverse_total_interrupts)
+	{
+        reverse_executed_interrupts = 0x00;
+		return true;
+	}
+    
+	return false;
+}
+
+bool start_reversing()
+{
+    if (++reverse_executed_interrupts >= required_interrupts_for_reverse) 
+	{
+		return true;
+	}
+	return false;
+}
+

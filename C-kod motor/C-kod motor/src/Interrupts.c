@@ -30,8 +30,16 @@ ISR (TIMER1_COMPA_vect)
 	return;
 }
 
-ISR (TIMER2_OVF_vect)
+ISR (TIMER2_COMPA_vect)
 {
-	
+	if(reverse_timer_elapsed())
+    {
+        motor_forward();
+    }
+
+    if(start_reversing())
+    {
+        motor_backwards();
+    }
 	return;
 }

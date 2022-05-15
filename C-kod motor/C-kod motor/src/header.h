@@ -31,8 +31,11 @@
 #define ADC_MAX 1023
 #define TOTAL_INTERRUPTS 625
 #define PERIOD 4
-#define PERIOD2 10
 #define INTERRUPT_TIME 0.008f
+
+#define TOTAL_REVERSE_PERIOD 5000 //5s
+#define REVERSE_INTERRUPT_TIME 0.064f
+#define REQUIRED_FOR_REVERSE 3500
 
 void setup();
 uint32_t ADC_read();
@@ -43,6 +46,8 @@ void timer_on();
 
 void timer_disable();
 bool timer_elapsed();
+bool reverse_timer_elapsed();
+bool start_reversing();
 bool duty_cycle_elapsed();
 void get_new_duty_cycle();
 //void timer_count();
