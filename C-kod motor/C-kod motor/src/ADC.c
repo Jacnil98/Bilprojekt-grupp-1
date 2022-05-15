@@ -16,15 +16,31 @@ uint16_t Calculate_distance()
     
     if(distance_in_cm <= 20)
     {
-        
+        //serial_print("distance below 20\n");
+        if(!reverse_timer_enabled)
+        {
+        reverse_timer_on();
+        }
+    }
+    else 
+    {
+        if(reverse_timer_enabled)
+        {
+            reverse_timer_off();
+        }
+        if(motor_reverse)
+        {
+            motor_forward();
+        }
     }
 
-    if(distance_in_cm >= 70)
+    if(distance_in_cm >= 65)
     { 
+        //serial_print("distance above 65\n");
         distance_in_cm = MAX_DISTANCE;
     }
 
-    else if(distance_in_cm <= MIN_DISTANCE)
+    if(distance_in_cm <= MIN_DISTANCE)
     {
         distance_in_cm = MIN_DISTANCE;
     }

@@ -15,12 +15,14 @@ void motor_toggle()
 
 void motor_forward()
 {
+    motor_reverse = false;
     PORTD |= (1<<MOTOR_DIRECTION1);
     PORTB &= ~(1<<MOTOR_DIRECTION2);
     return;
 }
 void motor_backwards()
 {
+    motor_reverse = true;
     PORTD &= ~(1<<MOTOR_DIRECTION1);
     PORTB |= (1<<MOTOR_DIRECTION2);
     return;
