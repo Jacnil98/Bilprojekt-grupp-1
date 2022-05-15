@@ -14,6 +14,8 @@ void timer_on()
     return;
 }
 
+
+
 void timer_disable()
 {
     serial_print("timer disabled\n");
@@ -35,6 +37,8 @@ bool timer_elapsed()
 	}
 	return false;
 }
+
+
 
 bool duty_cycle_elapsed()
 {

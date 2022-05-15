@@ -7,6 +7,7 @@ ISR(PCINT0_vect) //denna får vi dubbelkolla
         serial_print("button is pressed\n");
         motor_forward();
         motor_toggle(); //gör något gött
+        //motor_enable();
     }
     return;
 }
@@ -26,5 +27,11 @@ ISR (TIMER1_COMPA_vect)
         MOTOR_OFF;
     }
 
+	return;
+}
+
+ISR (TIMER2_OVF_vect)
+{
+	
 	return;
 }
