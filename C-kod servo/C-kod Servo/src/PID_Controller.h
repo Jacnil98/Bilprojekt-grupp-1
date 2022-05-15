@@ -10,8 +10,8 @@
 #define OUTPUT_MAX 180
 #define TARGET 90
 #define Kp 0.7
-#define Ki 0.001
-#define Kd 0.1
+#define Ki 0.00001
+#define Kd 0.2
 
 double output;
 double actual_value;

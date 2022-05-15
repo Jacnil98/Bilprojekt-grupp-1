@@ -6,8 +6,8 @@ int main(void)
   
   while(true)
   {
-    
-    
+   //check_start_button();
+   
   }
   return 0;
 }

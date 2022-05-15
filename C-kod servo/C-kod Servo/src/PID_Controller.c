@@ -12,7 +12,10 @@ double regulate()
     double derivative = error - last_error;
     output1 = TARGET + Kp * error + Ki * intergral + Kd * derivative;
     check_output();
-   
+
+    if(intergral >= 2000) intergral = 2000;
+    if (intergral <= -2000) intergral = -2000;
+    //serial_print_int("\n%d", intergral);
     last_error = error;
     output = output1 + 80;
     if (output >= 250) output = 250;

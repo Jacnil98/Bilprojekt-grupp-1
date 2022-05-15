@@ -5,23 +5,20 @@ ISR (PCINT0_vect)
 	
 	if (button.is_pressed()) 
 	{
-		//motor.toggle();
-		//Serial::print("\n Button is pressed: ");
+		motor.toggle();
+		Serial::print("\n Button is pressed: ");
 	}
 	
 	return;
 }
 
-ISR (TIMER0_OVF_vect)
-{
-	
-	return;
-}
+
 
 ISR (TIMER1_COMPA_vect)
 {
 	if(servo.elapsed())
 	{
+		Serial::print("see this");
 		servo.regulate(); // REGLERING SKER INNAN VI BYTER SERVO MODE!
 		servo.switch_servo_mode();
 		servo.toggle_PWM();

@@ -15,12 +15,14 @@ void setup()
     init_ADC();
     init_timer();
     init_serial();
+    motor_disable();
+    motor_enabled = false;
 }
 
 static void init_ports()
 {
     DDRB |= (1<<MOTOR_DIRECTION2);
-    DDRD |= ((1<<MOTOR) | (1 << MOTOR_DIRECTION1));
+    DDRD |= ((1<<MOTOR) | (1 << MOTOR_DIRECTION1) | (1<<CONNECTION));
     PORTB |= (1<<BUTTON);
     return;
 }
@@ -47,6 +49,9 @@ static void init_timer()
     TCCR1B = ((0 << CS12) | (1 << CS11) | (0 << CS10) | (1 << WGM12));
     TIMSK1 = (1 << OCIE1A);
 	OCR1A = 255;
+
+    
+
     return;
 }
 

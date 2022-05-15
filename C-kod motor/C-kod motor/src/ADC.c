@@ -13,8 +13,9 @@ uint16_t Calculate_distance()
 {
     float in_signal = ADC_read() * 0.0048828125;
     double distance_in_cm = 29.988*(pow(in_signal, -1.173));
-    
-    if(distance_in_cm >= 60)
+ 
+
+    if(distance_in_cm >= 70)
     { 
         distance_in_cm = MAX_DISTANCE;
     }
