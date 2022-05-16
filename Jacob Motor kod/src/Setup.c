@@ -45,6 +45,8 @@ static void init_timer()
     asm("sei");
     TCCR1B = ((0 << CS12) | (1 << CS11) | (0 << CS10) | (1 << WGM12));
     TIMSK1 = (1 << OCIE1A);
+    TCCR2B = ((0 << CS22) | (1 << CS21) | (0 << CS20));
+    TIMSK2 = (1 << TOIE2);
 	OCR1A = 255;
     return;
 }

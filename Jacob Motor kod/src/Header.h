@@ -21,37 +21,43 @@
 #define SENSOR 1
 
 #define MAX_DISTANCE 80.0
-#define MIN_DISTANCE 10.0
+#define MIN_DISTANCE 60.0
 
 #define ADC_MAX 1023
 #define TOTAL_INTERRUPTS 625
 #define PERIOD 4
-#define INTERRUPT_TIME 0.008f
+#define INTERRUPT_TIME 0.008
 
 void setup();
 uint32_t ADC_read();
 uint16_t Calculate_distance();
 
-void timer_on();
-void timer_disable();
-bool timer_elapsed();
-bool duty_cycle_elapsed();
-void get_new_duty_cycle();
+void timer1_on();
+void timer1_disable();
+bool timer1_elapsed();
+bool duty_cycle_elapsed1();
+void get_new_duty_cycle1();
 //void timer_count();
+
+void timer2_on();
+void timer2_disable();
+bool timer2_elapsed();
+bool duty_cycle_elapsed2();
+void get_new_duty_cycle2();
 
 void motor_toggle();
 void motor_forward();
 void motor_backwards();
 void switch_pwm_mode();
+void check_start_button();
 
 void serial_print(const char* s); // Funktion för seriell överföring.
 void serial_print_int(const char* s, const int number);
 
 bool motor_enabled;
-bool timer_enabled;
+bool timer1_enabled;
 
 typedef enum {ON = 1, OFF = 0} period;
-
 
 //motor
 #endif /* HEADER_H_ */

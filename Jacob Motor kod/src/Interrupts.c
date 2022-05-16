@@ -4,7 +4,6 @@ ISR(PCINT2_vect) //denna får vi dubbelkolla
 {
     if(BUTTON_IS_PRESSED) 
     {
-        serial_print("button is pressed\n");
         motor_forward();
         motor_toggle(); //gör något gött
     }
@@ -14,17 +13,23 @@ ISR(PCINT2_vect) //denna får vi dubbelkolla
 
 ISR (TIMER1_COMPA_vect)
 {
-	if(timer_elapsed())
+	if(timer1_elapsed())
     {
         // serial_print("on\n");
         MOTOR_ON;
     }
     
-    if(duty_cycle_elapsed())
+    if(duty_cycle_elapsed1())
     {
         //serial_print("off\n");
         MOTOR_OFF;
     }
 
 	return;
+}
+
+ISR (TIMER2_OVF_vect)
+{
+
+    return;
 }

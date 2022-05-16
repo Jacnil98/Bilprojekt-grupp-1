@@ -6,37 +6,37 @@ static volatile uint16_t executed_interrupts;
 
 //static uint16_t duty_cycle_interrupts;
 
-void timer_on()
+void timer1_on()
 {
     TCCR1B = (1 << CS10) | (1 << WGM12); //här, 
-    timer_enabled = true; //men varför kallar den på motor disabled?
-    serial_print("timer enabled\n");
+    timer1_enabled = true; //men varför kallar den på motor disabled?
+    //serial_print("timer enabled\n");
     return;
 }
 
-void timer_disable()
+void timer1_disable()
 {
-    serial_print("timer disabled\n");
+    //serial_print("timer disabled\n");
     //TCCR2B = 0x00;
     TCCR1B = 0x00;
-    timer_enabled = false;
+    timer1_enabled = false;
     return;
 }
 
-bool timer_elapsed()
+bool timer1_elapsed()
 {	
     //serial_print_int("%d\n", executed_interrupts);
 	if (++executed_interrupts >= required_interrupts)
 	{
         executed_interrupts = 0x00;
-        get_new_duty_cycle();
+        get_new_duty_cycle1();
         //serial_print_int("%d\n", required_interrupts);
 		return true;
 	}
 	return false;
 }
 
-bool duty_cycle_elapsed()
+bool duty_cycle_elapsed1()
 {
     if (++executed_interrupts >= required_interrupts_on) //beehöver ett värde snabbt)duty_cycle_interruptsCalculate_distance()
 	{
@@ -46,8 +46,38 @@ bool duty_cycle_elapsed()
 	return false;
 }
 
-void get_new_duty_cycle()
+void get_new_duty_cycle1()
 {
     required_interrupts_on = Calculate_distance();
+    return;
+}
+
+void timer2_on()
+{
+
+    return;
+}
+
+void timer2_disable()
+{
+
+    return;
+}
+
+bool timer2_elapsed()
+{
+
+    return;
+}
+
+bool duty_cycle_elapsed2()
+{
+
+    return;
+}
+
+void get_new_duty_cycle2()
+{
+
     return;
 }

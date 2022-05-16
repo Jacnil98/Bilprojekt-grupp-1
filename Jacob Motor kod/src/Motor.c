@@ -28,17 +28,30 @@ void motor_backwards()
 
 static void motor_enable()
 {
-    serial_print("motor enabled\n");
+    //serial_print("motor enabled\n");
     motor_enabled = true;
-    timer_on();
+    timer1_on();
     return;
 }
 
 static void motor_disable()
 {
-    serial_print("motor disabled\n");
+    //serial_print("motor disabled\n");
     motor_enabled = false;
-    timer_disable();
+    timer1_disable();
     MOTOR_OFF;
+    return;
+}
+
+void check_start_button()
+{
+    if(BUTTON_IS_PRESSED)
+    {
+        motor_enable();
+    }
+    else
+        {
+            motor_disable();
+        }
     return;
 }
