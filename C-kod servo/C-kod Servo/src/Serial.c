@@ -11,7 +11,6 @@ void serial_print(const char* s)
 			serial_write_byte('\r');
 	}
 	
-	serial_write_byte('\0');
 	return;
 }
 

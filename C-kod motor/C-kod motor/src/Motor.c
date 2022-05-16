@@ -12,6 +12,8 @@ void motor_toggle()
 void motor_forward()
 {
     motor_reverse = false;
+    CONNECTION_OFF;
+    serial_print("connection off");
     PORTD |= (1<<MOTOR_DIRECTION1);
     PORTB &= ~(1<<MOTOR_DIRECTION2);
     return;
@@ -19,6 +21,8 @@ void motor_forward()
 void motor_backwards()
 {
     motor_reverse = true;
+    CONNECTION_ON;
+    serial_print("connection on");
     PORTD &= ~(1<<MOTOR_DIRECTION1);
     PORTB |= (1<<MOTOR_DIRECTION2);
     return;
@@ -27,7 +31,7 @@ void motor_backwards()
 
 void motor_enable()
 {
-    serial_print("motor enabled\n");
+    //serial_print("motor enabled\n");
     motor_enabled = true;
     timer_on();
     return;
@@ -35,7 +39,7 @@ void motor_enable()
 
 void motor_disable()
 {
-    serial_print("motor disabled\n");
+    //serial_print("motor disabled\n");
     motor_enabled = false;
     timer_disable();
     MOTOR_OFF;

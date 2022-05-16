@@ -17,6 +17,7 @@ void setup()
     init_serial();
     motor_disable();
     motor_enabled = false;
+    CONNECTION_OFF;
 }
 
 static void init_ports()

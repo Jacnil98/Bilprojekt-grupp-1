@@ -13,12 +13,13 @@ void setup()
     init_ADC();
     init_timer();
     init_serial();
+    init_pid_controller();
 }
 
 static void init_ports()
 {
     DDRD |= (1<<SERVO_PIN);
-    //PORTB |= (1<<BUTTON);
+    PORTB |= (1 << CONNECTION);
     return;
 }
 
@@ -26,7 +27,8 @@ static void init_interrupts()
 {
     asm("SEI");
     PCICR |= ((1<<PCIE0) | (1 << PCIE2)); 
-    //PCMSK0 |= (1 << BUTTON); 
+    // PCMSK0 |= (1 << CONNECTION);
+    
     return;
 }
 static void init_ADC()

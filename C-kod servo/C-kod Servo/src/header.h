@@ -10,6 +10,8 @@
 #include <avr/interrupt.h>
 #include <stdbool.h>
 
+#define CONNECTION 1 
+#define CONNECTION_ACTIVE (PINB & (1 << 1))
 
 #define SENSOR_RIGHT 2 //Byt pin
 #define SENSOR_LEFT 0 //Byt pin
@@ -41,6 +43,8 @@ bool timer_elapsed();
 bool duty_cycle_elapsed();
 
 void PID_print();
+
+
 
 bool servo_enabled;
 bool timer_enabled;

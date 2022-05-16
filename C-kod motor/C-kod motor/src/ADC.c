@@ -44,7 +44,7 @@ uint16_t Calculate_distance()
     {
         distance_in_cm = MIN_DISTANCE;
     }
-    
+    //serial_print_int("%d\n", distance_in_cm);
     uint16_t on_time_interrupts = distance_in_cm * 7;
     //serial_print_int("%d\n", distance_in_cm);
     //serial_print("ADC");

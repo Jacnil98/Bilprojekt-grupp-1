@@ -8,7 +8,9 @@ int main(void)
   while(true)
   {
     set_input();
-    duty_cycle = regulate();
+    regulate();
+
+    //serial_print_int("Connection active value: %d\n", (PINB & (1 << 1)));
     //serial_print_int("%d", duty_cycle);
     //PID_print();
     

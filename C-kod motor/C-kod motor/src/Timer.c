@@ -12,7 +12,7 @@ void timer_on()
 {
     TCCR1B = (1 << CS10) | (1 << WGM12); //här, 
     timer_enabled = true; //men varför kallar den på motor disabled?
-    serial_print("timer enabled\n");
+    //serial_print("timer enabled\n");
     return;
 }
 
@@ -20,7 +20,7 @@ void timer_on()
 
 void timer_disable()
 {
-    serial_print("timer disabled\n");
+    //serial_print("timer disabled\n");
     //TCCR2B = 0x00;
     TCCR1B = 0x00;
     timer_enabled = false;
@@ -66,13 +66,13 @@ void reverse_timer_on()
 {
     TIMSK2 = (1 << OCIE2A); 
     reverse_timer_enabled = true; 
-    serial_print("timer2 enabled\n");
+    //serial_print("timer2 enabled\n");
     return;
 }
 
 void reverse_timer_off()
 {
-    serial_print("timer2 disabled\n");
+    //serial_print("timer2 disabled\n");
     reverse_executed_interrupts = 0x00;
     TIMSK2 = 0x00;
     reverse_timer_enabled = false;

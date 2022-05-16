@@ -13,13 +13,16 @@
 #define Ki 0.00001
 #define Kd 0.2
 
+typedef enum { MOTOR_DIRECTION_FORWARDS, MOTOR_DIRECTION_BACKWARDS } motor_direction_t; 
+
 double output;
 double actual_value;
-double duty_cycle;
 double last_error;
 double intergral;
+motor_direction_t motor_direction;
 
-double regulate();
+void regulate();
 void set_input();
+void init_pid_controller();
 
 #endif /* PID_CONTROLLER_H_ */
