@@ -11,7 +11,7 @@
 #define TARGET 90
 #define Kp 0.7
 #define Ki 0.00001
-#define Kd 0.2
+#define Kd 0.6
 
 typedef enum { MOTOR_DIRECTION_FORWARDS, MOTOR_DIRECTION_BACKWARDS } motor_direction_t; 
 
