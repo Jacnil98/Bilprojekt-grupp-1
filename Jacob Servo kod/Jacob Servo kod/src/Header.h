@@ -20,6 +20,9 @@
 #define MAX_DISTANCE 80.0
 #define MIN_DISTANCE 10.0
 
+#define CONNECTION 1 
+#define CONNECTION_ACTIVE (PINB & (1 << 1))
+
 #define ADC_MAX 1023
 #define PERIOD 4
 #define INTERRUPT_TIME 0.008f

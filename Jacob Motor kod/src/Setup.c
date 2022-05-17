@@ -20,6 +20,7 @@ void setup()
 static void init_ports()
 {
     DDRB |= ((1<<MOTOR) | (1 << MOTOR_DIRECTION1) | (1 << MOTOR_DIRECTION2));
+    DDRD |= (1 << CONNECTION);
     PORTD |= (1<<BUTTON);
     return;
 }
@@ -45,9 +46,11 @@ static void init_timer()
     asm("sei");
     TCCR1B = ((0 << CS12) | (1 << CS11) | (0 << CS10) | (1 << WGM12));
     TIMSK1 = (1 << OCIE1A);
-    TCCR2B = ((0 << CS22) | (1 << CS21) | (0 << CS20));
-    TIMSK2 = (1 << TOIE2);
-	OCR1A = 255;
+	OCR1A = 250;
+
+    TCCR2B = ((1 << CS22) | (1 << CS21) | (1 << CS20));
+	TCCR2A = (1 << WGM21);
+	OCR2A = 250;
     return;
 }
 

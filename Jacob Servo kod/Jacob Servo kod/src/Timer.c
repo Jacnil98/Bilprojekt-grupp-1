@@ -9,13 +9,13 @@ void timer_on()
 {
     TCCR1B = (1 << CS10) | (1 << WGM12); 
     timer_enabled = true;
-    serial_print("timer enabled\n");
+    //serial_print("timer enabled\n");
     return;
 }
 
 void timer_disable()
 {
-    serial_print("timer disabled\n");
+    //serial_print("timer disabled\n");
     //TCCR2B = 0x00;
     TCCR1B = 0x00;
     timer_enabled = false;

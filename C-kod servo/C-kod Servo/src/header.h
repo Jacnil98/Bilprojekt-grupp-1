@@ -44,8 +44,6 @@ bool duty_cycle_elapsed();
 
 void PID_print();
 
-
-
 bool servo_enabled;
 bool timer_enabled;
 

@@ -4,6 +4,9 @@ static volatile uint16_t required_interrupts = PERIOD / INTERRUPT_TIME;
 static volatile uint16_t required_interrupts_on;
 static volatile uint16_t executed_interrupts;
 
+static volatile uint16_t reverse_executed_interrupts;
+static uint16_t reverse_total_interrupts = TOTAL_REVERSE_INTERRUPTS;
+static uint16_t required_interrupts_for_reverse = INTERRUPTS_REQUIRED_FOR_REVERSE;
 //static uint16_t duty_cycle_interrupts;
 
 void timer1_on()
@@ -52,32 +55,47 @@ void get_new_duty_cycle1()
     return;
 }
 
-void timer2_on()
+void reverse_timer_on()
 {
-
+    TIMSK2 = (1 << OCIE2A); 
+    reverse_timer_enabled = true; 
+    //serial_print("timer2 enabled\n");
     return;
 }
 
-void timer2_disable()
+void reverse_timer_off()
 {
-
+    //serial_print("timer2 disabled\n");
+    reverse_executed_interrupts = 0x00;
+    TIMSK2 = 0x00;
+    reverse_timer_enabled = false;
     return;
 }
 
-bool timer2_elapsed()
+bool reverse_timer_elapsed()
 {
-
-    return;
+    
+    if (++reverse_executed_interrupts >= reverse_total_interrupts)
+	{
+        //serial_print("end reverse\n");
+        
+        reverse_executed_interrupts = 0x00;
+        
+      
+		return true;
+	}
+    
+	return false;
 }
 
-bool duty_cycle_elapsed2()
+bool start_reversing()
 {
-
-    return;
-}
-
-void get_new_duty_cycle2()
-{
-
-    return;
+    
+    if (reverse_executed_interrupts == required_interrupts_for_reverse) 
+	{
+        //serial_print("start reverse\n");
+        
+		return true;
+	}
+	return false;
 }

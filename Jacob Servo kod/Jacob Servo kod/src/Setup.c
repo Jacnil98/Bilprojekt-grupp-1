@@ -18,7 +18,7 @@ void setup()
 static void init_ports()
 {
     DDRD |= (1<<SERVO_PIN);
-    //PORTB |= (1<<BUTTON);
+    PORTB |= (1 << CONNECTION);
     return;
 }
 

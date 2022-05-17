@@ -14,16 +14,37 @@ uint16_t Calculate_distance()
     float in_signal = ADC_read() * 0.0048828125;
     double distance_in_cm = 29.988*(pow(in_signal, -1.173));
     
-    if(distance_in_cm >= 70)
+    if(distance_in_cm <= 25)
+    {
+        //serial_print("distance below 20\n");
+        if(!reverse_timer_enabled)
+        {
+        reverse_timer_on();
+        }
+    }
+    else 
+    {
+        if(reverse_timer_enabled)
+        {
+            reverse_timer_off();
+        }
+        if(motor_reverse)
+        {
+            motor_forward();
+        }
+    }
+
+    if(distance_in_cm >= 65)
     { 
+        //serial_print("distance above 65\n");
         distance_in_cm = MAX_DISTANCE;
     }
 
-    else if(distance_in_cm <= MIN_DISTANCE)
+    if(distance_in_cm <= MIN_DISTANCE)
     {
         distance_in_cm = MIN_DISTANCE;
     }
-    
+    //serial_print_int("%d\n", distance_in_cm);
     uint16_t on_time_interrupts = distance_in_cm * 7;
     //serial_print_int("%d\n", distance_in_cm);
     //serial_print("ADC");
