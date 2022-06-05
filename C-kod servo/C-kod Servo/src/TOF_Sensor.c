@@ -17,10 +17,6 @@ void set_input(const double new_left_sensor_input, const double new_right_sensor
     right_sensor_input = check_sensor_input(ADC_Right);
     TOF_map();
     actual_value = TARGET + mapped_left_sensor_input - mapped_right_sensor_input;
-    //serial_print_int("%d", left_sensor_input);
-    //serial_print_int("%d\n", right_sensor_input);
-    //uint8_t actual_value1 = actual_value;
-    //serial_print_int("%d\n", actual_value1);
     return;
 }
 

@@ -8,22 +8,21 @@
 #include <avr/interrupt.h>
 #include <stdbool.h>
 
-#define BUTTON 1 
-#define BUTTON_IS_PRESSED (PINB & (1<<BUTTON))
+#define BUTTON 1 //startknapp
+#define BUTTON_IS_PRESSED (PINB & (1<<BUTTON)) //avläsning av startknapp
 
 #define MOTOR 5
-#define CONNECTION 6
-
-#define MOTOR_ON PORTD |= (1<<MOTOR) //port d pin 5
+#define MOTOR_ON PORTD |= (1<<MOTOR)
 #define MOTOR_OFF PORTD &= ~(1<<MOTOR)
 
+#define CONNECTION 6 //koppling mellan båda arduinos för backfunktion
 #define CONNECTION_ON PORTD |= (1<<CONNECTION)
 #define CONNECTION_OFF PORTD &= ~(1<<CONNECTION)
 
 #define MOTOR_DIRECTION1 7
 #define MOTOR_DIRECTION2 0
 
-#define SENSOR 1
+#define SENSOR 1 
 
 #define MAX_DISTANCE 80.0
 #define MIN_DISTANCE 50.0
@@ -37,14 +36,11 @@
 #define INTERRUPTS_REQUIRED_FOR_REVERSE 150 //2.4s
 #define REVERSE_INTERRUPT_TIME 0.016f
 
-
 void setup();
 uint32_t ADC_read();
 uint16_t Calculate_distance();
 
 void timer_on();
-
-
 void timer_disable();
 bool timer_elapsed();
 void reverse_timer_on();
@@ -55,7 +51,6 @@ bool duty_cycle_elapsed();
 void get_new_duty_cycle();
 void reverse_timer_on();
 void reverse_timer_off();
-//void timer_count();
 
 void motor_toggle();
 void motor_forward();
@@ -75,6 +70,4 @@ bool reverse_timer_enabled;
 bool motor_reverse;
 typedef enum {ON = 1, OFF = 0} period;
 
-
-//motor
 #endif /* HEADER_H_ */

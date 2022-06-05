@@ -11,10 +11,10 @@
 #include <stdbool.h>
 
 
-#define SENSOR_RIGHT 2 //Byt pin
-#define SENSOR_LEFT 0 //Byt pin
+#define SENSOR_RIGHT 2
+#define SENSOR_LEFT 0 
 
-#define SERVO_PIN 6 //Vilken pin
+#define SERVO_PIN 6 
 #define SERVO_ON PORTD |= (1 << SERVO_PIN)
 #define SERVO_OFF PORTD &= ~(1 << SERVO_PIN)
 

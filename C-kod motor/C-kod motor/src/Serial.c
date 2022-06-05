@@ -1,7 +1,11 @@
 #include "header.h"
 
 static void serial_write_byte(const char data);
-
+/**************************************************************************
+ * Serial funktionen användes främst för felsökning för att kunna läsa 
+ * av vad som hände under programmets gång, vid tävling så togs all 
+ * utskrift bort.
+**************************************************************************/
 void serial_print(const char* s)
 {
 	for (register size_t i = 0; s[i]; i++)
@@ -10,8 +14,6 @@ void serial_print(const char* s)
 		if (s[i] == '\n') 
 			serial_write_byte('\r');
 	}
-	
-	//serial_write_byte('\0');
 	return;
 }
 

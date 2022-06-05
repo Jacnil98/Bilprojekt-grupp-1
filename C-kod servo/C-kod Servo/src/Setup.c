@@ -13,6 +13,7 @@ void setup()
     init_ADC();
     init_timer();
     init_serial();
+    servo_enable();
 }
 
 static void init_ports()

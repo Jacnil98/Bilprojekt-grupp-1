@@ -7,51 +7,58 @@ static volatile uint16_t reverse_executed_interrupts;
 static uint16_t reverse_total_interrupts = TOTAL_REVERSE_INTERRUPTS;
 static uint16_t required_interrupts_for_reverse = INTERRUPTS_REQUIRED_FOR_REVERSE;
 
-
+/**************************************************************************
+ * timer on startar timer 1
+**************************************************************************/
 void timer_on()
 {
-    TCCR1B = (1 << CS10) | (1 << WGM12); //här, 
-    timer_enabled = true; //men varför kallar den på motor disabled?
-    serial_print("timer enabled\n");
+    TCCR1B = (1 << CS10) | (1 << WGM12); 
+    timer_enabled = true; 
     return;
 }
 
-
-
+/**************************************************************************
+ * timer disable stänger av timer 1
+**************************************************************************/
 void timer_disable()
 {
-    serial_print("timer disabled\n");
-    //TCCR2B = 0x00;
     TCCR1B = 0x00;
     timer_enabled = false;
     return;
 }
 
+/**************************************************************************
+ * timer elapsed räknar period tiden och hämtar värdet grån AD omvandligen 
+ * via get new duty cycle. om executed interrupts överstiger 
+ * required interrupts så returneras true och executed interrupts nollställs
+**************************************************************************/
 bool timer_elapsed()
 {	
-    //serial_print_int("%d\n", executed_interrupts);
 	if (++executed_interrupts >= required_interrupts)
 	{
         executed_interrupts = 0x00;
         get_new_duty_cycle();
-        //serial_print_int("%d\n", required_interrupts);
 		return true;
 	}
 	return false;
 }
 
-
-
+/**************************************************************************
+ * duty cycle elapsed räknar ON tiden, och returnerar true om 
+ * executed interrupts överstiger required interrupts, då stängs motorn av.
+**************************************************************************/
 bool duty_cycle_elapsed()
 {
-    if (executed_interrupts == required_interrupts_on) //beehöver ett värde snabbt)duty_cycle_interruptsCalculate_distance()
+    if (executed_interrupts >= required_interrupts_on) 
 	{
-        //serial_print_int("%d\n", required_interrupts_on);
 		return true;
 	}
 	return false;
 }
 
+/**************************************************************************
+ * get new duty cycle används för att hämta ett nytt värde från AD omvandligen.
+**************************************************************************/
 void get_new_duty_cycle()
 {
     required_interrupts_on = Calculate_distance();
@@ -59,49 +66,53 @@ void get_new_duty_cycle()
     return;
 }
 
-
-
-
+/**************************************************************************
+ * reverse timer on startar timer 2 för backfunktionen.
+**************************************************************************/
 void reverse_timer_on()
 {
     TIMSK2 = (1 << OCIE2A); 
     reverse_timer_enabled = true; 
-    serial_print("timer2 enabled\n");
     return;
 }
-
+/**************************************************************************
+ * reverse timer off stänger av timer 2 för backfunktionen och nollställer
+ * räknaren.
+**************************************************************************/
 void reverse_timer_off()
 {
-    serial_print("timer2 disabled\n");
     reverse_executed_interrupts = 0x00;
     TIMSK2 = 0x00;
     reverse_timer_enabled = false;
     return;
 }
 
+/**************************************************************************
+ * reverse timer elapsed räknar antaled avbrott och stänger av timer 2 
+ * om timern löper ut
+**************************************************************************/
 bool reverse_timer_elapsed()
 {
     
     if (++reverse_executed_interrupts >= reverse_total_interrupts)
 	{
-        //serial_print("end reverse\n");
-        
         reverse_executed_interrupts = 0x00;
-        
-      
 		return true;
 	}
     
 	return false;
 }
 
+/**************************************************************************
+ * start reversing läser av om timer 2 nått önskat antal interrupts för
+ * att starta backfunktionen, när värdet är uppnått startar backen tills
+ * timern löper ut.
+**************************************************************************/
 bool start_reversing()
 {
     
     if (reverse_executed_interrupts == required_interrupts_for_reverse) 
 	{
-        //serial_print("start reverse\n");
-        
 		return true;
 	}
 	return false;

@@ -1,5 +1,9 @@
 #include "header.h"
 
+/**************************************************************************
+ * motor toggle läser av om motorn är enabled eller inte och togglar motorn
+ * till motsatta värde.
+**************************************************************************/
 void motor_toggle()
 {
     if(motor_enabled)
@@ -9,6 +13,10 @@ void motor_toggle()
     return;
 }
 
+/**************************************************************************
+ * motor forward/backward sätter 2 siognaler till H bryggan som beroende 
+ * på vilken som är hög och låg gör att motorn backar eller kör framåt.
+**************************************************************************/
 void motor_forward()
 {
     motor_reverse = false;
@@ -24,10 +32,14 @@ void motor_backwards()
     return;
 }
 
-
+/**************************************************************************
+ * motor enable/disable sätter motorn enable till true eller false, vid 
+ * enable så sätts motor enable till true och timer 1 startar.
+ * vid disable så stängs timer 1 av och motor enable sätts till false 
+ * och motorn stängs av.
+**************************************************************************/
 void motor_enable()
 {
-    serial_print("motor enabled\n");
     motor_enabled = true;
     timer_on();
     return;
@@ -35,13 +47,16 @@ void motor_enable()
 
 void motor_disable()
 {
-    serial_print("motor disabled\n");
     motor_enabled = false;
     timer_disable();
     MOTOR_OFF;
     return;
 }
 
+/**************************************************************************
+ * check start button läser av om startknappen vid tävling är aktiv och 
+ * håller då motor enable true tills signalen försvinner.
+**************************************************************************/
 void check_start_button()
 {
     if(BUTTON_IS_PRESSED)

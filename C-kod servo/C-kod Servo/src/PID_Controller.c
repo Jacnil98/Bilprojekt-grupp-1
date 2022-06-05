@@ -15,7 +15,6 @@ double regulate()
 
     if(intergral >= 2000) intergral = 2000;
     if (intergral <= -2000) intergral = -2000;
-    //serial_print_int("\n%d", intergral);
     last_error = error;
     output = output1 + 80;
     if (output >= 250) output = 250;
@@ -31,15 +30,3 @@ static void check_output()
         output1 = OUTPUT_MIN;
     return;
 }
-/*
-void PID_print()
-{
-    serial_print("-------------------------\n");
-    serial_print_int("TActual: %d\n", actual_value);
-    serial_print_int("Output: %d\n", output);
-    serial_print_int("Last error: %d\n", last_error);
-    serial_print("-------------------------\n");
-
-    return;
-}
-*/

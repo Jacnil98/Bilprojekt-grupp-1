@@ -8,8 +8,6 @@ static void init_serial();
 
 void setup()
 {
-    //required_interrupts = 0x00;
-    //executed_interrupts = 0x00;
     init_ports();
     init_interrupts();
     init_ADC();
@@ -18,7 +16,11 @@ void setup()
     motor_disable();
     motor_enabled = false;
 }
-
+/**************************************************************************
+ * init ports initierar startknappen (BUTTON), motorn (MOTOR), 
+ * motor riktningen (MOTOR_DIRECTION1-2) och anslutningen mellan de båda
+ * korten för backfunktionen (CONNECTION)
+**************************************************************************/
 static void init_ports()
 {
     DDRB |= (1<<MOTOR_DIRECTION2);
@@ -27,6 +29,9 @@ static void init_ports()
     return;
 }
 
+/**************************************************************************
+ * init interrupts initierar interrupts på port B och port D
+**************************************************************************/
 static void init_interrupts()
 {
     asm("SEI");
@@ -34,6 +39,10 @@ static void init_interrupts()
     PCMSK0 |= (1 << BUTTON); 
     return;
 }
+
+/**************************************************************************
+ * en initiering av ADC görs för annars kan första värdet bli dåligt.
+**************************************************************************/
 static void init_ADC()
 {
 	ADMUX = (1 << REFS0);
@@ -43,6 +52,11 @@ static void init_ADC()
     return;
 }
 
+/**************************************************************************
+ * timer 1 och 2 initieras i CTC mode där timer 1 styr PWM funktionen 
+ * och timer 2 styr backfunktionen, båda sätts till att räkna upp till 250,
+ * men med olika prescalers
+**************************************************************************/
 static void init_timer()
 {
     asm("sei");
@@ -56,6 +70,9 @@ static void init_timer()
     return;
 }
 
+/**************************************************************************
+ * init serial initierar utskrift för felsökning
+**************************************************************************/
 static void init_serial()
 {
 	UCSR0B = (1 << TXEN0); //ENABLE_SERIAL_TRANSFER;
